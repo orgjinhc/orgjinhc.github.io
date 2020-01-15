@@ -128,4 +128,4 @@ theme: matery
 deploy:
   type: git
   repo: https://github.com/orgjinhc/orgjinhc.github.io.git
-  branch: hexo_source
+  branch: master
