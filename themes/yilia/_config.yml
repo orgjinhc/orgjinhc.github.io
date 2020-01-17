@@ -78,7 +78,7 @@ share_jia: true
 #具体请参考wiki：https://github.com/litten/hexo-theme-yilia/wiki/
 
 #1、多说
-duoshuo: false
+duoshuo: true
 
 #2、网易云跟帖
 wangyiyun: false
