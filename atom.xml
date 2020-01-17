@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>个人技术Blog</title>
+  
+  
+  <link href="/atom.xml" rel="self"/>
+  
+  <link href="http://orgjinhc.github.io/"/>
+  <updated>2020-01-13T14:25:57.254Z</updated>
+  <id>http://orgjinhc.github.io/</id>
+  
+  <author>
+    <name>靳宏财</name>
+    
+  </author>
+  
+  <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>transction</title>
+    <link href="http://orgjinhc.github.io/2020/01/13/transction-1/"/>
+    <id>http://orgjinhc.github.io/2020/01/13/transction-1/</id>
+    <published>2020-01-13T14:03:01.000Z</published>
+    <updated>2020-01-13T14:25:57.254Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;&lt;img src=&quot;mahua-logo.jpg&quot; alt=&quot;mahua&quot;&gt;&lt;/p&gt;
+&lt;h2 id=&quot;MaHua是什么&quot;&gt;&lt;a href=&quot;#MaHua是什么&quot; class=&quot;headerlink&quot;
+        
+      
+    
+    </summary>
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>我的第一篇blog</title>
+    <link href="http://orgjinhc.github.io/2020/01/12/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E7%AF%87blog/"/>
+    <id>http://orgjinhc.github.io/2020/01/12/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E7%AF%87blog/</id>
+    <published>2020-01-12T08:24:46.000Z</published>
+    <updated>2020-01-12T08:26:11.435Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h2 id=&quot;第一章&quot;&gt;&lt;a href=&quot;#第一章&quot; class=&quot;headerlink&quot;
+        
+      
+    
+    </summary>
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>Hello World</title>
+    <link href="http://orgjinhc.github.io/2020/01/12/hello-world/"/>
+    <id>http://orgjinhc.github.io/2020/01/12/hello-world/</id>
+    <published>2020-01-12T08:21:20.093Z</published>
+    <updated>2020-01-12T08:21:20.093Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;Welcome to &lt;a href=&quot;https://hexo.io/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;Hexo&lt;/a&gt;! This is your very first post. Check &lt;a
+        
+      
+    
+    </summary>
+    
+    
+    
+  </entry>
+  
+</feed>
