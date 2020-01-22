@@ -1,3 +1,17 @@
+title: 常用技能
+author: 靳宏财
+top: true
+cover: true
+toc: true
+mathjax: false
+summary: markdown常用语法汇总
+categories: 语法
+tags:
+
+  - markDown
+
+---
+
 # MarkDown语法
 
 #+space 代表标题，随着#的数量增加标题级别以此递增

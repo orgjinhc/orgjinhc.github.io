@@ -501,8 +501,8 @@ subtitle:
   startDelay: 300 # 开始延迟
   typeSpeed: 100 # 打字速度
   backSpeed: 50 # 删除速度
-  sub1: 心有所爱,勇敢前行
-  sub2: Love in your heart and move forward bravely
+  sub1: 没有什么比明确的目标与可行的计划更重要
+  sub2: Nothing is more important than clear goals and feasible plans
 
 # 手机二级菜单.
 navMenu:
