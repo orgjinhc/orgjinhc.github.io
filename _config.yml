@@ -129,3 +129,11 @@ deploy:
   type: git
   repo: https://github.com/orgjinhc/orgjinhc.github.io.git
   branch: master
+
+
+
+
+# Security
+##
+encrypt:
+    enable: true  

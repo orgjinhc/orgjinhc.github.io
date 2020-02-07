@@ -49,3 +49,17 @@ date: 2020-01-19 03:25:00
 
 
 
+## 附查看本机ip地址方法
+
+### 一、通过终端查看
+
+![终端查看](http://lion-heart.online/blog/2020-02-07-034458.png)
+
+### 二、系统设置
+
+![系统设置](http://lion-heart.online/blog/2020-02-07-034808.png)
+
+![系统设置](http://lion-heart.online/blog/2020-02-07-034758.png)
+
+![TCP:IP](http://lion-heart.online/blog/2020-02-07-034822.png)
+
