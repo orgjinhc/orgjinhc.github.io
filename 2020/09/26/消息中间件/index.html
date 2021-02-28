@@ -1,0 +1,1686 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="消息队列总结和面试, Lion Heart">
+    <meta name="description" content="消息中间件 总结">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>消息队列总结和面试 | Lion Heart</title>
+    <link rel="icon" type="image/png" href="https://cdn.jsdelivr.net/gh/orgjinhc/orgjinhc.github.io/favicon.png">
+
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/orgjinhc/orgjinhc.github.io/libs/awesome/css/all.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/orgjinhc/orgjinhc.github.io/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/orgjinhc/orgjinhc.github.io/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/orgjinhc/orgjinhc.github.io/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/orgjinhc/orgjinhc.github.io/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/orgjinhc/orgjinhc.github.io/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/orgjinhc/orgjinhc.github.io/css/my.css">
+    
+    <script src="https://cdn.jsdelivr.net/gh/orgjinhc/orgjinhc.github.io/libs/jquery/jquery.min.js"></script>
+    
+<meta name="generator" content="Hexo 4.2.0"><link rel="alternate" href="/atom.xml" title="Lion Heart" type="application/atom+xml">
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper head-container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="https://cdn.jsdelivr.net/gh/orgjinhc/orgjinhc.github.io/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">Lion Heart</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/contact" class="waves-effect waves-light">
+      
+      <i class="fas fa-comments" style="zoom: 0.6;"></i>
+      
+      <span>留言板</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="https://cdn.jsdelivr.net/gh/orgjinhc/orgjinhc.github.io/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">Lion Heart</div>
+        <div class="logo-desc">
+            
+            Never really desperate, only the lost of the soul.
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/contact" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-comments"></i>
+			
+			留言板
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			友情链接
+		</a>
+          
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/orgjinhc" class="waves-effect waves-light" target="_blank">
+                <i class="fab fa-github-square fa-fw"></i>Fork Me
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+        </div>
+
+        
+            <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/orgjinhc" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+   data-tooltip="Fork Me" data-position="left" data-delay="50">
+    <svg viewBox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+              fill="currentColor" class="octo-body"></path>
+    </svg>
+</a>
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('https://cdn.jsdelivr.net/gh/orgjinhc/orgjinhc.github.io/medias/featureimages/8.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">消息队列总结和面试</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orgjinhc/orgjinhc.github.io/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        width: 345px;
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        margin: 35px 0 15px 0;
+        padding-left: 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content {
+        height: calc(100vh - 250px);
+        overflow: auto;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #toc-content .is-active-link::before {
+        background-color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 15px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/%E9%9D%A2%E8%AF%95/">
+                                <span class="chip bg-color">面试</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/%E6%B6%88%E6%81%AF%E4%B8%AD%E9%97%B4%E4%BB%B6/" class="post-category">
+                                消息中间件
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2020-09-26
+                </div>
+                
+
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
+                    10.3k
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                    36 分
+                </div>
+                
+
+                
+                    <div id="busuanzi_container_page_pv" class="info-break-policy">
+                        <i class="far fa-eye fa-fw"></i>阅读次数:&nbsp;&nbsp;
+                        <span id="busuanzi_value_page_pv"></span>
+                    </div>
+				
+            </div>
+
+        </div>
+        <hr class="clearfix">
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h1 id="消息中间件"><a href="#消息中间件" class="headerlink" title="消息中间件"></a>消息中间件</h1><h2 id="关键概念"><a href="#关键概念" class="headerlink" title="关键概念"></a>关键概念</h2><h3 id="一、核心模型剖析-消息收发模型"><a href="#一、核心模型剖析-消息收发模型" class="headerlink" title="一、核心模型剖析 - 消息收发模型"></a>一、核心模型剖析 - 消息收发模型</h3><p><img src="http://lion-heart.online/blog/2020-09-28-083457.png" alt="核心模型-收发模型"></p>
+<h4 id="1-生产者：同步发送模式、异步发送模式、批量发送"><a href="#1-生产者：同步发送模式、异步发送模式、批量发送" class="headerlink" title="1.生产者：同步发送模式、异步发送模式、批量发送"></a>1.生产者：同步发送模式、异步发送模式、批量发送</h4><h5 id="producer-通过-namespace-获取到当前-Topic-分配的所有分片-分区信息-所有-server-实例的ip"><a href="#producer-通过-namespace-获取到当前-Topic-分配的所有分片-分区信息-所有-server-实例的ip" class="headerlink" title="producer 通过 namespace 获取到当前 Topic 分配的所有分片\分区信息(所有 server 实例的ip)"></a>producer 通过 namespace 获取到当前 Topic 分配的所有分片\分区信息(所有 server 实例的ip)</h5><h5 id="producer-生产负载策略：根据不同策略选择-broker-发送，一条消息只会发送到一个-broker"><a href="#producer-生产负载策略：根据不同策略选择-broker-发送，一条消息只会发送到一个-broker" class="headerlink" title="producer 生产负载策略：根据不同策略选择 broker 发送，一条消息只会发送到一个 broker"></a>producer 生产负载策略：根据不同策略选择 broker 发送，一条消息只会发送到一个 broker</h5><ol>
+<li>轮询(默认策略)</li>
+<li>权重</li>
+<li>就近发送<ol>
+<li>优点：提高收发效率，避免网络丢包</li>
+<li>缺点：生产不均，导致消费积压</li>
+</ol>
+</li>
+</ol>
+<h5 id="producer-ack-方式"><a href="#producer-ack-方式" class="headerlink" title="producer ack 方式"></a>producer ack 方式</h5><ol>
+<li>刷盘后应答</li>
+<li>接收到数据应答</li>
+<li>不应答</li>
+<li>写入后应答</li>
+</ol>
+<h5 id="producer-发送模型"><a href="#producer-发送模型" class="headerlink" title="producer 发送模型"></a>producer 发送模型</h5><ol>
+<li>同步发送模型：消息发送中客户端线程进入阻塞状态，等待服务端返回结果。保证消息投递一定到达</li>
+<li>异步发送模型：消息发送过程客户端无需阻塞，直接返回，后续结果会回调监听器逻辑</li>
+<li>单向发送模型：只发送消息，不等待服务响应。优点是效率高，缺点是可靠性无法保证</li>
+</ol>
+<h4 id="2-消费者："><a href="#2-消费者：" class="headerlink" title="2.消费者："></a>2.消费者：</h4><h5 id="消费模型"><a href="#消费模型" class="headerlink" title="消费模型"></a>消费模型</h5><ol>
+<li><p>集群：消息状态由 broker 维护</p>
+<h5 id="消费模式：都是消费者机器主动发送请求到Broker机器去拉取一批消息下来"><a href="#消费模式：都是消费者机器主动发送请求到Broker机器去拉取一批消息下来" class="headerlink" title="消费模式：都是消费者机器主动发送请求到Broker机器去拉取一批消息下来"></a>消费模式：都是消费者机器主动发送请求到Broker机器去拉取一批消息下来</h5><ol>
+<li>push：本质底层也是基于消费者主动拉取的模式来实现的，只不过他的名字叫做<code>Push</code>而已，意思是Broker会尽可能实时的把新消息交给消费者机器来进行处理，他的消息时效性会更好。另外Push模式下有一个请求挂起和长轮询的机制，当你的请求发送到Broker，结果他发现没有新的消息给你处理的时候，就会让请求线程挂起，默认是挂起15秒，然后这个期间他会有后台线程每隔一会儿就去检查一下是否有的新的消息给你，如果在这个挂起过程中，如果有新的消息到达了会主动唤醒挂起的线程，然后把消息返回给你，主动权在客户端，让客户端按需进行消费</li>
+<li>pull：主动拉取</li>
+</ol>
+</li>
+<li><p>广播：消费失败不会重投，消费状态由 consumer 自己维护 </p>
+</li>
+</ol>
+<h5 id="Consumer-和-ConsumerGroup-区别"><a href="#Consumer-和-ConsumerGroup-区别" class="headerlink" title="Consumer 和 ConsumerGroup 区别"></a>Consumer 和 ConsumerGroup 区别</h5><ol>
+<li><p>Consumer：连接一个或多个 broker，减少 mq 连接数，降低服务端压力。同时也做到了负载均衡</p>
+</li>
+<li><p>ConsumerGroup：一个 Group 内包含至少一个 Consumer 。不同 ConsumerGroup 独立使用 Topic 内容。ConsumerGroup 内，<strong>一个消费组内的多台机器是分别负责一部分MessageQueue的消费的，那么既然如此，每台机器都必须去连接到对应的Broker，尝试消费里面的MessageQueue对应的消息了</strong></p>
+<p><img src="http://lion-heart.online/blog/2020-09-28-081628.png" alt="mq基本概念"></p>
+</li>
+</ol>
+<h4 id="broker-将消息读取出来返回给-consumer-流程"><a href="#broker-将消息读取出来返回给-consumer-流程" class="headerlink" title="broker 将消息读取出来返回给 consumer 流程"></a>broker 将消息读取出来返回给 consumer 流程</h4><p>其实这里要涉及到两个概念，分别是<code>ConsumeQueue</code>和<code>CommitLog</code></p>
+<p>假设一个消费者机器发送了拉取请求到Broker了，他说我这次要拉取MessageQueue0中的消息，然后我之前都没拉取过消息，所以就从这个MessageQueue0中的第一条消息开始拉取好了</p>
+<p><img src="http://lion-heart.online/blog/2020-10-01-084844.png" alt="broker 找到 queue 对应的 consumerQueue"></p>
+<p><img src="http://lion-heart.online/blog/2020-10-01-085102.png" alt="根据offset读取消息数据返回consumer"></p>
+<p><img src="http://lion-heart.online/blog/2020-10-01-091330.png" alt="消费性能的核心"></p>
+<p><strong>当你拉取消息的时候，可以轻松从os cache里读取少量的ConsumeQueue文件里的offset，这个性能是极高的，</strong></p>
+<p><strong>但是当你去CommitLog文件里读取完整消息数据的时候，会有两种可能。</strong></p>
+<p><strong>第一种可能，如果你读取的是那种刚刚写入CommitLog的数据，那么大概率他们还停留在os cache中，此时你可以顺利的直接从os cache里读取CommitLog中的数据，这个就是内存读取，性能是很高的。</strong></p>
+<p><strong>第二种可能，你也许读取的是比较早之前写入CommitLog的数据，那些数据早就被刷入磁盘了，已经不在os cache里了，那么此时你就只能从磁盘上的文件里读取了，这个性能是比较差一些的。</strong></p>
+<p><strong>所以其实消费消息的时候，本质就是根据你要消费的MessageQueue以及开始消费的位置，去找到对应的ConsumeQueue读取里面对应位置的消息在CommitLog中的物理offset偏移量，然后到CommitLog中根据offset读取消息数据，返回给消费者机器</strong></p>
+<p>group -&gt; Topic -&gt; MessageQueue consumerQueue</p>
+<h4 id="ACK-机制"><a href="#ACK-机制" class="headerlink" title="ACK 机制"></a>ACK 机制</h4><ol>
+<li>自动 ack</li>
+<li>手动 ack</li>
+</ol>
+<p><img src="http://lion-heart.online/blog/2020-10-01-085657.png" alt="确认消费位置"></p>
+<h4 id="总结：producer-连接所有-broker，根据策略选择-broker-进行-send-消息。consumer-通过策略选择部分-broker-进行连接，接收消息"><a href="#总结：producer-连接所有-broker，根据策略选择-broker-进行-send-消息。consumer-通过策略选择部分-broker-进行连接，接收消息" class="headerlink" title="总结：producer 连接所有 broker，根据策略选择 broker 进行 send 消息。consumer 通过策略选择部分 broker 进行连接，接收消息"></a>总结：producer 连接所有 broker，根据策略选择 broker 进行 send 消息。consumer 通过策略选择部分 broker 进行连接，接收消息</h4><h4 id="3-消息类型"><a href="#3-消息类型" class="headerlink" title="3.消息类型"></a>3.消息类型</h4><h5 id="普通消息：生产者发送一条消息后，集群模式下，具有订阅关系的所有消费者的-某一实例-能够消费该消息。订阅发布模式下，具有订阅关系的所有消费者的所有实例都能够消费该消息。"><a href="#普通消息：生产者发送一条消息后，集群模式下，具有订阅关系的所有消费者的-某一实例-能够消费该消息。订阅发布模式下，具有订阅关系的所有消费者的所有实例都能够消费该消息。" class="headerlink" title="普通消息：生产者发送一条消息后，集群模式下，具有订阅关系的所有消费者的 某一实例 能够消费该消息。订阅发布模式下，具有订阅关系的所有消费者的所有实例都能够消费该消息。"></a>普通消息：生产者发送一条消息后，集群模式下，具有订阅关系的所有消费者的 <strong>某一实例</strong> 能够消费该消息。订阅发布模式下，具有订阅关系的所有消费者的所有实例都能够消费该消息。</h5><h5 id="普通顺序消息：按照业务-Id-进行顺序保证，先获取-hash-值，在对-Topic-下所有-broker-数量取模，获得-broker-后，再对-queue-取模"><a href="#普通顺序消息：按照业务-Id-进行顺序保证，先获取-hash-值，在对-Topic-下所有-broker-数量取模，获得-broker-后，再对-queue-取模" class="headerlink" title="普通顺序消息：按照业务 Id 进行顺序保证，先获取 hash 值，在对 Topic 下所有 broker 数量取模，获得 broker 后，再对 queue 取模"></a>普通顺序消息：按照业务 Id 进行顺序保证，先获取 <code>hash</code> 值，在对 <code>Topic</code> 下所有 <code>broker</code> 数量取模，获得 <code>broker</code> 后，再对 <code>queue</code> 取模</h5><p><code>businessId.hashCode() % broker.size() % queue.size()</code></p>
+<h5 id="严格顺序消息"><a href="#严格顺序消息" class="headerlink" title="严格顺序消息"></a>严格顺序消息</h5><ol>
+<li>生产者：保证只有一个服务实例可以接收消息</li>
+<li>消费者：多实例接收消息，只有一个实例可以接收到消息</li>
+</ol>
+<h5 id="事物消息"><a href="#事物消息" class="headerlink" title="事物消息"></a>事物消息</h5><h5 id="数据过滤"><a href="#数据过滤" class="headerlink" title="数据过滤"></a>数据过滤</h5><p>大数据领域，数据清洗，数据挖掘</p>
+<h4 id="4-消息队列架构"><a href="#4-消息队列架构" class="headerlink" title="4.消息队列架构"></a>4.消息队列架构</h4><p><img src="http://lion-heart.online/blog/2020-10-02-051208.png" alt="消息队列整体架构"></p>
+<h3 id="二、核心模型剖析-消息处理流程"><a href="#二、核心模型剖析-消息处理流程" class="headerlink" title="二、核心模型剖析 - 消息处理流程"></a>二、核心模型剖析 - 消息处理流程</h3><p><img src="http://lion-heart.online/blog/2020-09-28-084929.png" alt="消息处理模型"></p>
+<h4 id="2-1-存储方式"><a href="#2-1-存储方式" class="headerlink" title="2.1 存储方式"></a>2.1 存储方式</h4><p>Topic 逻辑存储结构</p>
+<p>ConsumerQueue 物理存储结构，基于数组实现FIFO，理论上无限大</p>
+<h4 id="2-2-存储文件与内存映射"><a href="#2-2-存储文件与内存映射" class="headerlink" title="2.2 存储文件与内存映射"></a>2.2 存储文件与内存映射</h4><h4 id="2-3-刷盘机制"><a href="#2-3-刷盘机制" class="headerlink" title="2.3 刷盘机制"></a>2.3 刷盘机制</h4><ul>
+<li>同步刷</li>
+<li>异步刷</li>
+</ul>
+<h4 id="2-4-索引"><a href="#2-4-索引" class="headerlink" title="2.4 索引"></a>2.4 索引</h4><h3 id="分区"><a href="#分区" class="headerlink" title="分区"></a>分区</h3><p><img src="http://lion-heart.online/blog/2020-09-28-082100.png" alt="分区概念"></p>
+<h3 id="NameServer：是一个非常简单的Topic路由注册中心，支持Broker的动态注册与发现"><a href="#NameServer：是一个非常简单的Topic路由注册中心，支持Broker的动态注册与发现" class="headerlink" title="NameServer：是一个非常简单的Topic路由注册中心，支持Broker的动态注册与发现"></a>NameServer：是一个非常简单的Topic路由注册中心，支持Broker的动态注册与发现</h3><p><img src="http://lion-heart.online/blog/2020-09-28-082450.png" alt="namespace"></p>
+<h4 id="nameserver特点"><a href="#nameserver特点" class="headerlink" title="nameserver特点"></a>nameserver特点</h4><ol>
+<li>无状态：通过 broker 注册，保存完整的路由信息</li>
+<li>高可用：集群方式部署，每一个NameServer实例上面都保存一份完整的路由信息。当某个NameServer因某种原因下线了，Broker仍然可以向其它NameServer同步其路由信息</li>
+<li>高性能：实例之间互不通信，不同NameServer之间数据不同步</li>
+<li>数据不一致</li>
+<li>Broker管理：NameServer接受Broker集群的注册信息并且保存下来作为路由信息的基本数据</li>
+<li>路由管理：每个NameServer将保存关于Broker集群的整个路由信息和用于客户端查询的队列信息。然后Producer和Conumser通过NameServer就可以知道整个Broker集群的路由信息，从而进行消息的投递和消费 </li>
+<li>心跳检测机制：检查Broker是否还存活，剔除不存活的 broker</li>
+</ol>
+<h4 id="启动流程"><a href="#启动流程" class="headerlink" title="启动流程"></a>启动流程</h4><ol>
+<li><p>Broker启动会跟每个NameServer都建立一个TCP长连接进行信息注册（包含集群里有哪些Broker，集群里有哪些Topic，每个Topic都存储在哪些Broker上）</p>
+</li>
+<li><p>每隔10s去检查一下各个Broker的最近一次心跳时间，如果某个Broker超过120s都没发送心跳了，那么就认为这个Broker已经挂掉了</p>
+</li>
+<li><p>每次收到一个Broker的心跳，就可以更新一下他的最近一次心跳的时间</p>
+</li>
+</ol>
+<h4 id="消息路由-heartbeat收集、路由发现"><a href="#消息路由-heartbeat收集、路由发现" class="headerlink" title="消息路由 - heartbeat收集、路由发现"></a>消息路由 - heartbeat收集、路由发现</h4><p><img src="http://lion-heart.online/blog/2020-10-03-061914.png" alt="broker 注册信息以及消费、生产获取路由信息"></p>
+<h4 id=""><a href="#" class="headerlink" title=""></a></h4><h3 id="region：不同机房、区域的概念"><a href="#region：不同机房、区域的概念" class="headerlink" title="region：不同机房、区域的概念"></a>region：不同机房、区域的概念</h3><h2 id="逻辑结构"><a href="#逻辑结构" class="headerlink" title="逻辑结构"></a>逻辑结构</h2><p><img src="http://lion-heart.online/blog/2020-09-28-081708.png" alt="逻辑结构"></p>
+<h2 id="服务通信结构"><a href="#服务通信结构" class="headerlink" title="服务通信结构"></a>服务通信结构</h2><p>长短连接：基于传输层协议 TCP 实现，每次是否都需要三次握手和四次挥手通信</p>
+<p>长短轮询：基于应用层协议 HTTP 实现，由服务端代码实现</p>
+<p><img src="http://lion-heart.online/blog/2020-09-28-081734.png" alt="调用结构"></p>
+<h2 id="集群模式消息存储架构模型"><a href="#集群模式消息存储架构模型" class="headerlink" title="集群模式消息存储架构模型"></a>集群模式消息存储架构模型</h2><p><img src="http://lion-heart.online/blog/2020-10-03-073019.png" alt="集群模型"></p>
+<p>单master</p>
+<p>多master</p>
+<p>单master - slave</p>
+<p>多master - slave</p>
+<p>同步备份</p>
+<p>异步复制</p>
+<p>version ： 4.5 以后</p>
+<p><img src="http://lion-heart.online/blog/2020-10-03-073959.png" alt="高可用集群"></p>
+<p>基于 CommitLog 实现 - 选举 + 数据复制</p>
+<h2 id="适用场景"><a href="#适用场景" class="headerlink" title="适用场景"></a>适用场景</h2><ol>
+<li>限流</li>
+<li>异步</li>
+<li>系统解耦</li>
+<li>大数据分析数据通道</li>
+<li>IOT 智能终端通信</li>
+</ol>
+<h2 id="特性"><a href="#特性" class="headerlink" title="特性"></a>特性</h2><h3 id="高可用"><a href="#高可用" class="headerlink" title="高可用"></a>高可用</h3><p>​    高可用集群（每个Broker都是一主一备的热备模式，备用Broker与主用Broker采用异步方式同步数据。主用Broker宕机后，消费端会自动切换到备用Broker，备用Broker上拥有主用Broker上绝大部分消息。可能存在少量新消息没来得及同步到备用Broker上，这部分消息暂时无法消费，但可以在主用Broker恢复后继续消费，不会丢失），每个主题下的队列分布在多个Broker上。当Broker宕机时，分布在该Broker上的队列将处于不可写状态。</p>
+<pre class=" language-java"><code class="language-java">在生产者端，客户端会自动将发送失败的消息重发给同主题处于可读写状态Broker的队列，切换过程中有可能短时出现发送时延升高，极小概率会出现发送失败的情况，切换完成后上述问题都会自动恢复
+
+在消费者端，Broker宕机后，仍然可以在备用Broker上继续消费，切换过程中有可能短时间出现消费性能下降，消息被重复消费，消息乱序，切换完成后上述问题都会自动恢复</code></pre>
+<h3 id="事物消息机制"><a href="#事物消息机制" class="headerlink" title="事物消息机制"></a>事物消息机制</h3><h4 id="分布式事务提交算法"><a href="#分布式事务提交算法" class="headerlink" title="分布式事务提交算法"></a>分布式事务提交算法</h4><ol>
+<li>2pc(二阶段提交)：实现简单，需要双方支持XA协议。典型实现：数据库、RocketMq</li>
+<li>tcc(三阶段提交 try -&gt; confirm -&gt; cancel)：相对复杂，侵入性强</li>
+</ol>
+<h4 id="全流程"><a href="#全流程" class="headerlink" title="全流程"></a>全流程</h4><p>发送half消息到MQ，试探MQ是否正常。后续二次发送 commit or rollback 进行确认</p>
+<p>half 消息未成功，事物操作同步失败</p>
+<p>half 消息发送成功，事物正常执行，后续 二阶段提交，mq 提供了补偿机制</p>
+<p><img src="http://lion-heart.online/blog/2020-10-02-022427.png" alt="事物消息正向流程"></p>
+<p><img src="http://lion-heart.online/blog/2020-10-02-022943.png" alt="事物消息 异步回调"></p>
+<p><img src="http://lion-heart.online/blog/2020-10-02-023446.png" alt="补偿机制"></p>
+<h4 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h4><p>本质还是基于 CommitLog 和 ConsumeQueue 来解决消息的读写</p>
+<p>把half消息写入 CommitLog，同时 offset 同步到自己内部的Topic -&gt;<code>RMQ_SYS_TRANS_HALF_TOPIC</code>对应的一个ConsumeQueue里，之后返回响应。后续的 commit 、rollback 写入内部另一个代表 half 状态的 ConsumerQueue(OP_TOPIC)里，如果当前消息是 commit，先更新 OP_TOPIC 对应的 ConsumerQueue，再把在RMQ_SYS_TRANS_HALF_TOPIC 对应的 ConsumerQueue 中的 half offset 写入真正的ConsumerQueue</p>
+<p><img src="http://lion-heart.online/blog/2020-10-02-030055.png" alt="事物消息原理"></p>
+<h4 id="替代方案"><a href="#替代方案" class="headerlink" title="替代方案"></a>替代方案</h4><p>同步消息 + 重试机制</p>
+<p>结论：可以落地，但是存在一些问题。比如：数据一致性问题、响应时延问题等</p>
+<h3 id="全链路消息零丢失方案总结（保证了消息的高可靠，同时也牺牲了-MQ-的高性能和高吞吐量）"><a href="#全链路消息零丢失方案总结（保证了消息的高可靠，同时也牺牲了-MQ-的高性能和高吞吐量）" class="headerlink" title="全链路消息零丢失方案总结（保证了消息的高可靠，同时也牺牲了 MQ 的高性能和高吞吐量）"></a>全链路消息零丢失方案总结（保证了消息的高可靠，同时也牺牲了 MQ 的高性能和高吞吐量）</h3><h4 id="producer-消息零丢失、高可靠方案"><a href="#producer-消息零丢失、高可靠方案" class="headerlink" title="producer 消息零丢失、高可靠方案"></a>producer 消息零丢失、高可靠方案</h4><ol>
+<li>同步 ack + 重试机制</li>
+<li>事物消息机制</li>
+</ol>
+<p>两者都有保证消息发送零丢失的效果，但是经过分析，事务消息方案整体会更好一些</p>
+<p><img src="http://lion-heart.online/blog/2020-10-02-043058.png" alt="发送消息保证高可靠"></p>
+<p>从单次网络通信 send(Message) 到两次网络通信 half(Message),commit()\rollback()</p>
+<h4 id="broker-消息高可靠、零丢失"><a href="#broker-消息高可靠、零丢失" class="headerlink" title="broker 消息高可靠、零丢失"></a>broker 消息高可靠、零丢失</h4><p>开启同步刷盘策略 + 主从架构同步机制，只要让<code>Master Broker</code>收到消息之后同步写入磁盘，同时同步复制给其他<code>Slave Broker</code>，然后再返回响应给生产者说写入成功，此时就可以保证<code>MQ</code>自己不会弄丢消息</p>
+<p><img src="http://lion-heart.online/blog/2020-10-02-043202.png" alt="broker保证消息高可靠"></p>
+<p>内存操作：纳秒级别</p>
+<p>磁盘操作：毫秒级别</p>
+<p>单从介质级别来看，就相差很多。同时还会多副本同步，同样浪费性能。</p>
+<h4 id="consumer-消息零丢失、高可靠"><a href="#consumer-消息零丢失、高可靠" class="headerlink" title="consumer 消息零丢失、高可靠"></a>consumer 消息零丢失、高可靠</h4><p>保证 consumer 消费完毕后，提交 ack 给 broker</p>
+<p><img src="http://lion-heart.online/blog/2020-10-02-043809.png" alt="consumer 消息高可靠"></p>
+<p>consumer 收到信息直接返回 ack，继续从 broker 获取消息进行消费</p>
+<h3 id="重试原理"><a href="#重试原理" class="headerlink" title="重试原理"></a>重试原理</h3><p>producer：故障转移机制，支持同步和异步消息的重试</p>
+<p>consumerGroup 内维护一个 <code>retry 队列</code>，默认 16 次。连续 16次还是无法处理的消息，放入另一个队列 <code>DLQ队列</code></p>
+<p><img src="http://lion-heart.online/blog/2020-10-02-051923.png" alt="重试队列、死信队列"></p>
+<h3 id="重复消息"><a href="#重复消息" class="headerlink" title="重复消息"></a>重复消息</h3><p>​    和大多数现代消息队列一样，JMQ提供 至少一次（At-least-once） 的消息投递保证。通俗的说就是保证消息不丢，但不保证不重复。正常情况下，消费者不会收到重复的消息，但是，在Broker宕机、网络丢包等等各种异常情况时，消费者有可能会收到重复消息，发生重复消费的情况。所以，消费业务逻辑必须具备幂等性</p>
+<h5 id="幂等"><a href="#幂等" class="headerlink" title="幂等"></a>幂等</h5><p>幂等机制：来避免对同一个请求或者同一条消息进行重复处理的机制</p>
+<p>业务判断：mq 查询，可靠，性能不高</p>
+<p>状态判断：redis，不可靠</p>
+<h4 id="顺序消息"><a href="#顺序消息" class="headerlink" title="顺序消息"></a>顺序消息</h4><p>producer ：根据具体算法指定 MessageQueue 进行定向投递</p>
+<ol>
+<li>hash</li>
+<li>random</li>
+<li>machineRoom</li>
+</ol>
+<p>consumer : 根据监听实现并行消费或顺序消费</p>
+<ol>
+<li>concurrently：一个queue开启多个线程</li>
+<li>orderly：一个queue开启一个线程</li>
+</ol>
+<p><img src="http://lion-heart.online/blog/2020-10-02-052715.png" alt="消息乱序原因"></p>
+<p>保证相同业务类型的消息进入同一个 messageQueue，同时针对有序消息无可进入重试队列</p>
+<p><img src="http://lion-heart.online/blog/2020-10-02-053301.png" alt="避免重试引起乱序"></p>
+<p>总结</p>
+<ol>
+<li>消息丢失：全链路消息零丢失架构</li>
+<li>消息重复：幂等机制</li>
+<li>处理失败：重试原理</li>
+<li>消息乱序：有序消息 -&gt; 普通有序 -&gt; 严格有序</li>
+<li>消息积压：批量、并行、加队列、加分片、修改消费逻辑，重新推送到新队列</li>
+</ol>
+<h2 id="源码分析"><a href="#源码分析" class="headerlink" title="源码分析"></a>源码分析</h2><h3 id="consumer"><a href="#consumer" class="headerlink" title="consumer"></a>consumer</h3><ol>
+<li>启动环节<ul>
+<li>加载配置</li>
+<li>验证配置</li>
+</ul>
+</li>
+<li>注册环节</li>
+<li>拉取消息环节<ul>
+<li>PullRequest<ul>
+<li>MessageQueue：元数据信息</li>
+<li>ProcessQueue：消息体 </li>
+</ul>
+</li>
+<li>PutMessage：初始化 <code>ProcessQueue</code><ul>
+<li>msgTreeMap：消费位置 + 消息</li>
+<li>queueOffsetMax：当前 consumer 最大消费位置</li>
+<li>msgSize ： 消息大小</li>
+<li></li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<h2 id="问题汇总"><a href="#问题汇总" class="headerlink" title="问题汇总"></a>问题汇总</h2><h3 id="整体架构：高可用、高并发、海量消息、可伸缩"><a href="#整体架构：高可用、高并发、海量消息、可伸缩" class="headerlink" title="整体架构：高可用、高并发、海量消息、可伸缩"></a>整体架构：高可用、高并发、海量消息、可伸缩</h3><h3 id="核心关注点：CPU、IO、磁盘、内存"><a href="#核心关注点：CPU、IO、磁盘、内存" class="headerlink" title="核心关注点：CPU、IO、磁盘、内存"></a>核心关注点：CPU、IO、磁盘、内存</h3><h3 id="核心链路流程长、节点多、业务复杂"><a href="#核心链路流程长、节点多、业务复杂" class="headerlink" title="核心链路流程长、节点多、业务复杂"></a>核心链路流程长、节点多、业务复杂</h3><h3 id="因此我们不能仅仅依赖于最简单粗暴的堆机器的策略，而是要仔细的分析业务的核心请求链路，然后精心设计架构，优雅的抗下越来越高的并发量。"><a href="#因此我们不能仅仅依赖于最简单粗暴的堆机器的策略，而是要仔细的分析业务的核心请求链路，然后精心设计架构，优雅的抗下越来越高的并发量。" class="headerlink" title="因此我们不能仅仅依赖于最简单粗暴的堆机器的策略，而是要仔细的分析业务的核心请求链路，然后精心设计架构，优雅的抗下越来越高的并发量。"></a>因此我们不能仅仅依赖于最简单粗暴的堆机器的策略，而是要仔细的分析业务的核心请求链路，然后精心设计架构，优雅的抗下越来越高的并发量。</h3><p>（1）了解数据分片机制吗？如何把一个逻辑上的数据集合概念（比如一个Topic）给在物理上拆分为多个数据分片的？然后拆分后的多个数据分片又是如何在物理的多台机器上分布式存储的？</p>
+<p> 一个数据集合拆分成多个小的数据结合，独立存储，合并后是一个完整的数据集。</p>
+<p> 每一个 broker 实例都存储一个 CommitLog，全量的数据信息。</p>
+<p> 不同的数据集合通过 Topic/MessageQueue/ConsumerQueue 来表示各自数据集合的数据信息，存储的是CommitLog的文件地址 offset，每个文件尽可能的小，方便后续 consumer 快速的读取数据</p>
+<p>（2）为什么一定要让MQ实现数据分片的机制？如果不实现数据分片机制，让你来设计MQ中一个数据集合的分布式存储，你觉得好设计吗？</p>
+<p> 数据分片的主要目的是突破单点的资源（网络带宽，CPU，内存或文件存储）限制从而实现水平扩展</p>
+<p>（3）同步刷盘和异步刷盘两种策略，分别适用于什么不同的场景呢？<br>异步刷盘可以提供超高的写入吞吐量，但是有丢失数据的风险，这个适用于什么业务场景？在你所知道的业务场景，或者工作接触过的业务场景中，有哪些场景需要超高的写入吞吐量，但是可以适度接受数据丢失？</p>
+<p>同步刷盘会大幅度降低写入吞吐量，但是可以让你的数据不丢失，你接触哪些场景，是严格要求数据务必不能丢失任何一条，但是吞吐量并没有那么高的呢？</p>
+<p>（6）Kafka、RabbitMQ他们的broker收到消息之后是如何写入磁盘的？采用的是同步刷盘还是异步刷盘的策略？为什么？<br>（7）每次写入都必须有超过半数的Follower Broker都写入消息才可以算做一次写入成功，那么大家思考一个问题，这样做是不是会对Leader Broker的写入性能产生影响？是不是会降低TPS？是不是必须要在所有的场景都这么做？为什么呢？<br>（8）一般我们获取到一批消息之后，什么时候才可以认为是处理完这批消息了？是刚拿到这批消息就算处理完吗？还是说要对这批消息执行完一大堆的数据库之类的操作，才算是处理完了？<br>（9）如果获取到了一批消息，还没处理完呢，结果机器就宕机了，此时会怎么样？这些消息会丢失，再也无法处理了吗？如果获取到了一批消息，已经处理完了，还买来得及提交消费进度，此时机器宕机了，会怎么样呢？<br>（10）消费者机器到底是跟少数几台Broker建立连接，还是跟所有Broker都建立连接？这是不少朋友之前在评论区提出的问题，但是<br>我想这里大家肯定都有自己的答案了。<br>（11）RocketMQ是支持主从架构下的读写分离的，而且什么时候找Slave Broker读取大家也都了解的很清楚了，那么大家思考一下，<br>Kafka、RabbitMQ他们支持主从架构下的读写分离吗？支持Slave Broker的读取吗？为什么呢？<br>（12）如果支持读写分离的话，有没有一种可能，就是出现主从数据不一致的问题？比如有的数据刚刚到Master Broker和部分Slave Broker，但是你刚好是从那个没有写入数据的Slave Broker去读取了？<br>（13）消费吞吐量似乎是跟你的处理速度有很大关系，如果你消费到一批数据，处理太慢了，会导致你严重跟不上数据写入的速度，这会导致你后续几乎每次拉取数据都会从磁盘上读取，而不是os cache里读取</p>
+<p>如何集群化部署抗高并发的？ </p>
+<p>海量消息是如何分布式存储的？ </p>
+<p>如何实现主从多备份的高可用架构的？ </p>
+<p>如何实现集群路由让别人找到对应的机器发送消息和接收消息的？</p>
+<p>为什么不用 zookeeper 来实现消息路由？</p>
+<p>1.NameServer 用来保存活跃的 broker 列表，包括 Master 和 Slave 。 </p>
+<p>2.NameServer 用来保存所有 topic 和该 topic 所有队列的列表。</p>
+<p>3.NameServer 用来保存所有 broker 的 Filter 列表。</p>
+<p>A：对于RocketMQ 来说，topic 的数据在每个 Master 上是对等的，没有哪个 Master 上有 topic 上的全部数据，所以对于zookeeper的Master 选举功能在Rocket中使用不到。 Broker与slave配对是通过指定相同的brokerName参数来配对，master的brokerId必须为0，slave的brokerId必须大于0，此外一个master下可以挂多个slave，同一个master下的多个slave通过指定不同的brokerId来区分</p>
+<p>NameServer集群整体都故障了，失去了这个NameServer集群之后：</p>
+<p>RocketMQ还能正常运行吗？</p>
+<p>生产者还能发送消息到Broker吗？</p>
+<p>消费者还能从Broker拉取消息吗？</p>
+<p>那么在Master崩溃一直到新的Master被选举出来的这个过程中，你觉得对于使用MQ的系统而言，会处于一个什么样的状态呢？</p>
+<p>有没有主从数据不一致的问题？</p>
+<p>不一致有没有什么问题？</p>
+<p>有办法保证主从数据强制一致吗？</p>
+<p>这样做又会有什么缺点呢？</p>
+<p>Broker跟NameServer之间的通信是基于什么协议来进行的？</p>
+<p>tcp 长连接</p>
+<p>Topic是什么意思？</p>
+<p>Topic其实就是一个数据集合的意思，不同类型的数据你得放不同的Topic里去。</p>
+<p>你们的MQ在生产环境的部署架构是怎么做的？</p>
+<p>路由中心、MQ集群、生产者和消费者分别是怎么部署的？为什么要那样部署？</p>
+<p>那样部署可以实现高并发、海量消息、高可用和线性可伸缩吗？</p>
+<p>他们对MQ集群做过压测吗？</p>
+<p>使用什么样的机器配置做的压测？</p>
+<p>使用多大规模的集群做的压测？如何压测的？</p>
+<p>在压测的过程中发现单Broker的TPS最高有多少？</p>
+<p>在压测过程中，cpu负载、内存使用率、jvm gc频率、磁盘io负载、网卡流量负载，这些值都是如何变化的？</p>
+<p>在压测过后，是如何规划生产集群的？</p>
+<p>目前公司线上MQ集群的TPS多高？机器资源的负载情况如何？能否抗住？</p>
+<p>你们的系统中是否存在核心链路环节过多导致性能较差的问题？如果有的话，是否可以引入MQ进行适当异步化提升链路性能？</p>
+<p>你们的系统是否存在核心链路耦合了第三方系统，进而导致链路性能不稳定的问题？如果有，是否可以引入MQ进行第三方系统的解耦，避免核心链路的性能受到影响？</p>
+<p>你们的系统是否存在有其他团队直接耦合访问你们数据库的情况，进而导致你们的数据库性能不稳定？如果有的话，是否可以引入MQ来推送你们的核心数据出去，跟其他团队进行解耦？</p>
+<p>对生产者往Broker集群发送消息的底层原理做一个研究 看看Broker对于接收到的消息，到底是如何存储到磁盘上去的？</p>
+<p>基于DLedger技术部署的Broker高可用集群，到底如何进行数据同步的？</p>
+<p>消费者到底是基于什么策略选择Master或Slave拉取数据的？</p>
+<p>消费者是如何从Broker拉取消息回来，进行处理以及ACK的？如果消费者故障了会如何处理？</p>
+<p>异步刷盘可以提供超高的写入吞吐量，但是有丢失数据的风险，这个适用于什么业务场景？在你所知道的业务场景，或者工作接触过的业务场景中，有哪些场景需要超高的写入吞吐量，但是可以适度接受数据丢失？</p>
+<p>同步刷盘会大幅度降低写入吞吐量，但是可以让你的数据不丢失，你接触哪些场景，是严格要求数据务必不能丢失任何一条，但是吞吐量并没有那么高的呢？</p>
+<p>丢消息？</p>
+<p>​    网络传输丢包<br>​    Broker宕机<br>​    生产者实例宕机<br>​    消费者实例宕机<br>​    消费处理失败</p>
+<p>​    同时满足下面所有条件的情况下会丢消息：<br>​            主用Broker磁盘损坏，无法读取数据<br>​            数据没有来得及将消息复制到备用Broker<br>​            消费者没有来得及消费这些消息</p>
+<p>如果遇到过，你们是怎么解决的？</p>
+<p>​    producer 网络丢包、发送失败，重试机制</p>
+<p>​    broker问题，考虑使用同步刷盘，异步复制</p>
+<p>​    consumer 消费问题，修改业务逻辑</p>
+<h1 id="RocketMQ-面试FAQ"><a href="#RocketMQ-面试FAQ" class="headerlink" title="RocketMQ 面试FAQ"></a>RocketMQ 面试FAQ</h1><h2 id="说说你们公司线上生产环境用的是什么消息中间件"><a href="#说说你们公司线上生产环境用的是什么消息中间件" class="headerlink" title="说说你们公司线上生产环境用的是什么消息中间件?"></a>说说你们公司线上生产环境用的是什么消息中间件?</h2><h2 id="为什么要使用MQ？"><a href="#为什么要使用MQ？" class="headerlink" title="为什么要使用MQ？"></a>为什么要使用MQ？</h2><p>因为项目比较大，做了分布式系统，所有远程服务调用请求都是<strong>同步执行</strong>经常出问题，所以引入了mq</p>
+<p><strong>解耦</strong></p>
+<p>系统耦合度降低，没有强依赖关系</p>
+<p><strong>异步</strong></p>
+<p>不需要同步执行的远程调用可以有效提高响应时间</p>
+<p><strong>削峰</strong></p>
+<p>请求达到峰值后，后端service还可以保持固定消费速率消费，不会被压垮</p>
+<h3 id="多个mq如何选型？"><a href="#多个mq如何选型？" class="headerlink" title="多个mq如何选型？"></a>多个mq如何选型？</h3><p><strong>RabbitMQ</strong></p>
+<p>erlang开发，延迟比较低</p>
+<p><strong>RocketMQ</strong></p>
+<p>java开发，面向互联网集群化功能丰富</p>
+<p><strong>kafka</strong></p>
+<p>Scala开发，面向日志功能丰富</p>
+<p><strong>ActiveMQ</strong></p>
+<p>java开发，简单，稳定</p>
+<p>小项目：ActiveMQ</p>
+<p>大项目：RocketMQ或kafka、RabbitMq</p>
+<h2 id="RocketMQ由哪些角色组成，每个角色作用和特点是什么？"><a href="#RocketMQ由哪些角色组成，每个角色作用和特点是什么？" class="headerlink" title="RocketMQ由哪些角色组成，每个角色作用和特点是什么？"></a>RocketMQ由哪些角色组成，每个角色作用和特点是什么？</h2><p>nameserver 无状态 动态列表</p>
+<p>producer</p>
+<p>broker</p>
+<p>consumer</p>
+<h2 id="RocketMQ中的Topic和ActiveMQ有什么区别？"><a href="#RocketMQ中的Topic和ActiveMQ有什么区别？" class="headerlink" title="RocketMQ中的Topic和ActiveMQ有什么区别？"></a>RocketMQ中的Topic和ActiveMQ有什么区别？</h2><h3 id="ActiveMQ"><a href="#ActiveMQ" class="headerlink" title="ActiveMQ"></a>ActiveMQ</h3><p>有destination的概念，即消息目的地</p>
+<p>destination分为两类：</p>
+<ul>
+<li>topic<ul>
+<li>广播消息</li>
+</ul>
+</li>
+<li>queue<ul>
+<li>队列消息</li>
+</ul>
+</li>
+</ul>
+<h3 id="RocketMQ"><a href="#RocketMQ" class="headerlink" title="RocketMQ"></a>RocketMQ</h3><p>RocketMQ的Topic是一组Message Queue的集合 ConsumeQueue</p>
+<p>一条消息是广播消息还是队列消息由客户端消费决定</p>
+<h2 id="RocketMQ-Broker中的消息被消费后会立即删除吗？"><a href="#RocketMQ-Broker中的消息被消费后会立即删除吗？" class="headerlink" title="RocketMQ Broker中的消息被消费后会立即删除吗？"></a>RocketMQ Broker中的消息被消费后会立即删除吗？</h2><p>不会，每条消息都会持久化到CommitLog中，每个consumer连接到broker后会维持消费进度信息，当有消息消费后只是当前consumer的消费进度（CommitLog的offset）更新了。</p>
+<h3 id="那么消息会堆积吗？什么时候清理过期消息？"><a href="#那么消息会堆积吗？什么时候清理过期消息？" class="headerlink" title="那么消息会堆积吗？什么时候清理过期消息？"></a>那么消息会堆积吗？什么时候清理过期消息？</h3><p>4.6版本默认48小时后会删除不再使用的CommitLog文件</p>
+<ul>
+<li>检查这个文件最后访问时间</li>
+<li>判断是否大于过期时间</li>
+<li>指定时间删除，默认凌晨4点</li>
+</ul>
+<h2 id="RocketMQ消费模式有几种？"><a href="#RocketMQ消费模式有几种？" class="headerlink" title="RocketMQ消费模式有几种？"></a>RocketMQ消费模式有几种？</h2><p>消费模型由consumer决定，消费维度为Topic</p>
+<h3 id="集群消费"><a href="#集群消费" class="headerlink" title="集群消费"></a>集群消费</h3><p>一组consumer同时消费一个topic，可以分配消费负载均衡策略分配consumer对应消费topic下的哪些queue</p>
+<p>多个group同时消费一个topic时，每个group都会消费到数据</p>
+<p>一条消息只会被一个group中的consumer消费，</p>
+<h3 id="广播消费"><a href="#广播消费" class="headerlink" title="广播消费"></a>广播消费</h3><p>消息将对一 个Consumer Group 下的各个 Consumer 实例都消费一遍。即即使这些 Consumer 属于同一个Consumer Group ，消息也会被 Consumer Group 中的每个 Consumer 都消费一次。</p>
+<h2 id="消费消息时使用的是push还是pull？"><a href="#消费消息时使用的是push还是pull？" class="headerlink" title="消费消息时使用的是push还是pull？"></a>消费消息时使用的是push还是pull？</h2><p>在刚开始的时候就要决定使用哪种方式消费</p>
+<p>两种：</p>
+<p><code>DefaultLitePullConsumerImpl</code> 拉</p>
+<p><code>DefaultMQPushConsumerImpl</code>推</p>
+<p>两个实现 <code>DefaultLitePullConsumerImpl</code> <code>DefaultMQPushConsumerImpl</code>都实现了MQConsumerInner接口接口</p>
+<p>名称上看起来是一个推，一个拉，但实际底层实现都是采用的<strong>长轮询机制</strong>，即拉取方式</p>
+<p>broker端属性 longPollingEnable 标记是否开启长轮询。默认开启</p>
+<h3 id="为什么要主动拉取消息而不使用事件监听方式？"><a href="#为什么要主动拉取消息而不使用事件监听方式？" class="headerlink" title="为什么要主动拉取消息而不使用事件监听方式？"></a>为什么要主动拉取消息而不使用事件监听方式？</h3><p>事件驱动方式是建立好长连接，由事件（发送数据）的方式来实时推送。</p>
+<p>如果broker主动推送消息的话有可能push速度快，消费速度慢的情况，那么就会造成消息在consumer端堆积过多，同时又不能被其他consumer消费的情况</p>
+<h4 id="说一说几种常见的消息同步机制？"><a href="#说一说几种常见的消息同步机制？" class="headerlink" title="说一说几种常见的消息同步机制？"></a>说一说几种常见的消息同步机制？</h4><p>push：</p>
+<p>如果broker主动推送消息的话有可能push速度快，消费速度慢的情况，那么就会造成消息在consumer端堆积过多，同时又不能被其他consumer消费的情况</p>
+<p>pull：</p>
+<p>轮训时间间隔，固定值的话会造成资源浪费</p>
+<p>长轮询：</p>
+<p>上连接 短连接（每秒） 长轮询</p>
+<h3 id="broker如何处理拉取请求的？"><a href="#broker如何处理拉取请求的？" class="headerlink" title="broker如何处理拉取请求的？"></a>broker如何处理拉取请求的？</h3><p>consumer首次请求broker</p>
+<ul>
+<li>broker中是否有符合条件的消息</li>
+<li>有<ul>
+<li>响应consumer</li>
+<li>等待下次consumer的请求</li>
+</ul>
+</li>
+<li>没有<ul>
+<li>挂起consumer的请求，即不断开连接，也不返回数据</li>
+<li>挂起时间长短，写死在代码里的吗？长轮询写死，短轮询可以配</li>
+<li>使用consumer的 offset <ul>
+<li>DefaultMessageStore#ReputMessageService#run方法<ul>
+<li>每隔1ms检查commitLog中是否有新消息，有的话写入到pullRequestTable</li>
+<li>当有新消息的时候返回请求</li>
+</ul>
+</li>
+<li>PullRequestHoldService 来Hold连接，每个5s执行一次检查pullRequestTable有没有消息，有的话立即推送</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="RocketMQ如何做负载均衡？"><a href="#RocketMQ如何做负载均衡？" class="headerlink" title="RocketMQ如何做负载均衡？"></a>RocketMQ如何做负载均衡？</h2><p>通过Topic在多broker种分布式存储实现</p>
+<h3 id="producer端"><a href="#producer端" class="headerlink" title="producer端"></a>producer端</h3><p>发送端指定Target message queue发送消息到相应的broker，来达到写入时的负载均衡</p>
+<ul>
+<li>提升写入吞吐量，当多个producer同时向一个broker写入数据的时候，性能会下降</li>
+<li>消息分布在多broker种，为负载消费做准备</li>
+</ul>
+<h4 id="默认策略是轮循选择："><a href="#默认策略是轮循选择：" class="headerlink" title="默认策略是轮循选择："></a><strong>默认策略是轮循选择：</strong></h4><ul>
+<li>producer维护一个index</li>
+<li>每次取节点会自增</li>
+<li>index向所有broker个数取余</li>
+<li>自带容错策略</li>
+</ul>
+<h4 id="其他实现"><a href="#其他实现" class="headerlink" title="其他实现"></a>其他实现</h4><ul>
+<li>哈希</li>
+<li>机房轮循</li>
+<li>随机</li>
+</ul>
+<h4 id="如何知道mqs的，mqs的数据从哪儿来？"><a href="#如何知道mqs的，mqs的数据从哪儿来？" class="headerlink" title="如何知道mqs的，mqs的数据从哪儿来？"></a>如何知道mqs的，mqs的数据从哪儿来？</h4><p>producer.start()方法</p>
+<p>参考源码</p>
+<ul>
+<li>启动producer的时候会向nameserver获取publishInfoTable，以后每 30 秒从 nameserver获取 Topic 跟 Broker 的映射关系，近实时获取最新数据存储单元，queue落地在哪个broker中</li>
+<li>获取nameserver中的topic列表</li>
+<li>使用topic向nameserver获取topicRouteData：表示与某一个topic有关系的broker节点信息，内部包含多个QueueData对象（当前集群、当前brokerName、队列集合）和多个BrokerData信息（多个集群的多个节点信息都在该列表中）</li>
+</ul>
+<h3 id="consumer端完成负载均衡"><a href="#consumer端完成负载均衡" class="headerlink" title="consumer端完成负载均衡"></a>consumer端完成负载均衡</h3><p>consumer启动流程</p>
+<ul>
+<li>连接 nameserver 获取集群信息，负载粒度直到Topic 下指定 Message Queue</li>
+<li>每个consumer 通过 balanced 维护 <code>processQueueTable</code><ul>
+<li>processQueueTable 为当前 consumer 的消费 queue<ul>
+<li>ProcessQueue ：维护消费进度，从broker中拉取回来的消息缓冲</li>
+<li>MessageQueue ： 用来定位查找queue</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="当消费负载均衡consumer和queue不对等的时候会发生什么？"><a href="#当消费负载均衡consumer和queue不对等的时候会发生什么？" class="headerlink" title="当消费负载均衡consumer和queue不对等的时候会发生什么？"></a>当消费负载均衡consumer和queue不对等的时候会发生什么？</h3><h4 id="负载均衡算法"><a href="#负载均衡算法" class="headerlink" title="负载均衡算法"></a>负载均衡算法</h4><p>平均分配策略</p>
+<p>环形分配策略</p>
+<p>手动配置分配策略</p>
+<p>机房分配策略</p>
+<p>一致性哈希分配策略</p>
+<p>靠近机房策略</p>
+<h2 id="如何让RocketMQ保证消息的顺序消费"><a href="#如何让RocketMQ保证消息的顺序消费" class="headerlink" title="如何让RocketMQ保证消息的顺序消费"></a>如何让RocketMQ保证消息的顺序消费</h2><p><strong>你们线上业务用消息中间件的时候，是否需要保证消息的顺序性?</strong></p>
+<p><strong>如果不需要保证消息顺序，为什么不需要?假如我有一个场景要保证消息的顺序，你们应该如何保证?</strong></p>
+<ul>
+<li>同一topic</li>
+<li>同一个QUEUE</li>
+<li>发消息的时候一个线程去发送消息</li>
+<li>消费的时候 一个线程 消费一个queue里的消息或者使用MessageListenerOrderly</li>
+<li>多个queue 只能保证单个queue里的顺序</li>
+</ul>
+<h3 id="应用场景是啥？"><a href="#应用场景是啥？" class="headerlink" title="应用场景是啥？"></a>应用场景是啥？</h3><p>应用系统和现实的生产业务绑定，避免在分布式系统中多端消费业务消息造成顺序混乱</p>
+<p>比如需要严格按照顺序处理的数据或业务</p>
+<h2 id="RocketMQ如何保证消息不丢失"><a href="#RocketMQ如何保证消息不丢失" class="headerlink" title="RocketMQ如何保证消息不丢失"></a>RocketMQ如何保证消息不丢失</h2><ol>
+<li>生产端如何保证投递出去的消息不丢失：消息在半路丢失，或者在MQ内存中宕机导致丢失，此时你如何基于MQ的功能保证消息不要丢失？</li>
+<li>MQ自身如何保证消息不丢失？</li>
+<li>消费端如何保证消费到的消息不丢失：如果你处理到一半消费端宕机，导致消息丢失，此时怎么办？</li>
+</ol>
+<h3 id="解耦的思路"><a href="#解耦的思路" class="headerlink" title="解耦的思路"></a>解耦的思路</h3><h4 id="发送方"><a href="#发送方" class="headerlink" title="发送方"></a>发送方</h4><p>发送消息时做消息备份（记日志或同步到数据库），判断sendResult是否正常返回</p>
+<h4 id="broker"><a href="#broker" class="headerlink" title="broker"></a>broker</h4><p><strong>节点保证</strong></p>
+<ul>
+<li>master接受到消息后同步刷盘，保证了数据持久化到了本机磁盘中</li>
+<li>同步写入slave</li>
+<li>写入完成后返回SendResult</li>
+</ul>
+<h4 id="consumer-1"><a href="#consumer-1" class="headerlink" title="consumer"></a>consumer</h4><ul>
+<li>记日志</li>
+<li>同步执行业务逻辑，最后返回ack</li>
+<li>异常控制 </li>
+</ul>
+<p><strong>磁盘保证</strong></p>
+<p>使用Raid磁盘阵列保证数据磁盘安全</p>
+<p><strong>网络数据篡改</strong></p>
+<p>内置TLS可以开启，默认使用crc32校验数据</p>
+<h3 id="消息刷盘机制底层实现"><a href="#消息刷盘机制底层实现" class="headerlink" title="消息刷盘机制底层实现"></a>消息刷盘机制底层实现</h3><p>每间隔10ms，执行一次数据持久化操作</p>
+<p>两种， 同步刷、异步刷</p>
+<pre><code>   public void run() {
+            CommitLog.log.info(this.getServiceName() + &quot; service started&quot;);
+
+            while (!this.isStopped()) {
+                try {
+                    this.waitForRunning(10);
+                    this.doCommit();
+                } catch (Exception e) {
+                    CommitLog.log.warn(this.getServiceName() + &quot; service has exception. &quot;, e);
+                }
+            }</code></pre><h2 id="rocketMq的消息堆积如何处理"><a href="#rocketMq的消息堆积如何处理" class="headerlink" title="rocketMq的消息堆积如何处理"></a>rocketMq的消息堆积如何处理</h2><p><strong>下游消费系统如果宕机了，导致几百万条消息在消息中间件里积压，此时怎么处理?</strong></p>
+<p><strong>你们线上是否遇到过消息积压的生产故障?如果没遇到过，你考虑一下如何应对?</strong></p>
+<p>具体表现为 ui中转圈圈</p>
+<p>对于大规模消息发送接收可以使用pull模式，手动处理消息拉取速度,消费的时候统计消费时间以供参考</p>
+<p>保证消息消费速度固定，即可通过上线更多consumer临时解决消息堆积问题</p>
+<h3 id="如果consumer和queue不对等，上线了多台也在短时间内无法消费完堆积的消息怎么办？"><a href="#如果consumer和queue不对等，上线了多台也在短时间内无法消费完堆积的消息怎么办？" class="headerlink" title="如果consumer和queue不对等，上线了多台也在短时间内无法消费完堆积的消息怎么办？"></a>如果consumer和queue不对等，上线了多台也在短时间内无法消费完堆积的消息怎么办？</h3><ul>
+<li>准备一个临时的topic</li>
+<li>queue的数量是堆积的几倍</li>
+<li>queue分不到多broker种</li>
+<li>上线一台consumer做消息的搬运工，把原来topic中的消息挪到新的topic里，不做业务逻辑处理，只是挪过去</li>
+<li>上线N台consumer同时消费临时topic中的数据</li>
+<li>改bug</li>
+<li>恢复原来的consumer，继续消费之前的topic</li>
+</ul>
+<h3 id="堆积时间过长消息超时了？"><a href="#堆积时间过长消息超时了？" class="headerlink" title="堆积时间过长消息超时了？"></a>堆积时间过长消息超时了？</h3><p>RocketMQ中的消息只会在commitLog被删除的时候才会消失，不会超时</p>
+<h3 id="堆积的消息会不会进死信队列？"><a href="#堆积的消息会不会进死信队列？" class="headerlink" title="堆积的消息会不会进死信队列？"></a>堆积的消息会不会进死信队列？</h3><p>不会，消息在消费失败后会进入重试队列（%RETRY%+consumergroup），多次（默认16）才会进入死信队列（%DLQ%+consumergroup）</p>
+<h2 id="你们用的是RocketMQ-那你说说RocketMQ的底层架构原理，磁盘上数据如何存储的，整体分布式架构是如何实现的"><a href="#你们用的是RocketMQ-那你说说RocketMQ的底层架构原理，磁盘上数据如何存储的，整体分布式架构是如何实现的" class="headerlink" title="你们用的是RocketMQ?那你说说RocketMQ的底层架构原理，磁盘上数据如何存储的，整体分布式架构是如何实现的?"></a>你们用的是RocketMQ?那你说说RocketMQ的底层架构原理，磁盘上数据如何存储的，整体分布式架构是如何实现的?</h2><h2 id="零拷贝等技术是如何运用的"><a href="#零拷贝等技术是如何运用的" class="headerlink" title="零拷贝等技术是如何运用的?"></a>零拷贝等技术是如何运用的?</h2><p>使用nio的MappedByteBuffer调起数据输出</p>
+<h2 id="你们用的是RocketMQ-RocketMQ很大的一个特点是对分布式事务的支持，你说说他在分布式事务支持这块机制的底层原理"><a href="#你们用的是RocketMQ-RocketMQ很大的一个特点是对分布式事务的支持，你说说他在分布式事务支持这块机制的底层原理" class="headerlink" title="你们用的是RocketMQ?RocketMQ很大的一个特点是对分布式事务的支持，你说说他在分布式事务支持这块机制的底层原理?"></a>你们用的是RocketMQ?RocketMQ很大的一个特点是对分布式事务的支持，你说说他在分布式事务支持这块机制的底层原理?</h2><p>分布式系统中的事务可以使用TCC（Try、Confirm、Cancel）、2pc来解决分布式系统中的消息原子性</p>
+<p>RocketMQ 4.3+提供分布事务功能，通过 RocketMQ 事务消息能达到分布式事务的最终一致</p>
+<h4 id="RocketMQ实现方式"><a href="#RocketMQ实现方式" class="headerlink" title="RocketMQ实现方式"></a>RocketMQ实现方式</h4><p><strong>Half Message：</strong>预处理消息，当broker收到此类消息后，会存储到RMQ_SYS_TRANS_HALF_TOPIC的消息消费队列中</p>
+<p><strong>检查事务状态：</strong>Broker会开启一个定时任务，消费RMQ_SYS_TRANS_HALF_TOPIC队列中的消息，每次执行任务会向消息发送者确认事务执行状态（提交、回滚、未知），如果是未知，等待下一次回调。</p>
+<p><strong>超时：</strong>如果超过回查次数，默认回滚消息</p>
+<h4 id="TransactionListener的两个方法"><a href="#TransactionListener的两个方法" class="headerlink" title="TransactionListener的两个方法"></a>TransactionListener的两个方法</h4><h5 id="executeLocalTransaction"><a href="#executeLocalTransaction" class="headerlink" title="executeLocalTransaction"></a>executeLocalTransaction</h5><p>半消息发送成功触发此方法来执行本地事务</p>
+<h5 id="checkLocalTransaction"><a href="#checkLocalTransaction" class="headerlink" title="checkLocalTransaction"></a>checkLocalTransaction</h5><p>broker将发送检查消息来检查事务状态，并将调用此方法来获取本地事务状态</p>
+<h5 id="本地事务执行状态"><a href="#本地事务执行状态" class="headerlink" title="本地事务执行状态"></a>本地事务执行状态</h5><p><strong>LocalTransactionState.COMMIT_MESSAGE</strong></p>
+<p>执行事务成功，确认提交</p>
+<p><strong>LocalTransactionState.ROLLBACK_MESSAGE</strong></p>
+<p>回滚消息，broker端会删除半消息</p>
+<p><strong>LocalTransactionState.UNKNOW</strong></p>
+<p>暂时为未知状态，等待broker回查</p>
+<h2 id="高吞吐量下如何优化生产者和消费者的性能"><a href="#高吞吐量下如何优化生产者和消费者的性能" class="headerlink" title="高吞吐量下如何优化生产者和消费者的性能?"></a>高吞吐量下如何优化生产者和消费者的性能?</h2><h3 id="生产"><a href="#生产" class="headerlink" title="生产"></a>生产</h3><ul>
+<li>分片</li>
+<li>加队列</li>
+</ul>
+<h3 id="消费"><a href="#消费" class="headerlink" title="消费"></a>消费</h3><ul>
+<li>批量消费</li>
+<li>并行消费</li>
+<li>加队列</li>
+<li>分片</li>
+<li>多实例</li>
+</ul>
+<h3 id="调优点"><a href="#调优点" class="headerlink" title="调优点"></a>调优点</h3><ul>
+<li>网卡调优</li>
+<li>jvm调优</li>
+<li>多线程与cpu调优</li>
+<li>Page Cache</li>
+</ul>
+<h2 id="如果让你来动手实现一个分布式消息中间件，整体架构你会如何设计实现"><a href="#如果让你来动手实现一个分布式消息中间件，整体架构你会如何设计实现" class="headerlink" title="如果让你来动手实现一个分布式消息中间件，整体架构你会如何设计实现?"></a>如果让你来动手实现一个分布式消息中间件，整体架构你会如何设计实现?</h2><p>功能</p>
+<ol>
+<li>数据存储：如何提升磁盘的IO效率？CommitLog 顺序写（mmap） + OS pageCache + OS 异步刷盘，读写效率接近内存操作</li>
+<li>数据收发：如何提升网络IO效率？NIO + Reactor + Work</li>
+</ol>
+<p>特点</p>
+<p>读写场景拆分、分析。写入频繁，主动推送不是很频繁，通过基于长链接的长轮询</p>
+<p>异步与同步模型最大的区别是<br>同步模型会阻塞线程等待资源，一般采用的都是一个线程对应多个Channel接收数据少量线程情况下不会有问题，大量的连接数就会需要相同数量的数据接收线程，会有大量的线程来抢占CPU时间，造成频繁的CPU上下文切换，导致CPU的负载升高，整个系统的性能就会比较慢.</p>
+<p>异步模型不会阻塞线程，它是等资源准备好后，再通知业务代码来完成后续的资源处理逻辑</p>
+<p>如果要实现通过网络来传输数据，需要用到开发语言提供的网络通信类库。大部分语言提供的网络通信基础类库都是同步的,一个TCP连接建立后，业务代码会获得一个用于收发数据的通道,每个通道会在内存中开辟两个区域用于收发数据的缓存。</p>
+<p>发数据流程：发送数据的过程比较简单，我们直接往这个通道里面来写入数据就可以了。业务代码在发送时写入的数据会暂存在缓存中，然后操作系统会通过⽹卡，把发送缓存中的数据传输到对端的服务器上,只要这个缓存不满,或者说,我们发送数据的速度没有超过网卡传输速度的上限，那这个发送数据的操作耗时，只不过是一次内存写入的时间<br>收数据流程：比较麻烦的是接收数据。对于数据的接收方来说，它并不知道什么时候会收到数据。那我们能直接想到的是，用一个线程阻塞在那等着数据，当有数据到来的时候，操作系统会先把数据写⼊接收缓存，然后给接收数据的线程发⼀个通知，线程收到通知后结束等待，开始读取数据。处理完这⼀批数据后，继续阻塞 等待下⼀批数据到来，这样周⽽复始地处理收到的数据。</p>
+<p>NIO中，它提供了一个Selector对象，来解决一个线程在多个网络连接上的多路复用问题<br>在NIO中，每个已经建立好的连接用一个Channel对象来表示。我们希望能实现，在⼀个线程⾥，接收来⾃多个Channel的数据。也就是说，这些Channel中，任何⼀个Channel收到数据后，第⼀时间能在同⼀个线程⾥⾯来处理。<br>⼀个线程对应多个Channel，有可能会出现这两种情况：<br>\1. 线程在忙着处理收到的数据，这时候Channel中⼜收到了新数据；<br>\2. 线程闲着没事⼉⼲，所有的Channel中都没收到数据，也不能确定哪个Channel会在什么时候收到数据。</p>
+<p>Selecor通过⼀种类似于事件的机制来解决这个问题。⾸先你需要把你的连接，也就是Channel绑定到 Selector上，然后你可以在接收数据的线程来调⽤Selector.select()⽅法来等待数据到来。这个select⽅法是⼀个阻塞⽅法，这个线程会⼀直卡在这⼉，直到这些Channel中的任意⼀个有数据到来，就会结束等待返回数据。它的返回值是⼀个迭代器，你可以从这个迭代器⾥⾯获取所有Channel收到的数据，然后来执⾏你的 数据接收的业务逻辑。你可以选择直接在这个线程⾥⾯来执⾏接收数据的业务逻辑，也可以将任务分发给其他的线程来执⾏，如何 选择完全可以由你的代码来控制。 </p>
+<p>Netty服务端会存在两个线程池NioEventLoopGroup<br>客户端连接线程池,一个线程NioEventLoop对应一个端口的多个channel通道,通道里会有收发缓存,服务端会定时监控channel通道是否断开,在⼀定时间没有收到客⼾端的⼼跳包,把客⼾端的Channel从服务端移除,还可以设置服务端接收连接的队列</p>
+<p>处理线程池NioEventLoopGroup,⾥⾯会有多个NioEventLoop线程,每个NioEventLoop都会有⼀个Selector，然后可以多个channel绑定到NioEventLoop的Selector中,即收到Channel数据，NioEventLoop执⾏Handler，包括解码、拆包等Handler，服务端返回响应消息对Channel进⾏编码等Handler。</p>
+<p>接收数据是⼀个NioEventLoop会有⼀个Selector,原先的Nio是只有⼀个Selector进⾏处理所有的连接收发事件,NioEventLoopGroup中有10个NioEventLoop,这样的话就有10个Selector，⽐如有10000读写请求，每个Selector就可以维持1000</p>
+<p>有一个养鸡的农场，里面养着来自各个农户（Thread）的鸡（Socket），每家农户都在农场中建立了自己的鸡舍（SocketChannel） </p>
+<p>1、BIO：Block IO，每个农户盯着自己的鸡舍，一旦有鸡下蛋，就去做捡蛋处理； </p>
+<p>2、NIO：No-Block IO-单Selector，农⼾们花钱请了⼀个饲养员（Selector），并告诉饲养员（register ）如果哪家的鸡有任何情况（下蛋）均要向这家农⼾报告（select keys）； </p>
+<p>3、NIO：No-Block IO-多Selector，当农场中的鸡舍逐渐增多时，⼀个饲养员巡视（轮询）⼀次所需时间就会不断地加⻓，这样农⼾知道⾃⼰家的鸡有下蛋的情况就会发⽣较⼤的延迟。怎么解决呢？没错，多请⼏个饲养员（多Selector），每个饲养员分配管理鸡舍，这样就可以减轻⼀个饲养员的⼯作量，同时农⼾ 们可以更快的知晓⾃⼰家的鸡是否下蛋了； </p>
+<p>4、Epoll模式：如果采⽤Epoll⽅式，农场问题应该如何改进呢？其实就是饲养员不需要再巡视鸡舍，⽽ 是听到哪间鸡舍的鸡打鸣了（活跃连接），就知道哪家农⼾的鸡下蛋了； </p>
+<p>5、AIO：Asynchronous I/O,下蛋后，以前的NIO⽅式要求饲养员通知农⼾去取蛋，AIO模式出现以后，事情变得更加简单了，取蛋⼯作由饲养员⾃⼰负责，然后取完后，直接通知农⼾来拿即可，⽽不需要农 ⼾⾃⼰到鸡舍去取蛋。  </p>
+<h2 id="看过RocketMQ-的源码没有。如果看过，说说你对RocketMQ-源码的理解"><a href="#看过RocketMQ-的源码没有。如果看过，说说你对RocketMQ-源码的理解" class="headerlink" title="看过RocketMQ 的源码没有。如果看过，说说你对RocketMQ 源码的理解?"></a>看过RocketMQ 的源码没有。如果看过，说说你对RocketMQ 源码的理解?</h2><p>核心流程</p>
+<ol>
+<li>producer</li>
+<li>consumer</li>
+<li>broker</li>
+<li>nameserver</li>
+</ol>
+<p>吐槽</p>
+<ul>
+<li>无注释</li>
+<li>没啥设计模式</li>
+<li>不太规范</li>
+<li>通过大量的定时任务完成的整体业务流转</li>
+</ul>
+<h3 id="最佳实践"><a href="#最佳实践" class="headerlink" title="最佳实践"></a>最佳实践</h3><p>高并发场景下堆机器做法的弊端，通过合理的分析业务场景的核心请求链路，精心设计架构</p>
+<p>扫码出入库流程：新流程引入 NFC 并发量剧增</p>
+<p>运营报告 - 多维度统计sql</p>
+<p>IOT 数据筛选 - 数据过滤</p>
+
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="http://orgjinhc.github.io" rel="external nofollow noreferrer">靳宏财</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="http://orgjinhc.github.io/2020/09/26/%E6%B6%88%E6%81%AF%E4%B8%AD%E9%97%B4%E4%BB%B6/">http://orgjinhc.github.io/2020/09/26/%E6%B6%88%E6%81%AF%E4%B8%AD%E9%97%B4%E4%BB%B6/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="http://orgjinhc.github.io" target="_blank">靳宏财</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/%E9%9D%A2%E8%AF%95/">
+                                    <span class="chip bg-color">面试</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/orgjinhc/orgjinhc.github.io/libs/share/css/share.min.css">
+
+<div id="article-share">
+    
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="https://cdn.jsdelivr.net/gh/orgjinhc/orgjinhc.github.io/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+                <style>
+    #reward {
+        margin: 40px 0;
+        text-align: center;
+    }
+
+    #reward .reward-link {
+        font-size: 1.4rem;
+        line-height: 38px;
+    }
+
+    #reward .btn-floating:hover {
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2), 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    #rewardModal {
+        width: 320px;
+        height: 350px;
+    }
+
+    #rewardModal .reward-title {
+        margin: 15px auto;
+        padding-bottom: 5px;
+    }
+
+    #rewardModal .modal-content {
+        padding: 10px;
+    }
+
+    #rewardModal .close {
+        position: absolute;
+        right: 15px;
+        top: 15px;
+        color: rgba(0, 0, 0, 0.5);
+        font-size: 1.3rem;
+        line-height: 20px;
+        cursor: pointer;
+    }
+
+    #rewardModal .close:hover {
+        color: #ef5350;
+        transform: scale(1.3);
+        -moz-transform:scale(1.3);
+        -webkit-transform:scale(1.3);
+        -o-transform:scale(1.3);
+    }
+
+    #rewardModal .reward-tabs {
+        margin: 0 auto;
+        width: 210px;
+    }
+
+    .reward-tabs .tabs {
+        height: 38px;
+        margin: 10px auto;
+        padding-left: 0;
+    }
+
+    .reward-content ul {
+        padding-left: 0 !important;
+    }
+
+    .reward-tabs .tabs .tab {
+        height: 38px;
+        line-height: 38px;
+    }
+
+    .reward-tabs .tab a {
+        color: #fff;
+        background-color: #ccc;
+    }
+
+    .reward-tabs .tab a:hover {
+        background-color: #ccc;
+        color: #fff;
+    }
+
+    .reward-tabs .wechat-tab .active {
+        color: #fff !important;
+        background-color: #22AB38 !important;
+    }
+
+    .reward-tabs .alipay-tab .active {
+        color: #fff !important;
+        background-color: #019FE8 !important;
+    }
+
+    .reward-tabs .reward-img {
+        width: 210px;
+        height: 210px;
+    }
+</style>
+
+<div id="reward">
+    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-medium waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close modal-close"><i class="fas fa-times"></i></a>
+            <h4 class="reward-title">你的赏识是我前进的动力</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs row">
+                        <li class="tab col s6 alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                        <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
+                    </ul>
+                    <div id="alipay">
+                        <img src="https://cdn.jsdelivr.net/gh/orgjinhc/orgjinhc.github.io/medias/reward/alipay.jpg" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                    <div id="wechat">
+                        <img src="https://cdn.jsdelivr.net/gh/orgjinhc/orgjinhc.github.io/medias/reward/wechatPay.png" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('.tabs').tabs();
+    });
+</script>
+            
+        </div>
+    </div>
+
+    
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orgjinhc/orgjinhc.github.io/libs/gitalk/gitalk.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orgjinhc/orgjinhc.github.io/css/my-gitalk.css">
+
+<div class="card gitalk-card" data-aos="fade-up">
+    <div class="comment_headling" style="font-size: 20px; font-weight: 700; position: relative; left: 20px; top: 15px; padding-bottom: 5px;">
+        <i class="fas fa-comments fa-fw" aria-hidden="true"></i>
+        <span>评论</span>
+    </div>
+    <div id="gitalk-container" class="card-content"></div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/gh/orgjinhc/orgjinhc.github.io/libs/gitalk/gitalk.min.js"></script>
+<script>
+    let gitalk = new Gitalk({
+        clientID: '',
+        clientSecret: '',
+        repo: '',
+        owner: '',
+        admin: null,
+        id: '2020-09-26T17-49-21',
+        distractionFreeMode: false  // Facebook-like distraction free mode
+    });
+
+    gitalk.render('gitalk-container');
+</script>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/2020/10/04/%E9%A1%B9%E7%9B%AE%E5%AE%8C%E6%95%B4%E7%9A%84%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="https://cdn.jsdelivr.net/gh/orgjinhc/orgjinhc.github.io/medias/featureimages/2.jpg" class="responsive-img" alt="项目完整的生命周期">
+                        
+                        <span class="card-title">项目完整的生命周期</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            项目概述项目启动可行性分析、立项
+需求评审需求确认架构设计
+微服务设计原则
+高内聚
+低耦合
+弹性设计：容错、降级、熔断、隔离
+自动化：持续集成、持续交付
+高度自治
+
+
+整体设计
+UML
+分层
+服务拆分
+AFK
+X：复制备份
+Y：业务拆分
+Z
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2020-10-04
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-user fa-fw"></i>
+                            靳宏财
+                            
+                        </span>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2020/09/19/Spring%20%E6%8A%80%E6%9C%AF%E7%BB%86%E8%8A%82%E3%80%81%E6%A0%B8%E5%BF%83%E6%80%9D%E6%83%B3/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="https://cdn.jsdelivr.net/gh/orgjinhc/orgjinhc.github.io/medias/featureimages/10.jpg" class="responsive-img" alt="Spring 技术细节、核心思想">
+                        
+                        <span class="card-title">Spring 技术细节、核心思想</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            一、Spring Framework一、简介开源框架轻量级企业级应用技术、整合第三方框架和类库，提供事务管理二、优点
+解耦，简化开发
+AOP 支持
+声明式事物
+集成
+
+三、核心结构四、核心思想IoC：对象创建、配置、组装。解决对象之间耦合问
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-09-19
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-user fa-fw"></i>
+                            靳宏财
+                            
+                        </span>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+<script>
+    $('#articleContent').on('copy', function (e) {
+        // IE8 or earlier browser is 'undefined'
+        if (typeof window.getSelection === 'undefined') return;
+
+        var selection = window.getSelection();
+        // if the selection is short let's not annoy our users.
+        if (('' + selection).length < Number.parseInt('120')) {
+            return;
+        }
+
+        // create a div outside of the visible area and fill it with the selected text.
+        var bodyElement = document.getElementsByTagName('body')[0];
+        var newdiv = document.createElement('div');
+        newdiv.style.position = 'absolute';
+        newdiv.style.left = '-99999px';
+        bodyElement.appendChild(newdiv);
+        newdiv.appendChild(selection.getRangeAt(0).cloneContents());
+
+        // we need a <pre> tag workaround.
+        // otherwise the text inside "pre" loses all the line breaks!
+        if (selection.getRangeAt(0).commonAncestorContainer.nodeName === 'PRE') {
+            newdiv.innerHTML = "<pre>" + newdiv.innerHTML + "</pre>";
+        }
+
+        var url = document.location.href;
+        newdiv.innerHTML += '<br />'
+            + '来源: Lion Heart<br />'
+            + '文章作者: 靳宏财<br />'
+            + '文章链接: <a href="' + url + '">' + url + '</a><br />'
+            + '本文章著作权归作者所有，任何形式的转载都请注明出处。';
+
+        selection.selectAllChildren(newdiv);
+        window.setTimeout(function () {bodyElement.removeChild(newdiv);}, 200);
+    });
+</script>
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/orgjinhc/orgjinhc.github.io/libs/codeBlock/codeBlockFuction.js"></script>
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/orgjinhc/orgjinhc.github.io/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/orgjinhc/orgjinhc.github.io/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/orgjinhc/orgjinhc.github.io/libs/codeBlock/codeShrink.js"></script>
+
+
+<!-- 代码块折行 -->
+
+<style type="text/css">
+code[class*="language-"], pre[class*="language-"] { white-space: pre !important; }
+</style>
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="https://cdn.jsdelivr.net/gh/orgjinhc/orgjinhc.github.io/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h2, h3, h4').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+    <footer class="page-footer bg-color">
+    <div class="container row center-align" style="margin-bottom: 0px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            <span id="year">2019</span>
+            <a href="http://orgjinhc.github.io" target="_blank">靳宏财</a>
+            <br>
+            
+            &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
+                class="white-color">120k</span>&nbsp;字
+            
+            
+            
+            
+            
+            
+            <span id="busuanzi_container_site_pv">
+                |&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;<span id="busuanzi_value_site_pv"
+                    class="white-color"></span>&nbsp;次
+            </span>
+            
+            
+            <span id="busuanzi_container_site_uv">
+                |&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;<span id="busuanzi_value_site_uv"
+                    class="white-color"></span>&nbsp;人
+            </span>
+            
+            <br>
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/orgjinhc" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="orgjinhc@163.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=1152062154@qq.com" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 1152062154" data-position="top" data-delay="50">
+        <i class="fab fa-qq"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <i class="fas fa-rss"></i>
+    </a>
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/gh/orgjinhc/orgjinhc.github.io/js/search.js"></script>
+<script type="text/javascript">
+$(function () {
+    searchFunc("https://cdn.jsdelivr.net/gh/orgjinhc/orgjinhc.github.io/" + "search.xml", 'searchInput', 'searchResult');
+});
+</script>
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="https://cdn.jsdelivr.net/gh/orgjinhc/orgjinhc.github.io/libs/materialize/materialize.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/orgjinhc/orgjinhc.github.io/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/orgjinhc/orgjinhc.github.io/libs/aos/aos.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/orgjinhc/orgjinhc.github.io/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/orgjinhc/orgjinhc.github.io/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/orgjinhc/orgjinhc.github.io/js/matery.js"></script>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+<script async src="https://www.googletagmanager.com/gtag/js?id="></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() {
+        dataLayer.push(arguments);
+    }
+
+    gtag('js', new Date());
+    gtag('config', '');
+</script>
+
+
+    <!-- Baidu Analytics -->
+
+<script>
+    var _hmt = _hmt || [];
+    (function () {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <script src="https://cdn.jsdelivr.net/gh/orgjinhc/orgjinhc.github.io/libs/others/clicklove.js" async="async"></script>
+    
+    
+    <script async src="https://cdn.jsdelivr.net/gh/orgjinhc/orgjinhc.github.io/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/orgjinhc/orgjinhc.github.io/libs/background/ribbon-dynamic.js" async="async"></script>
+    
+    
+    
+    <script src="https://cdn.jsdelivr.net/gh/orgjinhc/orgjinhc.github.io/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>

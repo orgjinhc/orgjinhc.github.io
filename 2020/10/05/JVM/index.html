@@ -1,0 +1,1408 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="JVM 面试集锦, Lion Heart">
+    <meta name="description" content="JVM 体系 总结">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>JVM 面试集锦 | Lion Heart</title>
+    <link rel="icon" type="image/png" href="https://cdn.jsdelivr.net/gh/orgjinhc/orgjinhc.github.io/favicon.png">
+
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/orgjinhc/orgjinhc.github.io/libs/awesome/css/all.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/orgjinhc/orgjinhc.github.io/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/orgjinhc/orgjinhc.github.io/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/orgjinhc/orgjinhc.github.io/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/orgjinhc/orgjinhc.github.io/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/orgjinhc/orgjinhc.github.io/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/orgjinhc/orgjinhc.github.io/css/my.css">
+    
+    <script src="https://cdn.jsdelivr.net/gh/orgjinhc/orgjinhc.github.io/libs/jquery/jquery.min.js"></script>
+    
+<meta name="generator" content="Hexo 4.2.0"><link rel="alternate" href="/atom.xml" title="Lion Heart" type="application/atom+xml">
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper head-container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="https://cdn.jsdelivr.net/gh/orgjinhc/orgjinhc.github.io/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">Lion Heart</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/contact" class="waves-effect waves-light">
+      
+      <i class="fas fa-comments" style="zoom: 0.6;"></i>
+      
+      <span>留言板</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="https://cdn.jsdelivr.net/gh/orgjinhc/orgjinhc.github.io/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">Lion Heart</div>
+        <div class="logo-desc">
+            
+            Never really desperate, only the lost of the soul.
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/contact" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-comments"></i>
+			
+			留言板
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			友情链接
+		</a>
+          
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/orgjinhc" class="waves-effect waves-light" target="_blank">
+                <i class="fab fa-github-square fa-fw"></i>Fork Me
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+        </div>
+
+        
+            <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/orgjinhc" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+   data-tooltip="Fork Me" data-position="left" data-delay="50">
+    <svg viewBox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+              fill="currentColor" class="octo-body"></path>
+    </svg>
+</a>
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('https://cdn.jsdelivr.net/gh/orgjinhc/orgjinhc.github.io/medias/featureimages/24.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">JVM 面试集锦</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orgjinhc/orgjinhc.github.io/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        width: 345px;
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        margin: 35px 0 15px 0;
+        padding-left: 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content {
+        height: calc(100vh - 250px);
+        overflow: auto;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #toc-content .is-active-link::before {
+        background-color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 15px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/%E9%9D%A2%E8%AF%95/">
+                                <span class="chip bg-color">面试</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/JVM/" class="post-category">
+                                JVM
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2020-10-05
+                </div>
+                
+
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
+                    4.9k
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                    17 分
+                </div>
+                
+
+                
+                    <div id="busuanzi_container_page_pv" class="info-break-policy">
+                        <i class="far fa-eye fa-fw"></i>阅读次数:&nbsp;&nbsp;
+                        <span id="busuanzi_value_page_pv"></span>
+                    </div>
+				
+            </div>
+
+        </div>
+        <hr class="clearfix">
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h1 id="JVM-面试集锦"><a href="#JVM-面试集锦" class="headerlink" title="JVM 面试集锦"></a>JVM 面试集锦</h1><h2 id="垃圾回收优化目的"><a href="#垃圾回收优化目的" class="headerlink" title="垃圾回收优化目的"></a>垃圾回收优化目的</h2><p><strong>合理的对线程系统优化内存分配和垃圾回收，尽可能减少垃圾回收的频率，降低垃圾回收的时间，减少垃圾回收对系统运行的影响.尽量让每次Young GC后的存活对象小于Survivor区域的50%，都留存在年轻代里。尽量别让对象进入老年代。尽量减少Full GC的频率，避免频繁Full GC对JVM性能的影响</strong></p>
+<h2 id="JVM有哪些部分组成？"><a href="#JVM有哪些部分组成？" class="headerlink" title="JVM有哪些部分组成？"></a>JVM有哪些部分组成？</h2><ul>
+<li>类加载器</li>
+<li>运行时数据区<ul>
+<li>堆：JVM 规范 分代模型</li>
+<li>方法区</li>
+<li>JVM 栈</li>
+<li>本地方法栈</li>
+<li>程序计数器</li>
+</ul>
+</li>
+<li>执行引擎</li>
+<li>本地库接口</li>
+</ul>
+<h2 id="怎么样通过Java程序来判断JVM是32位还是64位？"><a href="#怎么样通过Java程序来判断JVM是32位还是64位？" class="headerlink" title="怎么样通过Java程序来判断JVM是32位还是64位？"></a>怎么样通过Java程序来判断JVM是32位还是64位？</h2><p>通过Java程序来判断: System.out.println(System.clearProperty(“sun.arch.data.model”));</p>
+<h2 id="JVM的类加载机制"><a href="#JVM的类加载机制" class="headerlink" title="JVM的类加载机制"></a>JVM的类加载机制</h2><h2 id="JVM的核心运行流程"><a href="#JVM的核心运行流程" class="headerlink" title="JVM的核心运行流程"></a>JVM的核心运行流程</h2><h2 id="JVM垃圾回收机制"><a href="#JVM垃圾回收机制" class="headerlink" title="JVM垃圾回收机制"></a>JVM垃圾回收机制</h2><h2 id="JVM的垃圾回收机制是用来干嘛的？为什么要垃圾回收？"><a href="#JVM的垃圾回收机制是用来干嘛的？为什么要垃圾回收？" class="headerlink" title="JVM的垃圾回收机制是用来干嘛的？为什么要垃圾回收？"></a>JVM的垃圾回收机制是用来干嘛的？为什么要垃圾回收？</h2><p>我们在Java堆内存里创建的对象，都是占用内存资源的，而且内存资源有限。对于不需要使用的对象，我们要清理掉，从内存里清除掉，让他不再占用任何内存资源。</p>
+<h2 id="我们创建的那些对象，到底在Java堆内存里会占用多少内存空间呢？"><a href="#我们创建的那些对象，到底在Java堆内存里会占用多少内存空间呢？" class="headerlink" title="我们创建的那些对象，到底在Java堆内存里会占用多少内存空间呢？"></a>我们创建的那些对象，到底在Java堆内存里会占用多少内存空间呢？</h2><ul>
+<li>对象头<ul>
+<li>64 位 linux os 上，16 byte</li>
+</ul>
+</li>
+<li>类型指针<ul>
+<li>普通对象 16 byte</li>
+<li>数组</li>
+</ul>
+</li>
+<li>实例数据<ul>
+<li>int 4 byte</li>
+<li>long 8 byte</li>
+</ul>
+</li>
+<li>JVM 优化<ul>
+<li>补齐机制</li>
+<li>指针压缩</li>
+</ul>
+</li>
+</ul>
+<h2 id="JVM-运行时数据区内的堆空间为什么要分代？如何划分？"><a href="#JVM-运行时数据区内的堆空间为什么要分代？如何划分？" class="headerlink" title="JVM 运行时数据区内的堆空间为什么要分代？如何划分？"></a>JVM 运行时数据区内的堆空间为什么要分代？如何划分？</h2><p>对象生命周期的不同，导致有的对象存活的很久，由的对象存活的很短。又由于有限的资源空间不可能存储无限的对象。这就需要垃圾回收机制帮我们清理垃圾对象，如果所有对象都在一块内存区域，gc 就需要扫描一整块区域，如果我们将一整块区域拆分开，分别清理(不同的 gc 算法)，那将大大提高 gc 效率。</p>
+<ul>
+<li>年轻代</li>
+<li>年老代</li>
+</ul>
+<h2 id="对象到底什么时候进入新生代？然后什么情况下会进入老年代？"><a href="#对象到底什么时候进入新生代？然后什么情况下会进入老年代？" class="headerlink" title="对象到底什么时候进入新生代？然后什么情况下会进入老年代？"></a>对象到底什么时候进入新生代？然后什么情况下会进入老年代？</h2><p>大部分正常对象都优先在新生代分配内存</p>
+<h2 id="什么情况下会触发新生代的垃圾回收？"><a href="#什么情况下会触发新生代的垃圾回收？" class="headerlink" title="什么情况下会触发新生代的垃圾回收？"></a>什么情况下会触发新生代的垃圾回收？</h2><p>eden 区无法为新对象分配内存空间 。这个时候，就会触发一次新生代内存空间的垃圾回收，新生代内存空间的垃圾回收，也称之为“Minor GC”，有的时候我们也叫“Young GC”，他会尝试把新生代里那些没有引用的垃圾对象，都给回收掉。</p>
+<h2 id="方法区的类、废弃的常量会被垃圾回收吗？什么时候被回收？为什么呢？"><a href="#方法区的类、废弃的常量会被垃圾回收吗？什么时候被回收？为什么呢？" class="headerlink" title="方法区的类、废弃的常量会被垃圾回收吗？什么时候被回收？为什么呢？"></a>方法区的类、废弃的常量会被垃圾回收吗？什么时候被回收？为什么呢？</h2><ol>
+<li>会回收</li>
+<li>满足三个条件<ul>
+<li>该类的所有实例对象都已经从Java堆内存里被回收</li>
+<li>加载这个类的ClassLoader已经被回收</li>
+<li>对该类的Class对象没有任何引用</li>
+</ul>
+</li>
+</ol>
+<h2 id="JVM-的gc为什么要分代？"><a href="#JVM-的gc为什么要分代？" class="headerlink" title="JVM 的gc为什么要分代？"></a>JVM 的gc为什么要分代？</h2><p>对传统的GC的实现，在整个GC过程中都要”stop -the -world”，如果能想办法缩短GC一次工作的时间长度就是件重要的事情。如果说收集整个GC堆耗时太长，那不如只收集其中的一部分。</p>
+<p>所以可以通过分代思路来解决，分代思路基于：大部分对象的声明周期很短，没有死亡的对象则可能会存活很长时间。所以基于这种情况，如果让新创建的对象都在young gen 里创建，然后频繁收集young gen，则大部分垃圾都能在young GC 中被收集掉。由于young gen 的大小配置通常只占整个GC堆的较小部分，而且较高的对象死亡率(或者说较低的对象存活率)让其非常适合使用copying算法来收集，这样就能降低单次GC的时间长度，还可以提高GC的工作效率。</p>
+<h2 id="每个线程都有Java虚拟机栈，里面也有方法的局部变量等数据，这个Java虚拟机栈需要进行垃圾回收吗？为什么？"><a href="#每个线程都有Java虚拟机栈，里面也有方法的局部变量等数据，这个Java虚拟机栈需要进行垃圾回收吗？为什么？" class="headerlink" title="每个线程都有Java虚拟机栈，里面也有方法的局部变量等数据，这个Java虚拟机栈需要进行垃圾回收吗？为什么？"></a>每个线程都有Java虚拟机栈，里面也有方法的局部变量等数据，这个Java虚拟机栈需要进行垃圾回收吗？为什么？</h2><ul>
+<li><p>不会</p>
+</li>
+<li><p>JVM GC针对的是新生代，老年代，还有方法区（永久代），不会针对方法的栈帧。</p>
+</li>
+</ul>
+<h2 id="JVM-参数相关"><a href="#JVM-参数相关" class="headerlink" title="JVM 参数相关"></a>JVM 参数相关</h2><ul>
+<li>-Xmn：新生代大小</li>
+<li>-Xms：堆大小</li>
+<li>-Xmx：最大堆空间</li>
+<li>-Xss：栈内存大小</li>
+<li>-XX:PermSize：永久代大小</li>
+<li>-XX:MaxPermSize：最大永久代大小</li>
+</ul>
+<h2 id="二周目：短生存周期的对象和长生存周期的对象分别是什么，他们是如何在新生代里分配的，新生代什么时候触发Minor-GC，然后长生存周期的对象如何转移到老年代里去。"><a href="#二周目：短生存周期的对象和长生存周期的对象分别是什么，他们是如何在新生代里分配的，新生代什么时候触发Minor-GC，然后长生存周期的对象如何转移到老年代里去。" class="headerlink" title="二周目：短生存周期的对象和长生存周期的对象分别是什么，他们是如何在新生代里分配的，新生代什么时候触发Minor GC，然后长生存周期的对象如何转移到老年代里去。"></a>二周目：短生存周期的对象和长生存周期的对象分别是什么，他们是如何在新生代里分配的，新生代什么时候触发Minor GC，然后长生存周期的对象如何转移到老年代里去。</h2><h2 id="如何根据这个系统未来预估的业务量，访问量，去推算这个系统每秒种的并发量，然后推算每秒钟的请求对内存空间的占用，进而推算出整个系统运行期间的JVM内存运转模型。"><a href="#如何根据这个系统未来预估的业务量，访问量，去推算这个系统每秒种的并发量，然后推算每秒钟的请求对内存空间的占用，进而推算出整个系统运行期间的JVM内存运转模型。" class="headerlink" title="如何根据这个系统未来预估的业务量，访问量，去推算这个系统每秒种的并发量，然后推算每秒钟的请求对内存空间的占用，进而推算出整个系统运行期间的JVM内存运转模型。"></a>如何根据这个系统未来预估的业务量，访问量，去推算这个系统每秒种的并发量，然后推算每秒钟的请求对内存空间的占用，进而推算出整个系统运行期间的JVM内存运转模型。</h2><h3 id="系统需要部署多少台机器？每台机器需要多大的内存空间？每台机器上启动的JVM需要分配多大的堆内存空间？"><a href="#系统需要部署多少台机器？每台机器需要多大的内存空间？每台机器上启动的JVM需要分配多大的堆内存空间？" class="headerlink" title="系统需要部署多少台机器？每台机器需要多大的内存空间？每台机器上启动的JVM需要分配多大的堆内存空间？"></a>系统需要部署多少台机器？每台机器需要多大的内存空间？每台机器上启动的JVM需要分配多大的堆内存空间？</h3><h3 id="JVM多大的内存空间才能保证可以支撑百万请求在内存里的创建，而不会导致内存不够直接崩溃？"><a href="#JVM多大的内存空间才能保证可以支撑百万请求在内存里的创建，而不会导致内存不够直接崩溃？" class="headerlink" title="JVM多大的内存空间才能保证可以支撑百万请求在内存里的创建，而不会导致内存不够直接崩溃？"></a>JVM多大的内存空间才能保证可以支撑百万请求在内存里的创建，而不会导致内存不够直接崩溃？</h3><h3 id="每个对象需要多大内存空间？估算系统压力吗？估算系统的JVM内存压力吗？有针对性的合理设置JVM参数吗？之前是这么做的吗？为什么？"><a href="#每个对象需要多大内存空间？估算系统压力吗？估算系统的JVM内存压力吗？有针对性的合理设置JVM参数吗？之前是这么做的吗？为什么？" class="headerlink" title="每个对象需要多大内存空间？估算系统压力吗？估算系统的JVM内存压力吗？有针对性的合理设置JVM参数吗？之前是这么做的吗？为什么？"></a>每个对象需要多大内存空间？估算系统压力吗？估算系统的JVM内存压力吗？有针对性的合理设置JVM参数吗？之前是这么做的吗？为什么？</h3><h2 id="三周目"><a href="#三周目" class="headerlink" title="三周目"></a>三周目</h2><h2 id="什么情况下JVM内存中的一个对象会被垃圾回收？"><a href="#什么情况下JVM内存中的一个对象会被垃圾回收？" class="headerlink" title="什么情况下JVM内存中的一个对象会被垃圾回收？"></a>什么情况下JVM内存中的一个对象会被垃圾回收？</h2><h2 id="万一垃圾回收过后，存活下来的对象超过了10-的内存空间，在另外一块Survivor区域中放不下咋整？"><a href="#万一垃圾回收过后，存活下来的对象超过了10-的内存空间，在另外一块Survivor区域中放不下咋整？" class="headerlink" title="万一垃圾回收过后，存活下来的对象超过了10%的内存空间，在另外一块Survivor区域中放不下咋整？"></a>万一垃圾回收过后，存活下来的对象超过了10%的内存空间，在另外一块Survivor区域中放不下咋整？</h2><h2 id="万一我们突然分配了一个超级大的对象，大到啥程度？新生代找不到连续内存空间来存放，此时咋整？"><a href="#万一我们突然分配了一个超级大的对象，大到啥程度？新生代找不到连续内存空间来存放，此时咋整？" class="headerlink" title="万一我们突然分配了一个超级大的对象，大到啥程度？新生代找不到连续内存空间来存放，此时咋整？"></a>万一我们突然分配了一个超级大的对象，大到啥程度？新生代找不到连续内存空间来存放，此时咋整？</h2><h2 id="到底一个存活对象要在新生代里这么来回倒腾多少次之后才会被转移都老年代去？"><a href="#到底一个存活对象要在新生代里这么来回倒腾多少次之后才会被转移都老年代去？" class="headerlink" title="到底一个存活对象要在新生代里这么来回倒腾多少次之后才会被转移都老年代去？"></a>到底一个存活对象要在新生代里这么来回倒腾多少次之后才会被转移都老年代去？</h2><h2 id="到底是单线程进行垃圾回收好呢？还是多线程进行垃圾回收好呢？在不同的场景下有各自的优缺点吗？"><a href="#到底是单线程进行垃圾回收好呢？还是多线程进行垃圾回收好呢？在不同的场景下有各自的优缺点吗？" class="headerlink" title="到底是单线程进行垃圾回收好呢？还是多线程进行垃圾回收好呢？在不同的场景下有各自的优缺点吗？"></a>到底是单线程进行垃圾回收好呢？还是多线程进行垃圾回收好呢？在不同的场景下有各自的优缺点吗？</h2><h2 id="eden区和survivor区-对象是通过什么规则被分配到这两个区的呢？"><a href="#eden区和survivor区-对象是通过什么规则被分配到这两个区的呢？" class="headerlink" title="eden区和survivor区 对象是通过什么规则被分配到这两个区的呢？"></a>eden区和survivor区 对象是通过什么规则被分配到这两个区的呢？</h2><h2 id="如何不发生FullGC"><a href="#如何不发生FullGC" class="headerlink" title="如何不发生FullGC"></a>如何不发生FullGC</h2><p>首先上线系统之后，要借助一些工具（后面会讲）观察每秒钟会新增多少对象在新生代里，然后多长时间触发一次Minor GC，平均每次MInor GC之后会有多少对象存活，Survivor区是否可以放的下。</p>
+<p>这里的关键点就是必须让Survivor区放下，而且不能因为动态年龄判定规则直接升入老年代。然后只要Survivor区可以放下，那么下次Minor GC后还是存活这么多对象，依然可以在另外一块Survivor区放下，基本就不会有对象升入老年代里去。</p>
+<h2 id="小总结"><a href="#小总结" class="headerlink" title="小总结"></a>小总结</h2><ol>
+<li>JVM 核心运行组成</li>
+<li>JVM 运行原理</li>
+<li>什么是垃圾</li>
+<li>如何发现垃圾</li>
+<li>GC 算法</li>
+<li>GC 收集器</li>
+<li>什么时候出发 Minor GC</li>
+<li>触发Minor GC之前会如何检查老年代可用内存大小和新生代对象大小，如何检查老年代可用内存大小和历次Minor GC之后升入老年代的平均对象大小</li>
+<li>什么情况下Minor GC之前会提前触发Full GC，什么情况下会直接触发Minor GC</li>
+<li>Minor GC之后有哪几种情况对象会进入老年代</li>
+</ol>
+<h3 id="深入了解年轻代垃圾收集器-PerNew-原理"><a href="#深入了解年轻代垃圾收集器-PerNew-原理" class="headerlink" title="深入了解年轻代垃圾收集器 PerNew 原理"></a>深入了解年轻代垃圾收集器 PerNew 原理</h3><h3 id="如何使用-PerNew-GC"><a href="#如何使用-PerNew-GC" class="headerlink" title="如何使用 PerNew GC"></a>如何使用 PerNew GC</h3><p>-XX:+UseParNewGC</p>
+<h3 id="ParNew垃圾回收器默认情况下的线程数量"><a href="#ParNew垃圾回收器默认情况下的线程数量" class="headerlink" title="ParNew垃圾回收器默认情况下的线程数量"></a><strong>ParNew垃圾回收器默认情况下的线程数量</strong></h3><p>默认设置的垃圾回收线程的数量就是跟CPU的核数是一样</p>
+<p>可以通过 -XX:ParallelGCThreads 指定</p>
+<p><img src="http://lion-heart.online/blog/2020-10-06-055241.png" alt="多线程方式"></p>
+<h3 id="到底是用单线程垃圾回收好，还是多线程垃圾回收好？"><a href="#到底是用单线程垃圾回收好，还是多线程垃圾回收好？" class="headerlink" title="到底是用单线程垃圾回收好，还是多线程垃圾回收好？"></a>到底是用单线程垃圾回收好，还是多线程垃圾回收好？</h3><p>主要看场景和机器配置</p>
+<p>单核的配置采用单线程好，多核的配置采用多线程好</p>
+<h3 id="到底是Serial垃圾回收器好还是ParNew垃圾回收器好？"><a href="#到底是Serial垃圾回收器好还是ParNew垃圾回收器好？" class="headerlink" title="到底是Serial垃圾回收器好还是ParNew垃圾回收器好？"></a>到底是Serial垃圾回收器好还是ParNew垃圾回收器好？</h3><p>Serial 就是单线程</p>
+<p>ParNew 就是多线程，参考上面的答案</p>
+<h2 id="仅仅young-gc，而几乎没有full-gc？"><a href="#仅仅young-gc，而几乎没有full-gc？" class="headerlink" title="仅仅young gc，而几乎没有full gc？"></a>仅仅young gc，而几乎没有full gc？</h2><p>只要结合自己系统的运行，根据他的内存占用情况，GC后的对象存活情况，合理分配Eden、Survivor、老年代的内存大小，合理设置一些参数</p>
+<h2 id="CMS-垃圾收集器原理"><a href="#CMS-垃圾收集器原理" class="headerlink" title="CMS 垃圾收集器原理"></a>CMS 垃圾收集器原理</h2><h3 id="如何使用-CMS"><a href="#如何使用-CMS" class="headerlink" title="如何使用 CMS"></a>如何使用 CMS</h3><h3 id="CMS垃圾回收器默认情况下的线程数量"><a href="#CMS垃圾回收器默认情况下的线程数量" class="headerlink" title="CMS垃圾回收器默认情况下的线程数量"></a>CMS垃圾回收器默认情况下的线程数量</h3><p>（CPU核数 + 3）/ 4</p>
+<p>垃圾回收线程和系统工作线程尽量同时执行的模式来处理的。</p>
+<ol>
+<li><p>初始标记(STW)</p>
+<ul>
+<li>标记出来所有GC Roots直接引用的对象</li>
+<li><img src="http://lion-heart.online/blog/2020-10-06-063232.png" alt="初始标记"></li>
+</ul>
+</li>
+<li><p>并发标记</p>
+<ul>
+<li>是对老年代所有对象进行GC Roots追踪，从GC Roots追踪所有对象是否从根源上被GC Roots引用了，最耗时的阶段</li>
+<li><img src="http://lion-heart.online/blog/2020-10-06-064036.png" alt="并发标记"></li>
+</ul>
+</li>
+<li><p>重新标记(STW)</p>
+<ul>
+<li>对在第二阶段中被系统程序运行变动过的少数对象进行标记。标记存活、标记垃圾</li>
+<li>被新建的对象，被变动的对象，有数据结构记录，所以这个阶段很快</li>
+<li><img src="http://lion-heart.online/blog/2020-10-06-070138.png" alt="重新标记第二阶段新产生的对象"></li>
+</ul>
+</li>
+<li><p>并发清理：并发执行</p>
+<ul>
+<li><p>来清理掉之前标记为垃圾的对象即可</p>
+</li>
+<li><p><img src="http://lion-heart.online/blog/2020-10-06-070538.png" alt="并发清理"></p>
+</li>
+</ul>
+</li>
+</ol>
+<p>总结：简单来说，为了避免长时间“Stop the World”，CMS采用了4个阶段来垃圾回收，其中初始标记和重新标记，耗时很短，虽然会导致“Stop the World”，但是影响不大。</p>
+<p>然后并发标记和并发清理，两个阶段耗时最长，但是是可以跟系统的工作线程并发运行的，所以对系统没太大影响。</p>
+<h3 id="存在的问题"><a href="#存在的问题" class="headerlink" title="存在的问题"></a>存在的问题</h3><ol>
+<li>CPU 资源占用</li>
+<li>Concurrent Mode Failure<ul>
+<li>浮动垃圾：并发清理期间，进入到老年代，短时间内又没有引用的对象</li>
+<li>-XX:CMSInitiatingOccupancyFaction”参数可以用来设置老年代占用多少比例的时候触发CMS垃圾回收，JDK 1.6里面默认的值是92%。</li>
+<li>自动用“Serial Old”垃圾回收器替代CMS</li>
+</ul>
+</li>
+<li>内存碎片<ul>
+<li>-XX:CMSFullGCsBeforeCompaction 碎片整理工作</li>
+<li>-XX:+UseCMSCompactAtFullCollection 开启 标记-整理 GC 算法，默认 标记 - 清除 GC 算法</li>
+</ul>
+</li>
+</ol>
+<h3 id="为什么老年代的垃圾回收速度会比新生代的垃圾回收速度慢很多倍？到底慢在哪里？"><a href="#为什么老年代的垃圾回收速度会比新生代的垃圾回收速度慢很多倍？到底慢在哪里？" class="headerlink" title="为什么老年代的垃圾回收速度会比新生代的垃圾回收速度慢很多倍？到底慢在哪里？"></a>为什么老年代的垃圾回收速度会比新生代的垃圾回收速度慢很多倍？到底慢在哪里？</h3><p>算法本身的快慢原因</p>
+<p>复制算法 - 遍历一次 GC Roots 即可完成 GC</p>
+<p>标记清理 - 遍历两次，第一次从GC Roots 标记存活对象，第二次 遍历内存中所有对象找到标记垃圾对象，进行清理</p>
+<p>分代特性原因</p>
+<p>年轻代特性：空间小，存活对象少，迁移内存很快，让后一次性清理垃圾对象。</p>
+<p>老年代特性：空间大，存活对象很多，漫长的对象移动（找到垃圾清理，存活对象空间整理）</p>
+<p>CMS 本身会引发其他问题</p>
+<p>总结：新生代执行速度其实很快，因为直接从GC Roots出发就追踪哪些对象是活的就行了，新生代存活对象是很少的，这个速度是极快的，不需要追踪多少对象。然后直接把存活对象放入Survivor中，就一次性直接回收Eden和之前使用的Survivor了。</p>
+<p>但是CMS的Full GC呢？</p>
+<p>在并发标记阶段，他需要去追踪所有存活对象，老年代存活对象很多，这个过程就会很慢；</p>
+<p>其次并发清理阶段，他不是一次性回收一大片内存，而是找到零零散散在各个地方的垃圾对象，速度也很慢；最后完事儿了，还得执行一次内存碎片整理，把大量的存活对象给挪在一起，空出来连续内存空间，这个过程还得“Stop theWorld”，那就更慢了。</p>
+<p>万一并发清理期间，剩余内存空间不足以存放要进入老年代的对象了，引发了“Concurrent Mode Failure”问题，那更是麻烦，还得立马用“Serial Old”垃圾回收器，“Stop the World”之后慢慢重新来一遍回收的过程，这更是耗时了。</p>
+<h2 id="GC-Rtoos-是什么？"><a href="#GC-Rtoos-是什么？" class="headerlink" title="GC Rtoos 是什么？"></a>GC Rtoos 是什么？</h2><p>所谓“GC roots”，或者说tracing GC的“根集合”，就是<strong>一组必须活跃的引用</strong><br>例如说，这些引用可能包括：</p>
+<ul>
+<li>所有Java线程当前活跃的栈帧里指向GC堆里的对象的引用；换句话说，当前所有正在被调用的方法的引用类型的参数/局部变量/临时值。</li>
+<li>VM的一些静态数据结构里指向GC堆里的对象的引用，例如说HotSpot VM里的Universe里有很多这样的引用。</li>
+<li>JNI handles，包括global handles和local handles</li>
+<li>（看情况）所有当前被加载的Java类</li>
+<li>（看情况）Java类的引用类型静态变量</li>
+<li>（看情况）Java类的运行时常量池里的引用类型常量（String或Class类型）</li>
+<li>（看情况）String常量池（StringTable）里的引用</li>
+</ul>
+<p>Tracing GC的根本思路就是：给定一个集合的引用作为根出发，通过引用关系遍历对象图，能被遍历到的（可到达的）对象就被判定为存活，其余对象（也就是没有被遍历到的）就自然被判定为死亡。<strong>注意再注意：tracing GC的本质是<code>通过找出所有活对象来把其余空间认定为“无用”，而不是找出所有死掉的对象并回收它们占用的空间</code></strong><br>GC roots这组引用是tracing GC的<strong>起点</strong>。要实现语义正确的tracing GC，就必须要能完整枚举出<strong>所有的GC roots</strong>，否则就可能会漏扫描应该存活的对象，导致GC错误回收了这些被漏扫的活对象。</p>
+<p>那么分代式GC对GC roots的定义有什么影响呢？<br>答案是：分代式GC是一种部分收集（partial collection）的做法。在执行部分收集时，从GC堆的非收集部分指向收集部分的引用，也必须作为GC roots的一部分。</p>
+<p>具体到分两代的分代式GC来说，如果第0代叫做young gen，第1代叫做old gen，那么如果有minor GC / young GC只收集young gen里的垃圾，则young gen属于“收集部分”，而old gen属于“非收集部分”，那么从old gen指向young gen的引用就必须作为minor GC / young GC的GC roots的一部分。<br>继续具体到HotSpot VM里的分两代式GC来说，除了old gen到young gen的引用之外，有些带有弱引用语义的结构，例如说记录所有当前被加载的类的SystemDictionary、记录字符串常量引用的StringTable等，在young GC时必须要作为strong GC roots，而在收集整堆的full GC时则不会被看作strong GC roots。</p>
+<p>换句话说，young GC比full GC的GC roots还要更大一些。如果不能理解这个道理，那整个讨论也就无从谈起了</p>
+<h2 id="ParNew-CMS的组合让我们有哪些痛点？"><a href="#ParNew-CMS的组合让我们有哪些痛点？" class="headerlink" title="ParNew + CMS的组合让我们有哪些痛点？"></a>ParNew + CMS的组合让我们有哪些痛点？</h2><p>STW 问题，无论是年轻代还是老年代都会产生。其次 CMS 的问题，浮动垃圾导致的 Concurrent Mode Failure、标记清理算法导致的碎片问题、并行标记和并行清理阶段的CPU占用问题，极端情况下老年代收集器变成 Serial Old </p>
+<h2 id="G1垃圾回收器的设计思想，包括Region的划分，然后Region动态转移给新生代或者老年代，按需分配？"><a href="#G1垃圾回收器的设计思想，包括Region的划分，然后Region动态转移给新生代或者老年代，按需分配？" class="headerlink" title="G1垃圾回收器的设计思想，包括Region的划分，然后Region动态转移给新生代或者老年代，按需分配？"></a>G1垃圾回收器的设计思想，包括Region的划分，然后Region动态转移给新生代或者老年代，按需分配？</h2><p>思想：G1可以做到让你来设定垃圾回收对系统的影响，他自己通过把内存拆分为大量小Region，以及追踪每个Region中可以回收的对象大小和预估时间，最后在垃圾回收的时候，尽量把垃圾回收对系统造成的影响控制在你指定的时间范围内，同时在有限的时间内尽量回收尽可能多的垃圾对象</p>
+<h2 id="G1是如何工作的？"><a href="#G1是如何工作的？" class="headerlink" title="G1是如何工作的？"></a>G1是如何工作的？</h2><h2 id="对象什么时候进入新生代的Region？"><a href="#对象什么时候进入新生代的Region？" class="headerlink" title="对象什么时候进入新生代的Region？"></a>对象什么时候进入新生代的Region？</h2><h2 id="什么时候触发Region-GC？"><a href="#什么时候触发Region-GC？" class="headerlink" title="什么时候触发Region GC？"></a>什么时候触发Region GC？</h2><h2 id="什么时候对象进入老年代的Region？"><a href="#什么时候对象进入老年代的Region？" class="headerlink" title="什么时候对象进入老年代的Region？"></a>什么时候对象进入老年代的Region？</h2><h2 id="什么时候触发老年代的Region-GC？"><a href="#什么时候触发老年代的Region-GC？" class="headerlink" title="什么时候触发老年代的Region GC？"></a>什么时候触发老年代的Region GC？</h2><h2 id="GC-实战"><a href="#GC-实战" class="headerlink" title="GC 实战"></a>GC 实战</h2><h3 id="GC-日志相关"><a href="#GC-日志相关" class="headerlink" title="GC 日志相关"></a>GC 日志相关</h3><h3 id="Jstat-命令：简单易用、高效实用的命令行jvm监控工具。实现查看-JVM-整体运行情况"><a href="#Jstat-命令：简单易用、高效实用的命令行jvm监控工具。实现查看-JVM-整体运行情况" class="headerlink" title="Jstat 命令：简单易用、高效实用的命令行jvm监控工具。实现查看 JVM 整体运行情况"></a>Jstat 命令：简单易用、高效实用的命令行jvm监控工具。实现查看 JVM 整体运行情况</h3><p>Eden、Survivor、老年代的内存使用情况，还有Young GC和Full gC的执行次数以及耗时</p>
+<pre class=" language-html"><code class="language-html">S0C：这是From Survivor区的大小
+S1C：这是To Survivor区的大小
+S0U：这是From Survivor区当前使用的内存大小
+S1U：这是To Survivor区当前使用的内存大小
+EC：这是Eden区的大小
+EU：这是Eden区当前使用的内存大小
+OC：这是老年代的大小
+OU：这是老年代当前使用的内存大小
+MC：这是方法区（永久代、元数据区）的大小
+MU：这是方法区（永久代、元数据区）的当前使用的内存大小
+YGC：这是系统运行迄今为止的Young GC次数
+YGCT：这是Young GC的耗时
+FGC：这是系统运行迄今为止的Full GC次数
+FGCT：这是Full GC的耗时
+GCT：这是所有GC的总耗时
+
+</code></pre>
+<p>其他 相关命令</p>
+<pre class=" language-html"><code class="language-html">jstat -gccapacity PID：堆内存分析
+jstat -gcnew PID：年轻代GC分析，这里的TT和MTT可以看到对象在年轻代存活的年龄和存活的最大年龄
+jstat -gcnewcapacity PID：年轻代内存分析
+jstat -gcold PID：老年代GC分析
+jstat -gcoldcapacity PID：老年代内存分析
+jstat -gcmetacapacity PID：元数据区内存分析</code></pre>
+<p>核心关注参数</p>
+<p>新生代对象增长的速率，Young GC的触发频率，Young GC的耗时，每次Young GC后有多少对象是存活下来的，每次Young GC过后有多少对象进入了老年代，老年代对象增长的速率，Full GC的触发频率，Full GC的耗时。</p>
+<p><code>新生代对象增长的速率</code>：根据 jstat -gc pid 时间，来观察 EU 指标</p>
+<p>1s  =  5M</p>
+<p><img src="http://lion-heart.online/blog/2020-10-08-064231.png" alt="每秒E区使用内存率"></p>
+<p><code>Young GC的触发频率</code>：很容易推算出来</p>
+<p>17</p>
+<p><code>Young GC的耗时</code>：YGC / YGCT</p>
+<p>1ms</p>
+<p><code>每次Young GC后有多少对象是存活下来的</code>：无法直接获取，根据GC触发的频率，观察EU、Suvivor、老年代对象变化</p>
+<p>800kb</p>
+<p><code>每次Young GC过后有多少对象进入了老年代，老年代对象增长的速率</code>：由上得出这两项指标</p>
+<p>0</p>
+<h3 id="jmap-命令：系统运行时的内存区域，到底什么对象占据了那么多内存"><a href="#jmap-命令：系统运行时的内存区域，到底什么对象占据了那么多内存" class="headerlink" title="jmap 命令：系统运行时的内存区域，到底什么对象占据了那么多内存"></a>jmap 命令：系统运行时的内存区域，到底什么对象占据了那么多内存</h3><p><strong>jmap -heap PID</strong></p>
+<p><strong>jmap -histo PID</strong></p>
+<p><strong>jmap -dump:live,format=b,file=dump.hprof PID</strong></p>
+<h3 id="jhat-命令："><a href="#jhat-命令：" class="headerlink" title="jhat 命令："></a>jhat 命令：</h3><h2 id="频繁-Full-GC-原因？"><a href="#频繁-Full-GC-原因？" class="headerlink" title="频繁 Full GC 原因？"></a>频繁 Full GC 原因？</h2><ol>
+<li>内存分配不合理，导致对象频繁进入老年代，进而引发频繁的Full GC<ul>
+<li>通过 jstat -gc 分析各区内存使用情况</li>
+</ul>
+</li>
+<li>存在内存泄漏等问题，就是内存里驻留了大量的对象塞满了老年代，导致稍微有一些对象进入老年代就会引发Full GC<ul>
+<li>jmap -dump。。。。。配置 MAT 分析工具</li>
+</ul>
+</li>
+<li>永久代里的类太多，触发了Full GC<ul>
+<li>jstat -gc 查看永久代使用率</li>
+</ul>
+</li>
+</ol>
+<h2 id="CPU-负载高原因？"><a href="#CPU-负载高原因？" class="headerlink" title="CPU 负载高原因？"></a>CPU 负载高原因？</h2><ol>
+<li>大量线程或任务并发执行，占用大量 cpu 资源</li>
+<li>异常的Full GC 导致</li>
+</ol>
+
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="http://orgjinhc.github.io" rel="external nofollow noreferrer">靳宏财</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="http://orgjinhc.github.io/2020/10/05/JVM/">http://orgjinhc.github.io/2020/10/05/JVM/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="http://orgjinhc.github.io" target="_blank">靳宏财</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/%E9%9D%A2%E8%AF%95/">
+                                    <span class="chip bg-color">面试</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/orgjinhc/orgjinhc.github.io/libs/share/css/share.min.css">
+
+<div id="article-share">
+    
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="https://cdn.jsdelivr.net/gh/orgjinhc/orgjinhc.github.io/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+                <style>
+    #reward {
+        margin: 40px 0;
+        text-align: center;
+    }
+
+    #reward .reward-link {
+        font-size: 1.4rem;
+        line-height: 38px;
+    }
+
+    #reward .btn-floating:hover {
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2), 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    #rewardModal {
+        width: 320px;
+        height: 350px;
+    }
+
+    #rewardModal .reward-title {
+        margin: 15px auto;
+        padding-bottom: 5px;
+    }
+
+    #rewardModal .modal-content {
+        padding: 10px;
+    }
+
+    #rewardModal .close {
+        position: absolute;
+        right: 15px;
+        top: 15px;
+        color: rgba(0, 0, 0, 0.5);
+        font-size: 1.3rem;
+        line-height: 20px;
+        cursor: pointer;
+    }
+
+    #rewardModal .close:hover {
+        color: #ef5350;
+        transform: scale(1.3);
+        -moz-transform:scale(1.3);
+        -webkit-transform:scale(1.3);
+        -o-transform:scale(1.3);
+    }
+
+    #rewardModal .reward-tabs {
+        margin: 0 auto;
+        width: 210px;
+    }
+
+    .reward-tabs .tabs {
+        height: 38px;
+        margin: 10px auto;
+        padding-left: 0;
+    }
+
+    .reward-content ul {
+        padding-left: 0 !important;
+    }
+
+    .reward-tabs .tabs .tab {
+        height: 38px;
+        line-height: 38px;
+    }
+
+    .reward-tabs .tab a {
+        color: #fff;
+        background-color: #ccc;
+    }
+
+    .reward-tabs .tab a:hover {
+        background-color: #ccc;
+        color: #fff;
+    }
+
+    .reward-tabs .wechat-tab .active {
+        color: #fff !important;
+        background-color: #22AB38 !important;
+    }
+
+    .reward-tabs .alipay-tab .active {
+        color: #fff !important;
+        background-color: #019FE8 !important;
+    }
+
+    .reward-tabs .reward-img {
+        width: 210px;
+        height: 210px;
+    }
+</style>
+
+<div id="reward">
+    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-medium waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close modal-close"><i class="fas fa-times"></i></a>
+            <h4 class="reward-title">你的赏识是我前进的动力</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs row">
+                        <li class="tab col s6 alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                        <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
+                    </ul>
+                    <div id="alipay">
+                        <img src="https://cdn.jsdelivr.net/gh/orgjinhc/orgjinhc.github.io/medias/reward/alipay.jpg" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                    <div id="wechat">
+                        <img src="https://cdn.jsdelivr.net/gh/orgjinhc/orgjinhc.github.io/medias/reward/wechatPay.png" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('.tabs').tabs();
+    });
+</script>
+            
+        </div>
+    </div>
+
+    
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orgjinhc/orgjinhc.github.io/libs/gitalk/gitalk.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orgjinhc/orgjinhc.github.io/css/my-gitalk.css">
+
+<div class="card gitalk-card" data-aos="fade-up">
+    <div class="comment_headling" style="font-size: 20px; font-weight: 700; position: relative; left: 20px; top: 15px; padding-bottom: 5px;">
+        <i class="fas fa-comments fa-fw" aria-hidden="true"></i>
+        <span>评论</span>
+    </div>
+    <div id="gitalk-container" class="card-content"></div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/gh/orgjinhc/orgjinhc.github.io/libs/gitalk/gitalk.min.js"></script>
+<script>
+    let gitalk = new Gitalk({
+        clientID: '',
+        clientSecret: '',
+        repo: '',
+        owner: '',
+        admin: null,
+        id: '2020-10-05T12-28-10',
+        distractionFreeMode: false  // Facebook-like distraction free mode
+    });
+
+    gitalk.render('gitalk-container');
+</script>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/2020/10/25/mybatis/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="https://cdn.jsdelivr.net/gh/orgjinhc/orgjinhc.github.io/medias/featureimages/6.jpg" class="responsive-img" alt="Mybatis 面试集锦">
+                        
+                        <span class="card-title">Mybatis 面试集锦</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            mybatis 体系 总结
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2020-10-25
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/MyBatis/" class="post-category">
+                                    MyBatis
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E9%9D%A2%E8%AF%95/">
+                        <span class="chip bg-color">面试</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2020/10/04/%E9%A1%B9%E7%9B%AE%E5%AE%8C%E6%95%B4%E7%9A%84%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="https://cdn.jsdelivr.net/gh/orgjinhc/orgjinhc.github.io/medias/featureimages/2.jpg" class="responsive-img" alt="项目完整的生命周期">
+                        
+                        <span class="card-title">项目完整的生命周期</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            项目概述项目启动可行性分析、立项
+需求评审需求确认架构设计
+微服务设计原则
+高内聚
+低耦合
+弹性设计：容错、降级、熔断、隔离
+自动化：持续集成、持续交付
+高度自治
+
+
+整体设计
+UML
+分层
+服务拆分
+AFK
+X：复制备份
+Y：业务拆分
+Z
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-10-04
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-user fa-fw"></i>
+                            靳宏财
+                            
+                        </span>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+<script>
+    $('#articleContent').on('copy', function (e) {
+        // IE8 or earlier browser is 'undefined'
+        if (typeof window.getSelection === 'undefined') return;
+
+        var selection = window.getSelection();
+        // if the selection is short let's not annoy our users.
+        if (('' + selection).length < Number.parseInt('120')) {
+            return;
+        }
+
+        // create a div outside of the visible area and fill it with the selected text.
+        var bodyElement = document.getElementsByTagName('body')[0];
+        var newdiv = document.createElement('div');
+        newdiv.style.position = 'absolute';
+        newdiv.style.left = '-99999px';
+        bodyElement.appendChild(newdiv);
+        newdiv.appendChild(selection.getRangeAt(0).cloneContents());
+
+        // we need a <pre> tag workaround.
+        // otherwise the text inside "pre" loses all the line breaks!
+        if (selection.getRangeAt(0).commonAncestorContainer.nodeName === 'PRE') {
+            newdiv.innerHTML = "<pre>" + newdiv.innerHTML + "</pre>";
+        }
+
+        var url = document.location.href;
+        newdiv.innerHTML += '<br />'
+            + '来源: Lion Heart<br />'
+            + '文章作者: 靳宏财<br />'
+            + '文章链接: <a href="' + url + '">' + url + '</a><br />'
+            + '本文章著作权归作者所有，任何形式的转载都请注明出处。';
+
+        selection.selectAllChildren(newdiv);
+        window.setTimeout(function () {bodyElement.removeChild(newdiv);}, 200);
+    });
+</script>
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/orgjinhc/orgjinhc.github.io/libs/codeBlock/codeBlockFuction.js"></script>
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/orgjinhc/orgjinhc.github.io/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/orgjinhc/orgjinhc.github.io/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/orgjinhc/orgjinhc.github.io/libs/codeBlock/codeShrink.js"></script>
+
+
+<!-- 代码块折行 -->
+
+<style type="text/css">
+code[class*="language-"], pre[class*="language-"] { white-space: pre !important; }
+</style>
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="https://cdn.jsdelivr.net/gh/orgjinhc/orgjinhc.github.io/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h2, h3, h4').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+    <footer class="page-footer bg-color">
+    <div class="container row center-align" style="margin-bottom: 0px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            <span id="year">2019</span>
+            <a href="http://orgjinhc.github.io" target="_blank">靳宏财</a>
+            <br>
+            
+            &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
+                class="white-color">120k</span>&nbsp;字
+            
+            
+            
+            
+            
+            
+            <span id="busuanzi_container_site_pv">
+                |&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;<span id="busuanzi_value_site_pv"
+                    class="white-color"></span>&nbsp;次
+            </span>
+            
+            
+            <span id="busuanzi_container_site_uv">
+                |&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;<span id="busuanzi_value_site_uv"
+                    class="white-color"></span>&nbsp;人
+            </span>
+            
+            <br>
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/orgjinhc" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="orgjinhc@163.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=1152062154@qq.com" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 1152062154" data-position="top" data-delay="50">
+        <i class="fab fa-qq"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <i class="fas fa-rss"></i>
+    </a>
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/gh/orgjinhc/orgjinhc.github.io/js/search.js"></script>
+<script type="text/javascript">
+$(function () {
+    searchFunc("https://cdn.jsdelivr.net/gh/orgjinhc/orgjinhc.github.io/" + "search.xml", 'searchInput', 'searchResult');
+});
+</script>
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="https://cdn.jsdelivr.net/gh/orgjinhc/orgjinhc.github.io/libs/materialize/materialize.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/orgjinhc/orgjinhc.github.io/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/orgjinhc/orgjinhc.github.io/libs/aos/aos.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/orgjinhc/orgjinhc.github.io/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/orgjinhc/orgjinhc.github.io/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/orgjinhc/orgjinhc.github.io/js/matery.js"></script>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+<script async src="https://www.googletagmanager.com/gtag/js?id="></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() {
+        dataLayer.push(arguments);
+    }
+
+    gtag('js', new Date());
+    gtag('config', '');
+</script>
+
+
+    <!-- Baidu Analytics -->
+
+<script>
+    var _hmt = _hmt || [];
+    (function () {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <script src="https://cdn.jsdelivr.net/gh/orgjinhc/orgjinhc.github.io/libs/others/clicklove.js" async="async"></script>
+    
+    
+    <script async src="https://cdn.jsdelivr.net/gh/orgjinhc/orgjinhc.github.io/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/orgjinhc/orgjinhc.github.io/libs/background/ribbon-dynamic.js" async="async"></script>
+    
+    
+    
+    <script src="https://cdn.jsdelivr.net/gh/orgjinhc/orgjinhc.github.io/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>

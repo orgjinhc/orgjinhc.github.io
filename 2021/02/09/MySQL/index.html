@@ -1,0 +1,2648 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="MySQL, Lion Heart">
+    <meta name="description" content="MySQL一、必备基础一、官网、文档https://www.mysql.com
+软件版本及历史96年发布第一个版本
+2000年开源。MyISAM引擎正式提供服务
+01年发布4.0整合了InnoDB引擎
+05年发布5.0，加入了游标、存储过程">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>MySQL | Lion Heart</title>
+    <link rel="icon" type="image/png" href="https://cdn.jsdelivr.net/gh/orgjinhc/orgjinhc.github.io/favicon.png">
+
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/orgjinhc/orgjinhc.github.io/libs/awesome/css/all.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/orgjinhc/orgjinhc.github.io/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/orgjinhc/orgjinhc.github.io/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/orgjinhc/orgjinhc.github.io/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/orgjinhc/orgjinhc.github.io/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/orgjinhc/orgjinhc.github.io/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/orgjinhc/orgjinhc.github.io/css/my.css">
+    
+    <script src="https://cdn.jsdelivr.net/gh/orgjinhc/orgjinhc.github.io/libs/jquery/jquery.min.js"></script>
+    
+<meta name="generator" content="Hexo 4.2.0"><link rel="alternate" href="/atom.xml" title="Lion Heart" type="application/atom+xml">
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper head-container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="https://cdn.jsdelivr.net/gh/orgjinhc/orgjinhc.github.io/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">Lion Heart</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/contact" class="waves-effect waves-light">
+      
+      <i class="fas fa-comments" style="zoom: 0.6;"></i>
+      
+      <span>留言板</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="https://cdn.jsdelivr.net/gh/orgjinhc/orgjinhc.github.io/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">Lion Heart</div>
+        <div class="logo-desc">
+            
+            Never really desperate, only the lost of the soul.
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/contact" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-comments"></i>
+			
+			留言板
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			友情链接
+		</a>
+          
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/orgjinhc" class="waves-effect waves-light" target="_blank">
+                <i class="fab fa-github-square fa-fw"></i>Fork Me
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+        </div>
+
+        
+            <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/orgjinhc" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+   data-tooltip="Fork Me" data-position="left" data-delay="50">
+    <svg viewBox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+              fill="currentColor" class="octo-body"></path>
+    </svg>
+</a>
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('https://cdn.jsdelivr.net/gh/orgjinhc/orgjinhc.github.io/medias/featureimages/0.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">MySQL</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orgjinhc/orgjinhc.github.io/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        width: 345px;
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        margin: 35px 0 15px 0;
+        padding-left: 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content {
+        height: calc(100vh - 250px);
+        overflow: auto;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #toc-content .is-active-link::before {
+        background-color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 15px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                          <div class="article-tag">
+                            <span class="chip bg-color">无标签</span>
+                          </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2021-02-09
+                </div>
+                
+
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
+                    18.8k
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                    67 分
+                </div>
+                
+
+                
+                    <div id="busuanzi_container_page_pv" class="info-break-policy">
+                        <i class="far fa-eye fa-fw"></i>阅读次数:&nbsp;&nbsp;
+                        <span id="busuanzi_value_page_pv"></span>
+                    </div>
+				
+            </div>
+
+        </div>
+        <hr class="clearfix">
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h1 id="MySQL"><a href="#MySQL" class="headerlink" title="MySQL"></a>MySQL</h1><h2 id="一、必备基础"><a href="#一、必备基础" class="headerlink" title="一、必备基础"></a>一、必备基础</h2><h3 id="一、官网、文档"><a href="#一、官网、文档" class="headerlink" title="一、官网、文档"></a>一、官网、文档</h3><p><a href="https://www.mysql.com" target="_blank" rel="noopener">https://www.mysql.com</a></p>
+<h3 id="软件"><a href="#软件" class="headerlink" title="软件"></a>软件</h3><h4 id="版本及历史"><a href="#版本及历史" class="headerlink" title="版本及历史"></a>版本及历史</h4><p><strong>96年发布第一个版本</strong></p>
+<p>2000年开源。MyISAM引擎正式提供服务</p>
+<p><strong>01年发布4.0整合了InnoDB引擎</strong></p>
+<p>05年发布5.0，加入了游标、存储过程和触发器的支持</p>
+<p>08年被sun收购</p>
+<p>09年sun被oracle收购</p>
+<p>10年发布5.5。划分为<strong>社区版和企业版</strong>。默认引擎更换为<strong>InnoDB</strong>、增加表分区</p>
+<p>15年5.7.9GA版</p>
+<p><strong>18年8.0.11GA版</strong></p>
+<h4 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h4><p>参考官网提供流程</p>
+<h3 id="工具"><a href="#工具" class="headerlink" title="工具"></a>工具</h3><p>Mac：</p>
+<p>Linux：</p>
+<p>Windows：</p>
+<h3 id="名词解释"><a href="#名词解释" class="headerlink" title="名词解释"></a>名词解释</h3><h3 id="约束解释"><a href="#约束解释" class="headerlink" title="约束解释"></a>约束解释</h3><h3 id="核心内容"><a href="#核心内容" class="headerlink" title="核心内容"></a>核心内容</h3><h4 id="架构原理及存储机制"><a href="#架构原理及存储机制" class="headerlink" title="架构原理及存储机制"></a>架构原理及存储机制</h4><h5 id="1-体系结构"><a href="#1-体系结构" class="headerlink" title="1.体系结构"></a>1.体系结构</h5><h5 id="2-SQL-运行机制"><a href="#2-SQL-运行机制" class="headerlink" title="2.SQL 运行机制"></a>2.SQL 运行机制</h5><h5 id="3-存储引擎"><a href="#3-存储引擎" class="headerlink" title="3.存储引擎"></a>3.存储引擎</h5><h4 id="索引存储机制和工作原理"><a href="#索引存储机制和工作原理" class="headerlink" title="索引存储机制和工作原理"></a>索引存储机制和工作原理</h4><p>1.索引存储结构</p>
+<p>2.索引查询原理</p>
+<p>3.索引分析和优化</p>
+<p>4.查询优化</p>
+<h4 id="事务和锁工作原理"><a href="#事务和锁工作原理" class="headerlink" title="事务和锁工作原理"></a>事务和锁工作原理</h4><p>1.事务隔离级别</p>
+<p>2.事务并发处理</p>
+<p>3.锁机制</p>
+<h4 id="集群架构及原理"><a href="#集群架构及原理" class="headerlink" title="集群架构及原理"></a>集群架构及原理</h4><h5 id="1-集群架构设计理念"><a href="#1-集群架构设计理念" class="headerlink" title="1.集群架构设计理念"></a>1.集群架构设计理念</h5><h5 id="2-主从架构"><a href="#2-主从架构" class="headerlink" title="2.主从架构"></a>2.主从架构</h5><h5 id="3-集群架构"><a href="#3-集群架构" class="headerlink" title="3.集群架构"></a>3.集群架构</h5><h5 id="4-分库分表"><a href="#4-分库分表" class="headerlink" title="4.分库分表"></a>4.分库分表</h5><h4 id="海量数据处理方法"><a href="#海量数据处理方法" class="headerlink" title="海量数据处理方法"></a>海量数据处理方法</h4><p>1.SharingShere</p>
+<p>2.MyCat 中间件实战</p>
+<p>3.分库分表实战</p>
+<h2 id="前提概念"><a href="#前提概念" class="headerlink" title="前提概念"></a>前提概念</h2><p>用户请求 -》 应用层 -〉服务层 -》<strong>存储层</strong></p>
+<h2 id="架构演变"><a href="#架构演变" class="headerlink" title="架构演变"></a>架构演变</h2><p>单机单库</p>
+<p>主从架构</p>
+<p>分库分表</p>
+<p>云数据库</p>
+<h2 id="二、服务架构"><a href="#二、服务架构" class="headerlink" title="二、服务架构"></a>二、服务架构</h2><p><img src="http://lion-heart.online/blog/2021-02-10-091700.png" alt="image-20210210171655336"></p>
+<ol>
+<li>客户端 - 网络连接层</li>
+<li>Server 进程 - 服务层<ul>
+<li>连接器：管理连接<ul>
+<li>连接池：线程重用</li>
+</ul>
+</li>
+<li>SQL 接口：接收客户端发来的SQL命令，并返回用户需要查询的结果。DDL、DML等语句</li>
+<li>解析、分析器：词法分析、语法分析<ul>
+<li>将请求的SQL解析生成一个 “解析树”。然后根据规则进行语法检查</li>
+</ul>
+</li>
+<li>优化器：优化 SQL，转化为执行计划，然后与存储引擎进行交互。sql有多种执行方式，但是返回的结果都是相同的。多种执行方式获取效率最高的方式<ul>
+<li>RBO</li>
+<li>CBO</li>
+</ul>
+</li>
+<li>执行器：执行组件</li>
+</ul>
+</li>
+<li>存储引擎：不同的存放位置，不同的文件格式(针对表结构) - 存储引擎层<ul>
+<li>MyISAM：基于磁盘存储，不支持事物和外键，访问速度快</li>
+<li>InnoDB：基于磁盘存储，支持事物，具有提交、回滚、崩溃回复能力。事务安全</li>
+<li>Memory：基于内存存储，利用内存创建表，访问速度非常快，使用hash索引</li>
+</ul>
+</li>
+<li>系统文件层：系统文件、日志文件、配置文件、pid文件、socket文件<ul>
+<li>日志文件<ul>
+<li>二进制日志</li>
+<li>慢查询日志</li>
+<li>通用查询日志</li>
+<li>错误日志：默认开启</li>
+</ul>
+</li>
+<li>数据文件<ul>
+<li>db.opt：记录库的默认字符集和校验规则</li>
+<li>frm：存储与表相关的元数据，包括表结构定义信息</li>
+<li>MYD：MyISAM引擎，表数据</li>
+<li>MYI：MyISAM引擎，索引相关信息</li>
+<li>ibd：存储InnoDB的数据文件（包含索引）</li>
+<li>ibdata1：Undo日志</li>
+<li>ib_logfile1：Redo日志</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<h3 id="2-1-InnoDB-和-MyISAM-对比"><a href="#2-1-InnoDB-和-MyISAM-对比" class="headerlink" title="2.1 InnoDB 和 MyISAM 对比"></a>2.1 InnoDB 和 MyISAM 对比</h3><ul>
+<li>事务和外键<ul>
+<li>InnoDB 支持事物和外键，具有安全性和完整性，适合大量 insert 和 update 操作</li>
+<li>MyISAM 不支持事物和外键，提供高速存储和检索，适合大量的 select 操作</li>
+</ul>
+</li>
+<li>锁机制<ul>
+<li>InnoDB 支持行级锁，锁定指定记录</li>
+<li>MyISAM 支持表级锁，锁定的表</li>
+</ul>
+</li>
+<li>索引结构<ul>
+<li>InnoDB 使用聚集索引，索引和记录一起存储</li>
+<li>MyISAM 使用非聚集索引，索引和记录分开存储</li>
+</ul>
+</li>
+<li>并发处理能力<ul>
+<li>InnoDB 使用行锁，写操作一定加锁，读操作与隔离级别有关，可以采用 MVCC 来支持高并发</li>
+<li>MyISAM 使用表锁，导致写操作并发率低，读之间不阻塞</li>
+</ul>
+</li>
+<li>存储文件<ul>
+<li>InnoDB 表对应两个文件，一个.frm表结构文件，一个.ibd数据文件</li>
+<li>MyISAM 表对应三个文件，一个.frm表结构文件，一个MYD数据文件，一个MYI索引文件</li>
+</ul>
+</li>
+</ul>
+<h5 id="总结：是否需要事物？是否存在并发修改？是否需要快速查询？"><a href="#总结：是否需要事物？是否存在并发修改？是否需要快速查询？" class="headerlink" title="总结：是否需要事物？是否存在并发修改？是否需要快速查询？"></a>总结：是否需要事物？是否存在并发修改？是否需要快速查询？</h5><h2 id="三、原理"><a href="#三、原理" class="headerlink" title="三、原理"></a>三、原理</h2><h3 id="3-1-增删改操作时背后对应的原理"><a href="#3-1-增删改操作时背后对应的原理" class="headerlink" title="3.1 增删改操作时背后对应的原理"></a>3.1 增删改操作时背后对应的原理</h3><p><img src="http://lion-heart.online/blog/2021-02-10-095048.png" alt="image-20210210175045638"></p>
+<ul>
+<li>1⃣️ 建立连接：客户端和服务<strong>端通信方式</strong>是 “半双工”，对于每一个MySQL连接，时刻都有一个<strong>线程来存储连接信息</strong><ul>
+<li>核心1：通讯机制<ul>
+<li>单工：只能发送数据或只能接收数据。例如：单行道</li>
+<li>全双工：能同时收发数据。例如：接听电话</li>
+<li>半双工：某一时刻，要么发送数据，要么接收数据，不能同时执行。例如：电梯</li>
+</ul>
+</li>
+<li>核心2：线程状态<ul>
+<li>show processlist：查看用户正在运行的线程信息</li>
+<li><img src="http://lion-heart.online/blog/2021-02-10-100911.png" alt="show processlist 命令"></li>
+<li>id：线程id</li>
+<li>User：启动线程的用户</li>
+<li>Host：发送请求的客户端信息</li>
+<li>db：当前命令在那个库执行</li>
+<li>command：该线程正在执行的操作命令</li>
+<li>TIme：该线程处于当前状态的时间，单位秒</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>2⃣️ 缓存：缓存的<strong>SQL语句</strong>和<strong>查询结果</strong><ul>
+<li>即使开启查询缓存，以下情况也不能缓存<ul>
+<li>查询语句使用 SQL_NO_CACHE</li>
+<li>查询结果大于 query_cache_limit 设置</li>
+<li>查询中有一些不确定的参数，例如：now()</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>3⃣️ 解析器：解析SQL，检查语法、表、字段是否合法，根据名字和别名生成新的解析树</li>
+<li>4⃣️ 优化器：根据解析树生成最优的执行计划。</li>
+</ul>
+<h3 id="3-2-InnoDB-存储结构：主要分为-内存结构和磁盘结构两部分"><a href="#3-2-InnoDB-存储结构：主要分为-内存结构和磁盘结构两部分" class="headerlink" title="3.2 InnoDB 存储结构：主要分为 内存结构和磁盘结构两部分"></a>3.2 InnoDB 存储结构：主要分为 内存结构和磁盘结构两部分</h3><p><img src="http://lion-heart.online/blog/2021-02-11-100157.png" alt="InnoDB引擎架构图"></p>
+<h4 id="3-2-1-内存结构组成"><a href="#3-2-1-内存结构组成" class="headerlink" title="3.2.1 内存结构组成"></a>3.2.1 内存结构组成</h4><ul>
+<li>Buffer Pool：缓冲池</li>
+<li>Change Buffer</li>
+<li>Log Buffer</li>
+<li>Adaptive Hash Index </li>
+</ul>
+<h5 id="3-2-1-1-Buffer-Pool-原理"><a href="#3-2-1-1-Buffer-Pool-原理" class="headerlink" title="3.2.1.1 Buffer Pool 原理"></a>3.2.1.1 Buffer Pool 原理</h5><ul>
+<li><p>概述</p>
+<ul>
+<li>Buffer Pool就是数据库的一个<strong>内存组件</strong>，具有<strong>完整的数据结构</strong>，里面缓存了磁盘上的<strong>真实数据</strong>，增删改操作首先就是针对这个内存中的Buffer Pool里的数据执行的，同时配合了后续的redo log、刷磁盘等机制和操作</li>
+</ul>
+</li>
+<li><p>组成</p>
+<ul>
+<li><p>Page：MySQL中抽象出来的数据单位</p>
+<p>实际上MySQL对数据抽象出来了一个数据页的概念，他是把很多行数据放在了一个数据页里，也就是说我们的磁盘文件中就是会有很多的数据页，每一页数据里放了很多行数据</p>
+</li>
+</ul>
+</li>
+<li><p>Page 管理机制：默认大小 16K</p>
+<ul>
+<li>状态管理<ul>
+<li>free page：空闲 page，未被使用</li>
+<li>clean page：已使用 page，数据未被修改过</li>
+<li>dirty page：已使用 page，数据被修改过，内存和磁盘里的数据产生不一致情况</li>
+</ul>
+</li>
+<li>结构管理<ul>
+<li>free list：表示空闲缓冲区，管理 free page</li>
+<li>flush list：需要刷新到磁盘的缓冲区，管理 dirty page，内部page安修改时间排序。</li>
+<li>lru list：表示正在使用的缓冲区，管理 clean page 和 dirty page，缓冲区 midpoint 为基点，前面链表称为new列表区，存放经常访问的数据，占63%；后面的链表称为old列表区，存放使用较少的数据，占37%。</li>
+</ul>
+</li>
+<li>内存淘汰算法<ul>
+<li>普通 LRU：末尾淘汰法，新数据从头部加入，尾部删除</li>
+<li>改进 LRU：链表分为 new 和 old 两部分，新数据从 midpoint 加入，数据很快被访问，那么page会向new空间移动，反之会向old空间移动。淘汰原则不变，尾部淘汰</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>参数配置</p>
+<ul>
+<li>实例  -  块  - page</li>
+<li>show variables like ‘%innodb_buffer%’;</li>
+<li>show variables like ‘%innodb_page_size%’;</li>
+</ul>
+</li>
+</ul>
+<h5 id="3-2-1-2-Change-Buffer-原理"><a href="#3-2-1-2-Change-Buffer-原理" class="headerlink" title="3.2.1.2 Change Buffer 原理"></a>3.2.1.2 Change Buffer 原理</h5><ul>
+<li>概述<ul>
+<li>写缓冲区，进行DML操作时，如果BP没有其相应的Page数据，并不会立刻将磁盘页加载到BP，而是在CB记录缓冲变更，等未来数据被读取时，再将数据合并回到BP中。</li>
+<li>占用BP空间，默认25%，最大允许调整到50%</li>
+</ul>
+</li>
+<li>核心处理流程<ul>
+<li>更新操作<ul>
+<li>记录存在BP，直接在BP修改，一次内存操作</li>
+<li>记录不存在BP，直接在CB进行一次内存操作，不用去磁盘查询数据，避免一次IO</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>注意事项<ul>
+<li>CB 仅适用非唯一普通索引页</li>
+<li>如果在索引设置唯一性，在进行修改时，InnoDB必须要做唯一性校验，因此必须查询磁盘，做一次IO操作。会直接将记录查询到BP，然后在BP中修改</li>
+</ul>
+</li>
+</ul>
+<h5 id="3-2-1-3-LogBuffer-原理"><a href="#3-2-1-3-LogBuffer-原理" class="headerlink" title="3.2.1.3 LogBuffer 原理"></a>3.2.1.3 LogBuffer 原理</h5><ul>
+<li>概述<ul>
+<li>日志缓冲区，记录InnoDB引擎日志，DML操作时产生Redo、Undo日志，LB 空间满了，会自动写入磁盘或定期刷新到磁盘log文件。</li>
+</ul>
+</li>
+<li>核心处理流程</li>
+<li>注意事项<ul>
+<li>写文件：memory 写到 OS cache</li>
+<li>刷盘：OS cache 写到 disk file</li>
+</ul>
+</li>
+<li>参数设置<ul>
+<li>Innodb_flush_log_at_trx_commit<ul>
+<li>0：每隔1s，写日志文件，刷盘 - 异步</li>
+<li>1：事务提交，同步写日志文件，同步刷盘 - 同步</li>
+<li>2：事务提交，同步写日志文件，每隔1s刷盘 - 异步</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="3-2-2-磁盘结构组成"><a href="#3-2-2-磁盘结构组成" class="headerlink" title="3.2.2 磁盘结构组成"></a>3.2.2 磁盘结构组成</h4><ul>
+<li>System Tablespace：共享表空间，存放的是表和索引信息<ul>
+<li>Data Dictionary</li>
+<li>Doublerwrite Buffer：BP里的脏页先写到这里，目的是提高写入速度，同时保证数据安全性防止异常情况数据丢失</li>
+<li>Change Buffer</li>
+<li>Undo Logs：备份没有刷盘的日志，用于例外情况下，撤销、回滚数据</li>
+</ul>
+</li>
+<li><strong>独立 Tablespace：参数控制，默认采用</strong></li>
+<li>General Tablespace</li>
+<li>Temp Tablespace </li>
+<li>Undo Tablespace：undo 日志文件构成<ul>
+<li>undo log1：撤消日志是在事务开始之前保存的被修改数据的备份，用于例外情况时回滚事务。撤消日志属于逻辑日志，根据每行记录进行记录。撤消日志存在于系统表空间、撤消表空间和临时表空间中。</li>
+<li>undo log2</li>
+<li>undo logn</li>
+</ul>
+</li>
+<li>Redo Log：重做日志是一种基于磁盘的数据结构，用于在崩溃恢复期间更正不完整事务写入的数据。MySQL以循环方式写入重做日志文件，记录InnoDB中所有对Buffer Pool修改的日志。当出现实例故障（像断电），导致数据未能更新到数据文件，则数据库重启时须redo，重新把数据更新到数据文件。读写事务在执行的过程中，都会不断的产生redo log。默认情况下，重做日志在磁盘上由两个名为ib_logfifile0和ib_logfifile1的文件物理表示。</li>
+</ul>
+<h5 id="3-2-2-1-SystemTablespace"><a href="#3-2-2-1-SystemTablespace" class="headerlink" title="3.2.2.1 SystemTablespace"></a>3.2.2.1 SystemTablespace</h5><h3 id="3-3-InnoDB-线程模型"><a href="#3-3-InnoDB-线程模型" class="headerlink" title="3.3 InnoDB 线程模型"></a>3.3 InnoDB 线程模型</h3><p><img src="http://lion-heart.online/blog/2021-02-13-070707.png" alt="image-20210213150704664"></p>
+<h4 id="3-3-1-Master-Thread：调度其他三类线程"><a href="#3-3-1-Master-Thread：调度其他三类线程" class="headerlink" title="3.3.1 Master Thread：调度其他三类线程"></a>3.3.1 Master Thread：调度其他三类线程</h4><p>Master thread是InnoDB的主线程，负责调度其他各线程，优先级最高。作用是将缓冲池中的数</p>
+<p>据异步刷新到磁盘 ，保证数据的一致性。包含：</p>
+<ul>
+<li>脏页的刷新（page cleaner thread）</li>
+<li>undo页回收（purge thread）</li>
+<li>redo日志刷新（log thread）</li>
+<li>合并写缓冲</li>
+</ul>
+<p>内部有两个主处理，分别</p>
+<ul>
+<li><p>每隔1秒</p>
+<ul>
+<li><p>刷新日志缓冲区，刷到磁盘</p>
+</li>
+<li><p>合并写缓冲区数据，根据IO读写压力来决定是否操作</p>
+</li>
+<li><p>刷新脏页数据到磁盘，根据脏页比例达到75%才操作（innodb_max_dirty_pages_pct：控制脏页占比触发刷盘，</p>
+<p>innodb_io_capacity：控制每次刷新页的数量） </p>
+</li>
+</ul>
+</li>
+<li><p>10秒处理</p>
+<ul>
+<li>刷新脏页数据到磁盘</li>
+<li>合并写缓冲区数据</li>
+<li>刷新日志缓冲区</li>
+<li>删除无用的undo页</li>
+</ul>
+</li>
+</ul>
+<h4 id="3-3-2-IO-Thread"><a href="#3-3-2-IO-Thread" class="headerlink" title="3.3.2 IO Thread"></a>3.3.2 IO Thread</h4><p>在InnoDB中使用了大量的AIO（Async IO）来做读写处理，这样可以极大提高数据库的性能。在</p>
+<p>InnoDB1.0版本之前共有4个IO Thread，分别是write，read，insert buffer和log thread，后来</p>
+<p>版本将read thread和write thread分别增大到了4个，一共有10个了。</p>
+<ul>
+<li>read thread ：负责读取操作，将数据从磁盘加载到缓存page页</li>
+<li>write thread：负责写操作，将BP的脏页刷新到磁盘</li>
+<li>log thread：负责将LB内容刷新到磁盘</li>
+<li>insert buffer thread：负责将CB内容刷新到磁盘</li>
+</ul>
+<h4 id="3-3-3-Purge-Thread"><a href="#3-3-3-Purge-Thread" class="headerlink" title="3.3.3 Purge Thread"></a>3.3.3 Purge Thread</h4><p>事务提交之后，其使用的undo日志将不再需要，因此需要Purge Thread回收已经分配的undo</p>
+<p>页。</p>
+<p>show variables like ‘%innodb_purge_threads%’;</p>
+<h4 id="3-3-4-Page-Cleaner-Thread"><a href="#3-3-4-Page-Cleaner-Thread" class="headerlink" title="3.3.4 Page Cleaner Thread"></a>3.3.4 Page Cleaner Thread</h4><p>作用是将脏数据刷新到磁盘，脏数据刷盘后相应的redo log也就可以覆盖，即可以同步数据，又能</p>
+<p>达到redo log循环使用的目的。会调用write thread线程处理。</p>
+<p>show variables like ‘%innodb_page_cleaners%’;</p>
+<h3 id="3-4-InnoDB-数据文件"><a href="#3-4-InnoDB-数据文件" class="headerlink" title="3.4 InnoDB 数据文件"></a>3.4 InnoDB 数据文件</h3><h4 id="一、存储结构"><a href="#一、存储结构" class="headerlink" title="一、存储结构"></a>一、存储结构</h4><p><img src="http://lion-heart.online/blog/2021-02-13-074855.png" alt="image-20210213154851683"></p>
+<p>InnoDB数据文件存储结构：一个ibd数据文件–&gt;Segment（段）–&gt;Extent（区）–&gt;Page（页）–&gt;Row（行）</p>
+<ul>
+<li><p>Tablesapce</p>
+<ul>
+<li>表空间，用于存储多个ibd数据文件，用于存储表的记录和索引。一个文件包含多个段。</li>
+</ul>
+</li>
+<li><p>Segment</p>
+<ul>
+<li>段，用于管理多个Extents，一个表至少会有两个segment，一个管理数据，一个管理索引。每多创建一个索引，会多两个segment。<ul>
+<li>分为数据段（Leaf node segment）</li>
+<li>索引段（Non-leaf nodesegment）</li>
+<li>回滚段（Rollback segment）</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>Extent</p>
+<ul>
+<li>区，一个区固定包含64个连续的页，大小为1M。当表空间不足，需要分配新的页资源，不会一页一页分，直接分配一个区。</li>
+</ul>
+</li>
+<li><p>Page</p>
+<ul>
+<li>页，用于存储多个Row行记录，大小为16K。包含很多种页类型，比如数据页，undo页，系统页，事务数据页，大的BLOB对象页。</li>
+</ul>
+</li>
+<li><p>Row</p>
+<ul>
+<li>行，包含了记录的字段值，事务ID（Trx id）、滚动指针（Roll pointer）、字段指针（Field pointers）等信息</li>
+</ul>
+</li>
+</ul>
+<h4 id="二、文件格式"><a href="#二、文件格式" class="headerlink" title="二、文件格式"></a>二、文件格式</h4><p>在早期的InnoDB版本中，文件格式只有一种，随着InnoDB引擎的发展，出现了新文件格式，用于</p>
+<p>支持新的功能。目前InnoDB只支持两种文件格式</p>
+<ul>
+<li><p>Antelope: 先前未命名的，最原始的InnoDB文件格式，它支持两种行格式：COMPACT和REDUNDANT，MySQL 5.6及其以前版本默认格式为Antelope。</p>
+</li>
+<li><p>Barracuda: 新的文件格式。它支持InnoDB的所有行格式，包括新的行格式：COMPRESSED和 DYNAMIC。</p>
+</li>
+</ul>
+<p>通过innodb_fifile_format 配置参数可以设置InnoDB文件格式，之前默认值为Antelope，5.7版本</p>
+<p>开始改为Barracuda。</p>
+<h4 id="三、Undo-Log：撤销、回滚日志"><a href="#三、Undo-Log：撤销、回滚日志" class="headerlink" title="三、Undo Log：撤销、回滚日志"></a>三、Undo Log：撤销、回滚日志</h4><h5 id="1-介绍"><a href="#1-介绍" class="headerlink" title="1.介绍"></a>1.介绍</h5><ul>
+<li><p>逻辑日志：记录的是数据变化的过程</p>
+</li>
+<li><p>数据库事务开始前，会将DML操作前的记录状态的记录存放到Undo Log日志里，当事物回滚或数据库崩溃时，可以利用Undo Log日志，撤销未提交事物对数据库产生的影响</p>
+</li>
+<li><p>Undo Log产生：DML事务操作开始前产生</p>
+</li>
+<li><p>Undo Log销毁：事务提交时，并不会立刻删除Undo Log，innodb会将该事务对应的Undo Log放入到删除列表中，后面会通过后台线程 purge thread 进行回收</p>
+</li>
+<li><p>Undo Log存储：采用 Segment 方式管理和记录，</p>
+</li>
+</ul>
+<h5 id="2-作用"><a href="#2-作用" class="headerlink" title="2.作用"></a>2.作用</h5><ul>
+<li>实现事物的原子性</li>
+<li>实现多版本并发控制 MVCC<ul>
+<li><img src="http://lion-heart.online/blog/2021-02-13-085501.png" alt="image-20210213165457349"></li>
+</ul>
+</li>
+</ul>
+<h4 id="四、Redo-Log-和-Binlog"><a href="#四、Redo-Log-和-Binlog" class="headerlink" title="四、Redo Log 和 Binlog"></a>四、Redo Log 和 Binlog</h4><p>Redo Log和Binlog是MySQL日志系统中非常重要的两种机制，也有很多相似之处</p>
+<h5 id="4-1-Redo-Log：重做、恢复日志"><a href="#4-1-Redo-Log：重做、恢复日志" class="headerlink" title="4.1 Redo Log：重做、恢复日志"></a>4.1 Redo Log：重做、恢复日志</h5><p>4.1.2 介绍</p>
+<ul>
+<li>物理日志：记录数据页更新状态内容</li>
+<li>数据库事务操作中修改的任何数据，将最新的数据备份存储的位置，被称为重做日志</li>
+<li>Redo Log 产生：DML事务执行过程中产生，事务提交时会将Redo Log写入LB，并不是随着事务提交立即写入磁盘文件。</li>
+<li>Redo Log 销毁：等事务操作的脏页写入磁盘文件后，Redo Log 占用的空间就可以重用</li>
+</ul>
+<p>4.1.2 工作原理</p>
+<ul>
+<li>实现事务的持久性</li>
+<li>防止在发生故障的时间点，尚有脏页未写入表的 IBD 文件中，在重启 MySQL 服务的时候，根据 Redo Log 进行重做，从而达到事务的未入磁盘数据进行持久化这一特性</li>
+<li><img src="http://lion-heart.online/blog/2021-02-13-100950.png" alt="随机IO和顺序IO效率问题"></li>
+</ul>
+<p>4.1.3 写入机制</p>
+<ul>
+<li><p><img src="http://lion-heart.online/blog/2021-02-13-102556.png" alt="image-20210213182552104"></p>
+</li>
+<li><p><img src="http://lion-heart.online/blog/2021-02-13-102524.png" alt="MTR 事务单元，2pc过程"></p>
+</li>
+</ul>
+<h5 id="4-2-Binlog"><a href="#4-2-Binlog" class="headerlink" title="4.2 Binlog"></a>4.2 Binlog</h5><p><img src="http://lion-heart.online/blog/2021-02-13-113212.png" alt="image-20210213193207693"></p>
+<h4 id="五、Redo-Log-和-Undo-Log-区别"><a href="#五、Redo-Log-和-Undo-Log-区别" class="headerlink" title="五、Redo Log 和 Undo Log 区别"></a>五、Redo Log 和 Undo Log 区别</h4><ul>
+<li><p>Redo Log属于物理日志，记录该数据页更新状态内容，Undo Log是逻辑日志，记录的是数据变化的过程</p>
+</li>
+<li><p>Redo Log 和 Undo Log 产生和销毁的节点完全不同</p>
+</li>
+<li><p>Redo Log 用于实现事务的持久性，Undo Log 用于实现事务的原子性</p>
+</li>
+</ul>
+<h4 id="六、RedoLog和Binlog区别"><a href="#六、RedoLog和Binlog区别" class="headerlink" title="六、RedoLog和Binlog区别"></a>六、RedoLog和Binlog区别</h4><ul>
+<li><p>Redo Log是属于InnoDB引擎功能，Binlog是属于MySQL Server自带功能，适配各种引擎，并且是以二进制文件记录。</p>
+</li>
+<li><p>Redo Log属于物理日志，记录该数据页更新状态内容，Binlog是逻辑日志，记录更新过程。</p>
+</li>
+<li><p>Redo Log日志是循环写，日志空间大小是固定，Binlog是追加写入，写完一个写下一个，不会覆盖使用。</p>
+</li>
+<li><p>Redo Log作为服务器异常宕机后事务数据自动恢复使用，Binlog可以作为主从复制和数据恢复使用。Binlog没有自动crash-safe能力。</p>
+</li>
+</ul>
+<h3 id="3-5-索引"><a href="#3-5-索引" class="headerlink" title="3.5 索引"></a>3.5 索引</h3><p>索引可以提升查询速度，会影响where查询，以及order by排序。MySQL索引类型如下：</p>
+<ul>
+<li><p>从索引存储结构划分：B Tree索引、Hash索引、FULLTEXT全文索引、R Tree索引</p>
+</li>
+<li><p>从应用层次划分：普通索引、唯一索引、主键索引、复合索引</p>
+</li>
+<li><p>从索引键值类型划分：主键索引、辅助索引（二级索引）</p>
+</li>
+<li><p>从数据存储和索引键值逻辑关系划分：聚集索引（聚簇索引）、非聚集索引（非聚簇索引</p>
+</li>
+</ul>
+<h4 id="3-5-1-索引分类"><a href="#3-5-1-索引分类" class="headerlink" title="3.5.1 索引分类"></a>3.5.1 索引分类</h4><h5 id="1-普通索引"><a href="#1-普通索引" class="headerlink" title="1.普通索引"></a>1.普通索引</h5><p>非主键字段都可以创建。</p>
+<h5 id="2-唯一索引"><a href="#2-唯一索引" class="headerlink" title="2.唯一索引"></a>2.唯一索引</h5><p>普通索引基础上，添加索引字段值必须唯一限制，允许有空值</p>
+<h5 id="3-主键索引"><a href="#3-主键索引" class="headerlink" title="3.主键索引"></a>3.主键索引</h5><p>一种特殊的唯一索引，不允许有空值，每个表只能有一个主键索引</p>
+<h5 id="4-复合索引"><a href="#4-复合索引" class="headerlink" title="4.复合索引"></a>4.复合索引</h5><p>多字段建立索引为复合/联合索引</p>
+<h5 id="5-全文索引"><a href="#5-全文索引" class="headerlink" title="5.全文索引"></a>5.全文索引</h5><h4 id="3-5-2-索引原理"><a href="#3-5-2-索引原理" class="headerlink" title="3.5.2 索引原理"></a>3.5.2 索引原理</h4><p>索引是什么？官网定义为：是存储引擎用于快速查找记录的一种数据结构。需要额外开辟空间和数据维护工作。</p>
+<ul>
+<li>索引是物理数据页存储，在数据文件中(InnoDB - ibd文件)，利用数据页存储</li>
+<li>索引可以加快检索速度，但是同时也会降低DML操作速度，索引维护需要代价</li>
+</ul>
+<h5 id="1-二分查找：用于有序、等值检索"><a href="#1-二分查找：用于有序、等值检索" class="headerlink" title="1.二分查找：用于有序、等值检索"></a>1.二分查找：用于有序、等值检索</h5><h5 id="2-Hash结构：用于等值检索"><a href="#2-Hash结构：用于等值检索" class="headerlink" title="2.Hash结构：用于等值检索"></a>2.Hash结构：用于等值检索</h5><h5 id="3-树结构"><a href="#3-树结构" class="headerlink" title="3.树结构"></a>3.树结构</h5><p>3.1 B Tree</p>
+<p>No Leaf Node = 索引 + 数据</p>
+<p>Leaf Node = 索引 + 数据</p>
+<p>3.2 B+Tree</p>
+<p>No Leaf Node = 索引，<strong>便于存储更多的索引值</strong></p>
+<p>Leaf Node = 索引 + 数据</p>
+<p>Leaf Node 链表结构，<strong>提高区间访问性能</strong></p>
+<h4 id="3-5-3-聚集索引和辅助索引"><a href="#3-5-3-聚集索引和辅助索引" class="headerlink" title="3.5.3 聚集索引和辅助索引"></a>3.5.3 聚集索引和辅助索引</h4><ul>
+<li><p>聚集索引：主键索引，主键索引就是数据本身，占用空间大。InnoDB的表必须要有主键索引</p>
+</li>
+<li><p>辅助索引：二级索引，根据索引列构建B+Tree结构。Leaf Node 存储索引列和主键信息，占用空间比主键索引小很多。用于提升查询效率，InnoDB表可以有多个辅助索引</p>
+</li>
+<li><p><img src="http://lion-heart.online/blog/2021-02-14-050754.png" alt="image-20210214130751374"></p>
+</li>
+</ul>
+<h4 id="3-5-4-其他相关概念"><a href="#3-5-4-其他相关概念" class="headerlink" title="3.5.4 其他相关概念"></a>3.5.4 其他相关概念</h4><h5 id="一、回表查询"><a href="#一、回表查询" class="headerlink" title="一、回表查询"></a>一、回表查询</h5><ul>
+<li>需要通过索引查询主键值，然后再通过主键索引查询数据</li>
+</ul>
+<h5 id="二、覆盖索引"><a href="#二、覆盖索引" class="headerlink" title="二、覆盖索引"></a>二、覆盖索引</h5><ul>
+<li>只需要在一个索引树上就能获取SQL所需的所有列数据，无需回表，速度更快，这就叫索引覆盖</li>
+</ul>
+<h5 id="三、最左前缀原则：针对复合索引"><a href="#三、最左前缀原则：针对复合索引" class="headerlink" title="三、最左前缀原则：针对复合索引"></a>三、最左前缀原则：针对复合索引</h5><ul>
+<li><img src="http://lion-heart.online/blog/2021-02-14-053201.png" alt="image-20210214133159139"></li>
+</ul>
+<h5 id="四、Like-查询"><a href="#四、Like-查询" class="headerlink" title="四、Like 查询"></a>四、Like 查询</h5><ul>
+<li>索引下推 </li>
+<li><img src="http://lion-heart.online/blog/2021-02-14-055753.png" alt="image-20210214135746018"></li>
+</ul>
+<h5 id="五、NULL-查询"><a href="#五、NULL-查询" class="headerlink" title="五、NULL 查询"></a>五、NULL 查询</h5><ul>
+<li>可以用到索引，但是官方不建议NULL值加索引，需要额外的存储空间</li>
+</ul>
+<h5 id="六、索引和排序"><a href="#六、索引和排序" class="headerlink" title="六、索引和排序"></a>六、索引和排序</h5><ul>
+<li>filesort<ul>
+<li>两路查询</li>
+<li>单路查询</li>
+</ul>
+</li>
+<li>index</li>
+</ul>
+<h5 id="六、执行计划"><a href="#六、执行计划" class="headerlink" title="六、执行计划"></a>六、执行计划</h5><ul>
+<li><img src="http://lion-heart.online/blog/2021-02-14-055854.png" alt="image-20210214135848388"></li>
+</ul>
+<h3 id="3-6-事务和锁"><a href="#3-6-事务和锁" class="headerlink" title="3.6 事务和锁"></a>3.6 事务和锁</h3><h4 id="3-6-1-ACID"><a href="#3-6-1-ACID" class="headerlink" title="3.6.1 ACID"></a>3.6.1 ACID</h4><ul>
+<li>原子性：一个事务操作，要么全部成功，要么全部失败<ul>
+<li>DML 修改 BP 后 </li>
+<li>commit 如何保证 dirty page 刷盘 -》 Redo Log</li>
+<li>un commit dirty page 刷盘 如何保证数据变更撤销 -〉Undo Log</li>
+</ul>
+</li>
+<li>一致性：数据完整性<ul>
+<li>约束一致性：外键、唯一索引</li>
+<li>数据一致性<ul>
+<li><img src="http://lion-heart.online/blog/2021-02-14-123815.png" alt="image-20210214203812778"></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>隔离性：事务的执行不受其他事务影响<ul>
+<li>读提交</li>
+<li>读未提交</li>
+<li>可重复读</li>
+<li>可串行化：开启事务后，读写操作串行化</li>
+</ul>
+</li>
+<li>持久性：事务提交后，对数据库中的数据改变是永久性的<ul>
+<li><img src="http://lion-heart.online/blog/2021-02-14-123105.png" alt="image-20210214203102695"></li>
+</ul>
+</li>
+</ul>
+<p><img src="http://lion-heart.online/blog/2021-02-14-123912.png" alt="image-20210214203911494"></p>
+<h4 id="3-6-2-事务控制演进"><a href="#3-6-2-事务控制演进" class="headerlink" title="3.6.2 事务控制演进"></a>3.6.2 事务控制演进</h4><h5 id="3-6-2-1-并发事务带来的问题"><a href="#3-6-2-1-并发事务带来的问题" class="headerlink" title="3.6.2.1 并发事务带来的问题"></a>3.6.2.1 并发事务带来的问题</h5><p><img src="http://lion-heart.online/blog/2021-02-15-011816.png" alt="image-20210215091811405"></p>
+<h5 id="3-6-2-2-解决并发事务问题的方法"><a href="#3-6-2-2-解决并发事务问题的方法" class="headerlink" title="3.6.2.2 解决并发事务问题的方法"></a>3.6.2.2 解决并发事务问题的方法</h5><ul>
+<li>全局排队</li>
+<li>表空间排队</li>
+<li>行记录排队</li>
+<li>读写排队</li>
+<li>MVCC（读写不排队，限定RC（Read View 视图每次都会创建）、RR（Read view视图只创建一次）隔离级别）</li>
+<li>乐观锁、悲观锁</li>
+</ul>
+<h5 id="3-6-2-3-MVCC"><a href="#3-6-2-3-MVCC" class="headerlink" title="3.6.2.3 MVCC"></a>3.6.2.3 MVCC</h5><ul>
+<li>概念：数据库为了实现高并发的数据访问，对数据进行多版本处理。通过事务的可见性来保证事务能看到自己应该看到的版本。<ul>
+<li>事务操作前，Undo Log会记录数据变化过程，也就是在生成备份数据，当前备份可以为其他事务提供版本数据，也可以作为回滚数据</li>
+</ul>
+</li>
+<li>分类<ul>
+<li>快照读：读取的是记录的快照版本，不用加锁。select 语法</li>
+<li>当前读：读取的是记录的最新版本，都会加锁，保证其他事务不会并发修改这条记录。select ….. for update 或 locin in share model 或 DML 会先执行当前读</li>
+</ul>
+</li>
+<li>原理<ul>
+<li><img src="http://lion-heart.online/blog/2021-02-15-014737.png" alt="行记录隐藏字段"></li>
+<li><img src="http://lion-heart.online/blog/2021-02-15-014941.png" alt="image-20210215094937916"></li>
+</ul>
+</li>
+</ul>
+<h5 id="3-6-2-4-隔离级别"><a href="#3-6-2-4-隔离级别" class="headerlink" title="3.6.2.4 隔离级别"></a>3.6.2.4 隔离级别</h5><ul>
+<li><img src="http://lion-heart.online/blog/2021-02-15-020744.png" alt="image-20210215100741272"></li>
+</ul>
+<h5 id="总结：事务隔离级别和锁还有MVCC的关系"><a href="#总结：事务隔离级别和锁还有MVCC的关系" class="headerlink" title="总结：事务隔离级别和锁还有MVCC的关系"></a>总结：<strong>事务隔离级别和锁还有MVCC的关系</strong></h5><p>1）事务隔离级别是SQL92定制的标准，相当于事务并发控制的整体解决方案，本质上是对锁和MVCC使用的封装，隐藏了底层细节。</p>
+<p>2）锁是数据库实现并发控制的基础，事务隔离性是采用锁来实现，对相应操作加不同的锁，就可以防止其他事务同时对数据进行读写操作。</p>
+<p>3）MVCC是进一步提高了数据库并发处理能力（读写冲突）的一种手段，通过Undo Log + 事务特性由数据库底层自动屏蔽细节，解决特定问题</p>
+<p>4）对用户来讲，首先选择使用隔离级别，当选用的隔离级别不能解决并发问题或需求时，才有必要在开发中手动的设置锁。</p>
+<p>一般使用时，建议采用默认隔离级别，然后存在的一些并发问题，可以通过悲观锁、乐观锁等实现处理。</p>
+<p>早期数据库不论读取还是写入，都用锁来实现。但是锁会带来性能的问题。人们尝试各种优化方案。写入和读取的优化方式不同。</p>
+<p>对于数据库写入操作，没有特别好的办法，因为无论如何要避免并发修改一个数据，就得靠锁。不同的数据库对于写入操作都会加悲观锁（比如MySQL是X锁）。为了避免X锁带来的性能问题，人们在合适的场合会选择用乐观锁来优化。有的数据库内建乐观锁，但是有的没有（比如MySQL就没有），所以需要开发人员自己在数据表里加version列，自己写业务代码实现。</p>
+<blockquote>
+<p>顺便提一句，乐观锁并不一定总是比悲观锁性能表现更好，这要看竞争的程度</p>
+<p>如果数据访问竞争的非常厉害，乐观锁只会让CPU和IO白白浪费而已。</p>
+</blockquote>
+<p>对于读取，优化就是MVCC。MVCC的意思用简单的话讲就是<strong>对数据库的任何修改的提交都不会直接覆盖之前的数据，而是产生一个新的版本与老版本共存，使得读取时可以完全不加锁</strong>。这样读某一个数据时，事务可以根据隔离级别选择要读取哪个版本的数据。过程中完全不需要加锁。</p>
+<p>这样，实现两个隔离级别就非常容易：</p>
+<ul>
+<li>Read Committed - 一个事务读取数据时总是读这个数据最近一次被commit的版本</li>
+<li>Repeatable Read - 一个事务读取数据时总是读取当前事务开始之前最后一次被commit的版本（所以底层实现时需要比较当前事务和数据被commit的版本号）</li>
+</ul>
+<p>也可以主动添加共享锁</p>
+<ul>
+<li>select…… lock in share mode</li>
+</ul>
+<p>MVCC并不是万灵药。大量的业务问题的关键点在于，<strong>你在提交一个事务那一刹那，你提交事务的所有修改依赖的读取是否都还有效</strong>。对于这种场景，无论是Read Committed还是Repeatable Read都没有什么卵用。比如扣库存就是这样典型的业务场景</p>
+<p>在这种场景下</p>
+<ul>
+<li>在MySQL InnoDB，使用者会使用<code>select ... for update</code>手工加锁。或者干脆用Serializable隔离级别</li>
+</ul>
+<h4 id="3-6-3-锁机制"><a href="#3-6-3-锁机制" class="headerlink" title="3.6.3 锁机制"></a>3.6.3 锁机制</h4><h5 id="1-锁分类"><a href="#1-锁分类" class="headerlink" title="1.锁分类"></a>1.锁分类</h5><ul>
+<li><img src="http://lion-heart.online/blog/2021-02-15-110210.png" alt="image-20210215190200271"></li>
+</ul>
+<h5 id="2-锁原理：锁的是索引数据页"><a href="#2-锁原理：锁的是索引数据页" class="headerlink" title="2.锁原理：锁的是索引数据页"></a>2.锁原理：锁的是索引数据页</h5><p><img src="http://lion-heart.online/blog/2021-02-15-112117.png" alt="image-20210215192116918"></p>
+<ul>
+<li>update test set name = ‘xx’ where id = 1;<ul>
+<li>test 表 id 为主键索引<ul>
+<li>innodb 会使用 Next-key Lock 锁进行处理，发现 id 为主键索引，锁降级为 Record Lock，锁住主键索引</li>
+</ul>
+</li>
+<li>test 表 id 为唯一索引<ul>
+<li>innodb 先在唯一索引 id 上加X锁，然后再在主键索引记录上加X锁，两颗树都加锁</li>
+</ul>
+</li>
+<li>test 表 id 为普通索引<ul>
+<li>innodb 会使用 Next-key Lock 锁进行处理，先锁住X锁辅助索引树上满足条件记录行，然后还要锁住间隙或范围，再通过主键锁住X锁主键索引记录</li>
+</ul>
+</li>
+<li>test 表 id 不是索引<ul>
+<li>锁住表里所有行和间隙 X锁</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>总结：事务使用了排他锁（写锁），当前事务可以读取和修改，其他事务不能修改，也不能获取记录锁（select… for update）。如果查询没有使用到索引，将会锁住整个表记录。</p>
+<h5 id="3-乐观锁"><a href="#3-乐观锁" class="headerlink" title="3.乐观锁"></a>3.乐观锁</h5><ul>
+<li><img src="http://lion-heart.online/blog/2021-02-15-121024.png" alt="image-20210215201023682"></li>
+</ul>
+<h3 id="3-7-死锁"><a href="#3-7-死锁" class="headerlink" title="3.7 死锁"></a>3.7 死锁</h3><h4 id="1-表锁死锁"><a href="#1-表锁死锁" class="headerlink" title="1.表锁死锁"></a>1.表锁死锁</h4><h4 id="2-行锁死锁"><a href="#2-行锁死锁" class="headerlink" title="2.行锁死锁"></a>2.行锁死锁</h4><h4 id="3-共享锁转排它锁"><a href="#3-共享锁转排它锁" class="headerlink" title="3.共享锁转排它锁"></a>3.共享锁转排它锁</h4><h4 id="4-死锁排查"><a href="#4-死锁排查" class="headerlink" title="4.死锁排查"></a>4.死锁排查</h4><h2 id="四、集群架构"><a href="#四、集群架构" class="headerlink" title="四、集群架构"></a>四、集群架构</h2><h3 id="1-集群架构设计"><a href="#1-集群架构设计" class="headerlink" title="1.集群架构设计"></a>1.集群架构设计</h3><h4 id="1-1-设计理念"><a href="#1-1-设计理念" class="headerlink" title="1.1 设计理念"></a>1.1 设计理念</h4><ul>
+<li>可用性</li>
+<li>扩展性</li>
+<li>一致性</li>
+</ul>
+<h4 id="1-2-可用性设计：核心思路-冗余"><a href="#1-2-可用性设计：核心思路-冗余" class="headerlink" title="1.2 可用性设计：核心思路 - 冗余"></a>1.2 可用性设计：核心思路 - 冗余</h4><ul>
+<li>服务高可用</li>
+<li>数据高可用：数据一致性问题</li>
+</ul>
+<h4 id="1-3-扩展性设计"><a href="#1-3-扩展性设计" class="headerlink" title="1.3 扩展性设计"></a>1.3 扩展性设计</h4><ul>
+<li>提高读写性能<ul>
+<li>读性能</li>
+<li>写性能</li>
+</ul>
+</li>
+<li></li>
+</ul>
+<h3 id="2-主从复制"><a href="#2-主从复制" class="headerlink" title="2.主从复制"></a>2.主从复制</h3><h4 id="2-1-原理"><a href="#2-1-原理" class="headerlink" title="2.1 原理"></a>2.1 原理</h4><ul>
+<li><img src="http://lion-heart.online/blog/2021-02-16-010850.png" alt="image-20210216090849570"></li>
+</ul>
+<p>主从复制整体分为以下三个步骤：</p>
+<ul>
+<li><p>主库将数据库的变更操作记录到Binlog日志文件中</p>
+</li>
+<li><p>从库读取主库中的Binlog日志文件信息写入到从库的Relay Log中继日志中</p>
+</li>
+<li><p>从库读取中继日志信息在从库中进行Replay,更新从库数据信息</p>
+</li>
+</ul>
+<p>在上述三个过程中，涉及了Master的BinlogDump Thread和Slave的I/O Thread、SQL Thread，它们的作用如下：</p>
+<ul>
+<li><p>Master服务器对数据库更改操作记录在Binlog中，BinlogDump Thread接到写入请求后，读取Binlog信息推送给Slave的I/O Thread。</p>
+</li>
+<li><p>Slave的I/O Thread将读取到的Binlog信息写入到本地Relay Log中。</p>
+</li>
+<li><p>Slave的SQL Thread检测到Relay Log的变更请求，解析relay log中内容在从库上执行。</p>
+</li>
+</ul>
+<h4 id="2-2-缺点"><a href="#2-2-缺点" class="headerlink" title="2.2 缺点"></a>2.2 缺点</h4><ul>
+<li>数据丢失 - 主库宕机，从未接收到binlog或未写入relaylog<ul>
+<li>半同步复制</li>
+<li>增强半同步</li>
+</ul>
+</li>
+<li>复制延迟 - 写压力大或机器性能存在问题情况下，SQL Thread 和 I/O Thread 受影响导致延迟<ul>
+<li>并行复制</li>
+<li><img src="http://lion-heart.online/blog/2021-02-16-022709.png" alt="image-20210216102708771"></li>
+</ul>
+</li>
+</ul>
+<h4 id="2-3-实战"><a href="#2-3-实战" class="headerlink" title="2.3 实战"></a>2.3 实战</h4><h5 id="一、主库配置"><a href="#一、主库配置" class="headerlink" title="一、主库配置"></a>一、主库配置</h5><ul>
+<li>主库开启binlog</li>
+<li>设置serverId</li>
+<li>binlog通信方式</li>
+<li>数据源设置</li>
+<li>从数据库授权</li>
+</ul>
+<h5 id="二、从库配置"><a href="#二、从库配置" class="headerlink" title="二、从库配置"></a>二、从库配置</h5><ul>
+<li>设置 server - id</li>
+<li>日志命名</li>
+<li>读写限制</li>
+<li>主库信息、文件、位置配置</li>
+</ul>
+<h5 id="三、复制方式"><a href="#三、复制方式" class="headerlink" title="三、复制方式"></a>三、复制方式</h5><ul>
+<li>基于binlog二进制文件及其位置</li>
+<li>基于binlogdump文件</li>
+</ul>
+<h5 id="四、半同步复制-–-保证从接收binlog日志，解决数据丢失问题"><a href="#四、半同步复制-–-保证从接收binlog日志，解决数据丢失问题" class="headerlink" title="四、半同步复制 – 保证从接收binlog日志，解决数据丢失问题"></a>四、半同步复制 – 保证从接收binlog日志，解决数据丢失问题</h5><ul>
+<li><img src="http://lion-heart.online/blog/2021-02-16-025905.png" alt="半同步复制时序图"></li>
+<li>semi plugin install</li>
+<li>参数修改</li>
+</ul>
+<h5 id="五、并行复制-加快复制过程，解决数据延迟问题"><a href="#五、并行复制-加快复制过程，解决数据延迟问题" class="headerlink" title="五、并行复制 - 加快复制过程，解决数据延迟问题"></a>五、并行复制 - 加快复制过程，解决数据延迟问题</h5><h4 id="2-4-读写分离"><a href="#2-4-读写分离" class="headerlink" title="2.4 读写分离"></a>2.4 读写分离</h4><ul>
+<li><p>概念</p>
+<ul>
+<li><p>大多数互联网业务中，往往读多写少，这时候数据库的读会首先成为数据库的瓶颈。如果我们已经优化了SQL，但是读依旧还是瓶颈时，这时就可以选择“读写分离”架构了。</p>
+<p>读写分离首先需要将数据库分为主从库，一个主库用于写数据，多个从库完成读数据的操作，主从库之间通过主从复制机制进行数据的同步。</p>
+<p>在应用中可以在从库追加多个索引来优化查询，主库这些索引可以不加，用于提升写效率</p>
+</li>
+</ul>
+</li>
+<li><p>原理</p>
+<ul>
+<li><img src="http://lion-heart.online/blog/2021-02-16-031705.png" alt="读写分离架构"></li>
+</ul>
+</li>
+<li><p>问题</p>
+<ul>
+<li>主从同步延迟<ul>
+<li>写后立刻读</li>
+<li>二次查询</li>
+<li>业务特殊处理</li>
+</ul>
+</li>
+<li>读写分配机制<ul>
+<li>应用端分配<ul>
+<li>编码 + 配置</li>
+</ul>
+</li>
+<li>服务端分配<ul>
+<li>MySQL Proxy</li>
+<li>MyCat</li>
+<li>ShardingJDBC</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="3-分库分表"><a href="#3-分库分表" class="headerlink" title="3.分库分表"></a>3.分库分表</h3><p>互联网系统需要处理大量用户的请求。比如微信日活用户破10亿，海量的用户每天产生海量的数量；美团外卖，每天都是几千万的订单，那这些系统的用户表、订单表、交易流水表等是如何处理呢？</p>
+<p>上面体现为数据量大。MySQL在存储方面，官方的数据可以存储10E级别。但是KW级别表，索引树高度在3~5层，性能还可以，超过KW级别对存储和查询性能都有影响，那如何处理呢？</p>
+<p>首先需要分析数据数据是否是可以结转，如果数据量只增不减，历史数据又必须要留存，非常容易成为性能的瓶颈，而要解决这样的数据库瓶颈问题，<strong>读写分离</strong>和<strong>缓存</strong>往往都不合适</p>
+<p>解决方案</p>
+<ul>
+<li><p>NoSQL、NewSQL</p>
+</li>
+<li><p>分库分表，主要有垂直拆分和水平拆分两种拆分模式，都属于物理空间的拆分</p>
+<ul>
+<li><p>分库分表方案：只分库、只分表、分库又分表</p>
+</li>
+<li><p>垂直拆分：由于表数量多导致的单个库大。将表拆分到多个库中。</p>
+<ul>
+<li><p><img src="http://lion-heart.online/blog/2021-02-16-133114.png" alt="垂直分库"></p>
+</li>
+<li><p><img src="http://lion-heart.online/blog/2021-02-16-133207.png" alt="垂直分表"></p>
+<ul>
+<li><p><strong>垂直拆分优点</strong>：</p>
+<ul>
+<li><p>拆分后业务清晰，拆分规则明确；</p>
+</li>
+<li><p>易于数据的维护和扩展；</p>
+</li>
+<li><p>可以使得行数据变小，一个数据块 (Block) 就能存放更多的数据，在查询时就会减少 I/O 次数；</p>
+</li>
+<li><p>可以达到最大化利用 Cache 的目的，具体在垂直拆分的时候可以将不常变的字段放一起，将</p>
+</li>
+<li><p>经常改变的放一起；</p>
+</li>
+<li><p>便于实现冷热分离的数据表设计模式。</p>
+</li>
+</ul>
+</li>
+<li><p><strong>垂直拆分缺点</strong></p>
+<ul>
+<li>主键出现冗余，需要管理冗余列；</li>
+<li>会引起表连接 JOIN 操作，可以通过在业务服务器上进行 join 来减少数据库压力，提高了系统的复杂度；</li>
+<li>依然存在单表数据量过大的问题；</li>
+<li>事务处理复杂。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>水平拆分：由于表记录多导致的单个库大。将表记录拆分到多个表中。</p>
+<ul>
+<li><p><img src="http://lion-heart.online/blog/2021-02-16-134000.png" alt="水平拆分"></p>
+<ul>
+<li><p><strong>水平拆分优点</strong>：</p>
+<ul>
+<li><p>拆分规则设计好，join 操作基本可以数据库做；</p>
+</li>
+<li><p>不存在单库大数据，高并发的性能瓶颈；</p>
+</li>
+<li><p>切分的表的结构相同，应用层改造较少，只需要增加路由规则即可；</p>
+</li>
+<li><p>提高了系统的稳定性和负载能力。</p>
+</li>
+</ul>
+</li>
+<li><p><strong>水平拆分缺点</strong>：</p>
+<ul>
+<li><p>拆分规则难以抽象</p>
+</li>
+<li><p>跨库Join性能较差</p>
+</li>
+<li><p>分片事务的一致性难以解决</p>
+</li>
+<li><p>数据扩容的难度和维护量极大</p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="一、水平拆分：解决表中记录过多问题，水平拆分重点考虑拆分规则：例如范围、时间或Hash算法等。"><a href="#一、水平拆分：解决表中记录过多问题，水平拆分重点考虑拆分规则：例如范围、时间或Hash算法等。" class="headerlink" title="一、水平拆分：解决表中记录过多问题，水平拆分重点考虑拆分规则：例如范围、时间或Hash算法等。"></a>一、水平拆分：解决表中记录过多问题，水平拆分重点考虑拆分规则：例如范围、时间或Hash算法等。</h4><h4 id="二、垂直拆分：解决表过多或者是表字段过多问题。"><a href="#二、垂直拆分：解决表过多或者是表字段过多问题。" class="headerlink" title="二、垂直拆分：解决表过多或者是表字段过多问题。"></a>二、垂直拆分：解决表过多或者是表字段过多问题。</h4><h4 id="三、主键生成策略（分布式id生成器）"><a href="#三、主键生成策略（分布式id生成器）" class="headerlink" title="三、主键生成策略（分布式id生成器）"></a>三、主键生成策略（分布式id生成器）</h4><ul>
+<li>UUID<ul>
+<li>优点<ul>
+<li>无网络消耗</li>
+<li>性能高</li>
+</ul>
+</li>
+<li>缺点<ul>
+<li>无序</li>
+<li>占用空间大</li>
+<li>不利于索引构建</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>COMB</li>
+<li>SnowFlake</li>
+<li>数据库ID表</li>
+<li>Redis</li>
+</ul>
+<h4 id="四、分片策略"><a href="#四、分片策略" class="headerlink" title="四、分片策略"></a>四、分片策略</h4><ul>
+<li><p>概念</p>
+<ul>
+<li>分片，也叫 sharding ，是一个逻辑概念，就是将数据按照指定规则从一个存储设备分散到多个存储设备</li>
+</ul>
+</li>
+<li><p>分片策略</p>
+<ul>
+<li><p>分片键</p>
+<ul>
+<li>具体表字段</li>
+</ul>
+</li>
+<li><p>分片策略</p>
+<ul>
+<li><p>基于范围分片，例如：主键、创建时间等</p>
+<p>优点：新数据可以落在新存储节点，如果集群扩容，数据无需迁移</p>
+<p>缺点：数据热点分布不均</p>
+</li>
+<li><p>基于哈希取模、离散分片</p>
+<p>优点：实现简单，数据分配均匀</p>
+<p>缺点：集群扩容，数据需要迁移</p>
+</li>
+<li><p>一致性哈希分片</p>
+<p>优点：集群扩容，受影响的数据比较有限，当前节点位置的下一个节点</p>
+<p>缺点：哈希算法复杂</p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="五、扩容方案"><a href="#五、扩容方案" class="headerlink" title="五、扩容方案"></a>五、扩容方案</h4><h5 id="问题：分片策略变更、数据同步、数据迁移、数据一致性"><a href="#问题：分片策略变更、数据同步、数据迁移、数据一致性" class="headerlink" title="问题：分片策略变更、数据同步、数据迁移、数据一致性"></a>问题：分片策略变更、数据同步、数据迁移、数据一致性</h5><ul>
+<li><p>停机扩容：增减任意节点</p>
+<ul>
+<li><p>对外公告</p>
+</li>
+<li><p>停止服务</p>
+</li>
+<li><p>数据迁移、程序变更分片策略、配置变更</p>
+</li>
+<li><p>重启服务</p>
+<p>优点：简单</p>
+<p>缺点：服务可用性、扩展性低下，一但扩容投入生产，无法回滚</p>
+</li>
+</ul>
+</li>
+<li><p>平滑扩容：扩容为原来的 double 倍</p>
+<ul>
+<li><p>新增 2倍 服务器</p>
+</li>
+<li><p>配置双主配置</p>
+</li>
+<li><p>数据同步完成后，配置双主双写</p>
+</li>
+<li><p>删除双写，重启</p>
+</li>
+<li><p>清除冗余数据</p>
+<p>优点：服务高可用，可以将单数据库量减少一半，性能提高一倍</p>
+<p>缺点：程序复杂、配置双主同步、双主双写，越来越复杂</p>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="五、分库分表实战及中间件"><a href="#五、分库分表实战及中间件" class="headerlink" title="五、分库分表实战及中间件"></a>五、分库分表实战及中间件</h3><h4 id="1-问题列表"><a href="#1-问题列表" class="headerlink" title="1.问题列表"></a>1.问题列表</h4><ul>
+<li>用户请求量变大<ul>
+<li>单服务器TPS、内存、IO都是有上限，需要将请求打散分布到多个服务器</li>
+</ul>
+</li>
+<li>单库数据库量太大<ul>
+<li>单数据库处理能力有限</li>
+<li>单数据库磁盘空间有限</li>
+<li>单数据库IO有瓶颈</li>
+</ul>
+</li>
+<li>单表数据库量太大<ul>
+<li>查询</li>
+<li>插入</li>
+<li>更新</li>
+<li>加字段</li>
+<li>加索引</li>
+<li>以上操作都会产生高负载，影响服务</li>
+</ul>
+</li>
+</ul>
+<h4 id="2-解决方案"><a href="#2-解决方案" class="headerlink" title="2.解决方案"></a>2.解决方案</h4><ul>
+<li>垂直拆分<ul>
+<li>分库：业务维度进行微服务架构，数据维度也会按照业务切分，保证数据隔离，大大提供数据库吞吐能力</li>
+<li>分表：多字段的表进行拆分，进行冷热数据分离</li>
+</ul>
+</li>
+<li>水平拆分<ul>
+<li>分库：将一张大表拆分多个表，但是数据库级别操作还是IO瓶颈</li>
+<li>分表：将单表数据切分到多个服务器，好处就是缓解单机性能瓶颈和压力，突破IO、连接数、内存和CPU瓶颈</li>
+<li>注意规则<ul>
+<li>不垮库</li>
+<li>不垮表</li>
+<li>保证同一类数据都在同一个服务器</li>
+<li>分片策略选择</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="3-用户表拆分"><a href="#3-用户表拆分" class="headerlink" title="3.用户表拆分"></a>3.用户表拆分</h4><ul>
+<li>ID hash </li>
+<li>ID mapping phoneNumber</li>
+<li>利用空间换时间</li>
+</ul>
+<h4 id="4-设备表拆分"><a href="#4-设备表拆分" class="headerlink" title="4.设备表拆分"></a>4.设备表拆分</h4><ul>
+<li>设备ID sharding</li>
+<li>农场ID sharding</li>
+<li>主键选择<ul>
+<li>UUID</li>
+<li>SnowFlake</li>
+</ul>
+</li>
+<li>数据一致性<ul>
+<li>强一致性：XA 协议</li>
+<li>最终一致性：TCC、saga、Seata</li>
+</ul>
+</li>
+<li>数据库扩容<ul>
+<li>平滑扩容</li>
+</ul>
+</li>
+<li>业务层改造<ul>
+<li>基于应用层方式：Sharding - jdbc</li>
+<li>基于代理层方式：MyCat、Sharding - Proxy</li>
+</ul>
+</li>
+<li>面临问题<ul>
+<li>事务问题</li>
+<li>跨库，跨表 join 问题<ul>
+<li>全局表（字典表）：基础数据、配置数据，所有库都copy一份</li>
+<li>字段冗余：可以使用字段冗余</li>
+<li>业务层组装：数据访问层查询，然后在业务逻辑层组装</li>
+</ul>
+</li>
+<li>额外的数据管理负担和数据运算压力<ul>
+<li>数据库扩容</li>
+<li>维护</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="5-ShardingSphere：分布式数据库中间件组成的生态圈"><a href="#5-ShardingSphere：分布式数据库中间件组成的生态圈" class="headerlink" title="5.ShardingSphere：分布式数据库中间件组成的生态圈"></a>5.ShardingSphere：分布式数据库中间件组成的生态圈</h4><h5 id="5-1-组成"><a href="#5-1-组成" class="headerlink" title="5.1 组成"></a>5.1 组成</h5><ul>
+<li>JDBC</li>
+<li>Proxy</li>
+<li>Sidecar</li>
+</ul>
+<h5 id="5-2-Sharding-JDBC"><a href="#5-2-Sharding-JDBC" class="headerlink" title="5.2 Sharding-JDBC"></a>5.2 Sharding-JDBC</h5><ul>
+<li><p>介绍</p>
+<ul>
+<li>轻量级Java框架，jar形式提供服务</li>
+<li>适用于任何基于Java的ORM</li>
+<li>基于任何第三方的数据库连接池</li>
+<li>支持任意实现JDBC规范的数据库 </li>
+<li><img src="http://lion-heart.online/blog/2021-02-17-041639.png" alt="image-20210217121639471"></li>
+</ul>
+</li>
+<li><p>主要功能</p>
+<ul>
+<li>数据分片<ul>
+<li>分库、分表</li>
+<li>读写分离</li>
+<li>配置文件设置分片策略</li>
+<li>集成分布式主键</li>
+</ul>
+</li>
+<li>分布式事务<ul>
+<li>XA协议</li>
+<li>Sage 模型</li>
+<li>Seata</li>
+</ul>
+</li>
+<li>数据库治理<ul>
+<li>数据库配置动态化</li>
+<li>数据库监控，可视化链路追踪</li>
+<li>数据库编排</li>
+<li>数据脱敏</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>原理</p>
+<ul>
+<li><img src="http://lion-heart.online/blog/2021-02-17-043622.png" alt="Sharding-JDBC 类图"></li>
+<li>Factory API<ul>
+<li>ShardingDataSourceFactory 支持分库分表、读写分离</li>
+<li>MasterSlaveDataSourceFactory 支持读写分离</li>
+</ul>
+</li>
+<li>Configuration <ul>
+<li>ShardingRuleConfiguration是分库分表配置的核心和入口<ul>
+<li>TableRuleConfiguration是表的分片配置信息，有五种配置形式</li>
+</ul>
+</li>
+<li>MasterSlaveConfiguration是读写分离配置的核心和入口</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>Sharding-JDBC 初始化流程</p>
+<ul>
+<li>根据配置信息生成 Configuration 对象</li>
+<li>通过 Factory 将 Configuration 对象转化成 Rule 对象</li>
+<li>通过 Factory 将 Rule 对象与 DataSource 对象封装</li>
+<li>ShardingJDBC 使用 DataSource 进行分库分表、读写分离操作</li>
+</ul>
+</li>
+<li><p>Sharding-JDBC 数据分片</p>
+<ul>
+<li><p>表概念</p>
+<p>真实表：数据库中真实存在的物理表</p>
+<p>逻辑表：分片后，同一类表结构的总称</p>
+<p>数据节点：水平分库，分片后，数据源 + 真实表 组成</p>
+<p>绑定表：具有相同分片键的关系表</p>
+<p>farm_iot_device = 逻辑表</p>
+<p>farm_iot_device0 = 真实表</p>
+<p>farm_iot_device:farm_iot_device0,farm_iot_device1</p>
+<p>farm_device_monitor_data:farm_device_monitor_data0,farm_device_monitor_data1</p>
+<p>select * from farm_device_monitor_data f1 on farm_iot_device f2 on f1.device_id = f2.device_id where f1.device_id in (11,12,13)</p>
+<p>device_id 分片</p>
+<p>如果不配置绑定关系，采用笛卡尔积关联，生成4个SQL</p>
+<p>如果配置绑定关系，生成2个SQL</p>
+<p>广播表：不需要分片的表会在不同的数据节点上进行存储</p>
+</li>
+<li><p>分片算法</p>
+<ul>
+<li><p>精确的分片算法</p>
+<ul>
+<li>= 和 in 用法，适用于单一分片键</li>
+</ul>
+</li>
+<li><p>范围分片算法</p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<pre><code>- 复合分片算法
+
+  - 多分片键场景
+
+- Hint分片算法
+
+  - 适用于Hint场景</code></pre><ul>
+<li><p>分片策略：分片算法 + 分片键，真正可用于分片操作的是分片策略</p>
+<ul>
+<li>标准分片策略</li>
+<li>复合分片策略</li>
+<li>行表达式分片策略</li>
+<li>Hint分片策略</li>
+<li>无分片策略</li>
+</ul>
+</li>
+<li><p>分片流程</p>
+<ul>
+<li><p>SQL解析</p>
+<p>词法解析</p>
+</li>
+</ul>
+</li>
+</ul>
+<pre><code>- 查询优化
+
+  优化分片条件
+
+
+
+- SQL路由
+
+- SQL改写
+
+- SQL执行
+
+- 结果归并
+
+- ![数据分片流程](http://lion-heart.online/blog/2021-02-17-055928.png)</code></pre><h5 id="5-3-ShardingJDBC-分布式主键"><a href="#5-3-ShardingJDBC-分布式主键" class="headerlink" title="5.3 ShardingJDBC 分布式主键"></a>5.3 ShardingJDBC 分布式主键</h5><ul>
+<li>内置主键生成器<ul>
+<li>UUID</li>
+<li>SnowFlake：默认实现</li>
+</ul>
+</li>
+<li>自定义主键生成器<ul>
+<li>自定义类实现 xxxx 接口</li>
+<li>按SPI规范配置自定义主键类</li>
+<li>自定义类配置</li>
+</ul>
+</li>
+</ul>
+<h3 id="Buffer-Pool-原理"><a href="#Buffer-Pool-原理" class="headerlink" title="Buffer Pool 原理"></a>Buffer Pool 原理</h3><p>Buffer Pool就是数据库的一个内存组件，具有完整的数据结构，里面缓存了磁盘上的真实数据，增删改操作首先就是针对这个内存中的Buffer Pool里的数据执行的，同时配合了后续的redo log、刷磁盘等机制和操作。</p>
+<p>![crud](/Users/jinhongcai/Desktop/屏幕快照 2020-10-09 上午9.53.00.png)</p>
+<h4 id="数据页：MySQL中抽象出来的数据单位"><a href="#数据页：MySQL中抽象出来的数据单位" class="headerlink" title="数据页：MySQL中抽象出来的数据单位"></a><strong>数据页：MySQL中抽象出来的数据单位</strong></h4><p>实际上MySQL对数据抽象出来了一个数据页的概念，他是把很多行数据放在了一个数据页里，也就是说我们的磁盘文件中就是会有很多的数据页，每一页数据里放了很多行数据</p>
+<h4 id="磁盘上的数据页和Buffer-Pool中的缓存页是如何对应起来的？"><a href="#磁盘上的数据页和Buffer-Pool中的缓存页是如何对应起来的？" class="headerlink" title="磁盘上的数据页和Buffer Pool中的缓存页是如何对应起来的？"></a><strong>磁盘上的数据页和Buffer Pool中的缓存页是如何对应起来的？</strong></h4><p>缓存页 和 数据页 一一对应，每个缓存页，他实际上都会有一个描述信息，这个描述信息大体可以认为是用来描述这个缓存页的比如包含如下的一些东西：这个数据页所属的表空间、数据页的编号、这个缓存页在Buffer Pool中的地址以及别的一些杂七杂八的东西。</p>
+<p>![屏幕快照 2020-10-09 上午10.21.16](/Users/jinhongcai/Desktop/mysql/屏幕快照 2020-10-09 上午10.21.16.png)</p>
+<h4 id="数据库启动的时候，是如何初始化Buffer-Pool的？"><a href="#数据库启动的时候，是如何初始化Buffer-Pool的？" class="headerlink" title="数据库启动的时候，是如何初始化Buffer Pool的？"></a><strong>数据库启动的时候，是如何初始化Buffer Pool的？</strong></h4><p>数据库只要一启动，就会按照你设置的Buffer Pool大小，稍微再加大一点，去找操作系统申请一块内存区域，作为Buffer Pool的内存区域</p>
+<p>然后当内存区域申请完毕之后，数据库就会按照默认的缓存页的16KB的大小以及对应的800个字节左右的描述数据的大小，在Buffer Pool中划分出来一个一个的缓存页和一个一个的他们对应的描述数据</p>
+<p>执行增删改查的操作的时候，才会把数据对应的页从磁盘文件里读取出来，放入Buffer Pool中的缓存页中</p>
+<h4 id="我们怎么知道哪些缓存页是空闲的呢？"><a href="#我们怎么知道哪些缓存页是空闲的呢？" class="headerlink" title="我们怎么知道哪些缓存页是空闲的呢？"></a><strong>我们怎么知道哪些缓存页是空闲的呢？</strong></h4><p>数据库会为Buffer Pool设计一个<strong>free链表</strong></p>
+<p>![屏幕快照 2020-10-09 上午10.33.10](/Users/jinhongcai/Desktop/mysql/屏幕快照 2020-10-09 上午10.33.10.png)</p>
+<h4 id="如何将磁盘上的数据页读取到Buffer-Pool的缓存页中去？"><a href="#如何将磁盘上的数据页读取到Buffer-Pool的缓存页中去？" class="headerlink" title="如何将磁盘上的数据页读取到Buffer Pool的缓存页中去？"></a><strong>如何将磁盘上的数据页读取到Buffer Pool的缓存页中去？</strong></h4><p>逻辑：</p>
+<ol>
+<li>Bufferpool 还会有一个哈希表数据结构，用表空间号+数据页号，作为一个key，然后缓存页的地址作为value</li>
+<li>从free链表中找到一个空闲的缓存页</li>
+<li>从磁盘上读取数据页写入缓存页</li>
+<li>写入描述数据</li>
+<li>从free指针清空</li>
+</ol>
+<p>![屏幕快照 2020-10-09 上午10.56.47](/Users/jinhongcai/Desktop/mysql/屏幕快照 2020-10-09 上午10.56.47.png)</p>
+<h4 id="数据一致性问题？"><a href="#数据一致性问题？" class="headerlink" title="数据一致性问题？"></a>数据一致性问题？</h4><p>描述数据维护了flush 链表，flush 链表同 free 链表结构、作用相同，就是意义不同，描述缓存页是否是脏页</p>
+<h4 id="缓存页淘汰问题？脏页淘汰机制"><a href="#缓存页淘汰问题？脏页淘汰机制" class="headerlink" title="缓存页淘汰问题？脏页淘汰机制"></a>缓存页淘汰问题？脏页淘汰机制</h4><p>![缓存命中率概念 + LRU 算法](/Users/jinhongcai/Desktop/mysql/屏幕快照 2020-10-09 上午11.21.52.png)</p>
+<p>通过LRU维护了一个最近最少使用的 缓存页 结构。当需要加载数据页到缓存页，同时缓存页不足的情况下，就会通过LRU淘汰掉缓存命中率低的缓存页，触发刷盘机制。            </p>
+<h4 id="什么是预读机制？"><a href="#什么是预读机制？" class="headerlink" title="什么是预读机制？"></a>什么是预读机制？</h4><p>从磁盘上加载一个数据页的时候，可能会把数据页相邻的其他数据页也加载到缓存里去</p>
+<h4 id="什么情况会发生预读？"><a href="#什么情况会发生预读？" class="headerlink" title="什么情况会发生预读？"></a>什么情况会发生预读？</h4><ol>
+<li>参数：innodb_read_ahead_theshold，默认值56。意思就是如果顺序的访问了一个区里的多个数据页，超过阈值，此时会触发预读机制，把下一个相邻区的所有数据页都加载到缓存里去</li>
+<li>参数：innodb_random_read_ahead，默认 OFF。Buffer pool里缓存了一个区里的13个连续的数据页，而且这些数据页都是比较频繁会被访问，此时直接触发预读机制，当前区里其他数据页加载到缓存里</li>
+<li>全表扫描，导致当前表空间内所有数据页全部加载到缓存页中</li>
+</ol>
+<h4 id="预读机制好处？"><a href="#预读机制好处？" class="headerlink" title="预读机制好处？"></a>预读机制好处？</h4><p>减少磁盘IO，提升性能</p>
+<h4 id="什么场景会用到预读机制？预读带来的问题？"><a href="#什么场景会用到预读机制？预读带来的问题？" class="headerlink" title="什么场景会用到预读机制？预读带来的问题？"></a>什么场景会用到预读机制？预读带来的问题？</h4><p>发生预读，加载很多数据页到内存，这些缓存页未来可能都不会被访问到。如果free缓存页充足的情况下，没有问题。如果free不充足的情况，会将LRU上缓存页淘汰，但是很多预读的缓存页，在当前时刻可能是在 LRU 链表的头部区域，而经常被访问的缓存页，就会被优先淘汰，刷盘到磁盘</p>
+<p>![预读问题](/Users/jinhongcai/Desktop/mysql/屏幕快照 2020-10-09 下午1.28.27.png)</p>
+<h4 id="解决简单LRU链表带来的问题？"><a href="#解决简单LRU链表带来的问题？" class="headerlink" title="解决简单LRU链表带来的问题？"></a>解决简单LRU链表带来的问题？</h4><p>真正的LRU链表，会被拆分两部分，一部分热数据，一部分是冷数据，比例根据 innodb_old_blocks_pct 参数控制，默认37</p>
+<p><img src="/Users/jinhongcai/Desktop/mysql/%E5%86%B7%E7%83%AD%E9%93%BE%E8%A1%A8%E6%8B%86%E5%88%86.png" alt="冷热链表拆分"></p>
+<p>冷数据区域数据什么时候进入热数据区域，通过参数：innodb_old_blocks_time ，默认1000 ms，数据页被加载到缓存页 1s 后，访问当前缓存页，才会由冷数据区域挪动到热数据区域</p>
+<p>![屏幕快照 2020-10-09 下午1.52.32](/Users/jinhongcai/Desktop/mysql/屏幕快照 2020-10-09 下午1.52.32.png)</p>
+<h4 id="缓存数据刷盘"><a href="#缓存数据刷盘" class="headerlink" title="缓存数据刷盘"></a>缓存数据刷盘</h4><ol>
+<li>定时通过后台线程，把冷数据区域尾部一些缓存页刷入磁盘。缓存页加入free链表、从flush链表移除、从lru链表移除</li>
+<li>后台线程会在 mysql 不繁忙的时候，把flush链表中的缓存页刷入磁盘。flush、lru链表移除缓存页，free链表增加缓存页</li>
+<li>无空闲缓存页，还需要加载数据页情况。先删掉LRU 冷数据区域尾部缓存页。</li>
+</ol>
+<h4 id="多线程访问-Buffer-Pool-需要加锁吗？如果加锁，性能能高吗？"><a href="#多线程访问-Buffer-Pool-需要加锁吗？如果加锁，性能能高吗？" class="headerlink" title="多线程访问 Buffer Pool 需要加锁吗？如果加锁，性能能高吗？"></a>多线程访问 Buffer Pool 需要加锁吗？如果加锁，性能能高吗？</h4><p>由于是共享变量，必须加锁。性能不会低</p>
+<h5 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h5><p>缓存页加载到 Buffer Pool 中，更新和读取缓存页里的数据。涉及到 free、flush、lru 链表。还包括后台线程是如何定时根据 flush、lru 链表将部分更新的缓存页刷盘，以及缓存页用完了以后是如何根据 lru 链表将一些冷数据缓存页刷盘。如何避免每次 crud 频繁刷盘 + 加载缓存页 这种多次磁盘 IO 浪费性能的操作</p>
+<h3 id="为什么不能直接更新磁盘上的数据？"><a href="#为什么不能直接更新磁盘上的数据？" class="headerlink" title="为什么不能直接更新磁盘上的数据？"></a>为什么不能直接更新磁盘上的数据？</h3><p>每一个请求如果直接对磁盘文件进行随机读写，然后更新磁盘里的数据，最终结果就是性能低，并发度低，根本无法承受高并发的请求</p>
+<h3 id="为什么-MySql-可以承受高并发请求，高性能是如何做到的呢？"><a href="#为什么-MySql-可以承受高并发请求，高性能是如何做到的呢？" class="headerlink" title="为什么 MySql 可以承受高并发请求，高性能是如何做到的呢？"></a>为什么 MySql 可以承受高并发请求，高性能是如何做到的呢？</h3><p>通过内存更新数据，然后写 redo log 以及提交事物，后台再通过定时刷盘机制，保证了没个更新请求，尽量就是更新内存，然后顺序写日志文件。更新内存的性能极高，然后顺序写磁盘上的日志文件性能也是比较高。</p>
+<h3 id="MySql-为什么要引入数据页？"><a href="#MySql-为什么要引入数据页？" class="headerlink" title="MySql 为什么要引入数据页？"></a>MySql 为什么要引入数据页？</h3><p>数据更新如果不直接更新磁盘，更新哪些数据，保存在哪？所有问题都需要一个介质来链接，那就是缓存页，把磁盘上的数据加载到内存，更新缓存数据，同时写 redo log 到磁盘上</p>
+<p><img src="/Users/jinhongcai/Desktop/mysql/%E6%95%B0%E6%8D%AE%E6%9B%B4%E6%96%B0%E4%B8%8D%E4%BB%A5%E7%A3%81%E7%9B%98%E4%B8%BA%E5%AA%92%E4%BB%8B.png" alt="数据更新不以磁盘为媒介"></p>
+<h3 id="每次加载多少数据到内存？"><a href="#每次加载多少数据到内存？" class="headerlink" title="每次加载多少数据到内存？"></a>每次加载多少数据到内存？</h3><p><img src="/Users/jinhongcai/Desktop/mysql/%E6%95%B0%E6%8D%AE%E6%AF%8F%E6%AC%A1%E6%8C%89%E9%A1%B5%E7%BB%B4%E5%BA%A6%E5%8A%A0%E8%BD%BD.png" alt="数据每次按页维度加载"></p>
+<h3 id="一行数据在磁盘上是如何存储的？包含哪些东西？"><a href="#一行数据在磁盘上是如何存储的？包含哪些东西？" class="headerlink" title="一行数据在磁盘上是如何存储的？包含哪些东西？"></a>一行数据在磁盘上是如何存储的？包含哪些东西？</h3><p>头字段描述 + 字段值</p>
+<p>例如：”hello a a”，这一行数据具体有多少字段，都是什么，如果没有描述信息，根本无法解析</p>
+<p>头字段描述 = 变长字段的长度列表，解决一行数据的读取问题</p>
+<p>最终数据存储格式为：0x05 null值列表 数据头 hello a a </p>
+<p>null值列表：所有允许为 NULL 的字段默认使用 bit表示，值为 NULL bit = 1 ，反之为 0，NULL 为什么不存 “NULL” 浪费空间</p>
+<p>最终存储如下</p>
+<pre><code>**变长字段列表 + NULL 值列表 + 字段头描述(40 bit ) + 隐藏字段 + 真实数据部分**</code></pre><p>隐藏字段</p>
+<ol>
+<li>DB_ROW_ID：数据库默认实现，行标识。</li>
+<li>DB_TRX_ID：最近一次更新这条数据的事物id</li>
+<li>DB_ROLL_PTR：回滚指针，事物回滚，指向你更新这个事务之前生成的 undo log</li>
+</ol>
+<p>每次数据变更都会更新隐藏字段</p>
+<p>多事务串行更新一行数据，roll_poniter字段会把之前多个数据快照对应的undo log串联起来，形成重要的版本链</p>
+<h3 id="ReadView-机制：通过-undo-log-版本链条机制，保证你只能读到你事务开启前，别的事务提交更新的值，还有就是你自己事务更新的值"><a href="#ReadView-机制：通过-undo-log-版本链条机制，保证你只能读到你事务开启前，别的事务提交更新的值，还有就是你自己事务更新的值" class="headerlink" title="ReadView 机制：通过 undo log 版本链条机制，保证你只能读到你事务开启前，别的事务提交更新的值，还有就是你自己事务更新的值"></a>ReadView 机制：通过 undo log 版本链条机制，保证你只能读到你事务开启前，别的事务提交更新的值，还有就是你自己事务更新的值</h3><p>触发时机：开启事务</p>
+<p>关键结构：</p>
+<ol>
+<li>m_ids：未提交事务id集合</li>
+<li>min_tx_id：未提交事务集合内最小事务id</li>
+<li>max_tx_id：未提交事务id集合内最大事务id + 1</li>
+<li>creator_tx_id：当前事务id</li>
+</ol>
+<p>原理</p>
+<pre class=" language-java"><code class="language-java"><span class="token keyword">if</span> <span class="token punctuation">(</span>tx_id <span class="token operator">==</span> creator_tx_id <span class="token operator">||</span> tx_id<span class="token operator">&lt;</span>min_tx_id<span class="token punctuation">)</span><span class="token punctuation">{</span>
+  可以读，数据的更新时间是在当前事务开启前就已经提交了
+<span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+    <span class="token keyword">if</span><span class="token punctuation">(</span>tx_id <span class="token operator">></span> max_tx_id<span class="token punctuation">)</span><span class="token punctuation">{</span>
+        不可读，当前事务开启后，新的事务操作的数据，顺着 undoLog 继续往下找 tx_id，只到 tx_id 满足第一个 <span class="token keyword">if</span> 条件
+    <span class="token punctuation">}</span>
+  <span class="token keyword">if</span><span class="token punctuation">(</span>tx_id <span class="token operator">&lt;</span> max_tx_id<span class="token punctuation">)</span><span class="token punctuation">{</span>
+      当前tx_id 是否存在 m_ids 内。存在就顺着 roll_poniter 日志链往下找，找到小于 min_trx_id 的记录  
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span></code></pre>
+<h3 id="什么是行益出？"><a href="#什么是行益出？" class="headerlink" title="什么是行益出？"></a>什么是行益出？</h3><p>结合 Buffer Pool + 行数据在磁盘的存储结构，我们很容易就得到如下结论</p>
+<p>一个 BufferPool 包含多个 <code>cache line</code> ，一个<code>cache line</code> 默认大小是 16KB，包含若干条行数据。如果行数据特别大或正巧一个磁盘数据页包含了半行数据，这样的数据如何处理。这样的问题也叫<code>行益出</code>，益出到其他数据页，存放益出数据页，也叫<code>益出页</code></p>
+<h3 id="总结-1"><a href="#总结-1" class="headerlink" title="总结"></a>总结</h3><p>insert 一条数据的时候，实际上 mysql 是在内存插入了一个复杂的数据结构，这些有复杂结构的行数据会被刷新到磁盘</p>
+<h3 id="NULL-为啥用-bit-表示？"><a href="#NULL-为啥用-bit-表示？" class="headerlink" title="NULL 为啥用 bit 表示？"></a>NULL 为啥用 bit 表示？</h3><p>存储空间问题</p>
+<h3 id="为什么用头描述-null-值列表。。。。方式存储行数据，而不是用类似-java-序列化的方式存储？"><a href="#为什么用头描述-null-值列表。。。。方式存储行数据，而不是用类似-java-序列化的方式存储？" class="headerlink" title="为什么用头描述 + null 值列表。。。。方式存储行数据，而不是用类似 java 序列化的方式存储？"></a>为什么用头描述 + null 值列表。。。。方式存储行数据，而不是用类似 java 序列化的方式存储？</h3><p>语言特性导致，不同语言如果用特定的序列化方式，跨语言将会反序列化异常。而数据库作为通用存储介质，不允许这种定制化存储方式来存储数据</p>
+<h4 id="Java-级别写了一个-SQL-语句，维度为-表名-条件（行）。如何对应到-MySql-中的-Buffer-Pool，维度为-表空间-缓存页-？"><a href="#Java-级别写了一个-SQL-语句，维度为-表名-条件（行）。如何对应到-MySql-中的-Buffer-Pool，维度为-表空间-缓存页-？" class="headerlink" title="Java 级别写了一个 SQL 语句，维度为 表名 + 条件（行）。如何对应到 MySql 中的 Buffer Pool，维度为 表空间 + 缓存页 ？"></a>Java 级别写了一个 SQL 语句，维度为 表名 + 条件（行）。如何对应到 MySql 中的 Buffer Pool，维度为 表空间 + 缓存页 ？</h4><p>逻辑概念 = 只需要知道有哪些表，表里有哪些字段，表里有多少行，在哪存储并不关心</p>
+<p>物理概念 = 表里的数据都是存储在一个表空间里，表空间是由一堆磁盘里的数据文件组成，这些数据文件就一个个数据页</p>
+<h3 id="redo-log-作用-crash-safe"><a href="#redo-log-作用-crash-safe" class="headerlink" title="redo log 作用 crash safe"></a>redo log 作用 crash safe</h3><p>提交事物了，事物修改的缓存页没来得及刷盘，此时MySQL宕机了，会导致 buffer pool 里被事物修改过的数据全部丢失</p>
+<p>只要有 redo log 重启MySQL之后完全可以把这些修改了的缓存页还未刷盘的事物操作，他们对应的 redo log 都加载出来，在 buffer pool 的缓存页重新做一遍，保证数据不丢失 【checkpoint lsb】</p>
+<p>![curd 对应的 redo log 操作](/Users/jinhongcai/Desktop/mysql/curd 对应的 redo log 操作.png)</p>
+<h3 id="事物执行了一半后，回滚了怎么办？什么逻辑？"><a href="#事物执行了一半后，回滚了怎么办？什么逻辑？" class="headerlink" title="事物执行了一半后，回滚了怎么办？什么逻辑？"></a>事物执行了一半后，回滚了怎么办？什么逻辑？</h3><p><img src="/Users/jinhongcai/Desktop/mysql/%E4%BA%8B%E7%89%A9%E6%89%A7%E8%A1%8C%E4%B8%80%E5%8D%8A%EF%BC%8C%E5%8F%91%E7%94%9F%E5%9B%9E%E6%BB%9A.png" alt="事物执行一半，发生回滚"></p>
+<p>从目前的架构和流程来看，buffer pool 已经变更，redo log block 也写入若干条日志信息，无法完成回滚或恢复的操作。</p>
+<p>如果想要回滚就需要另一个非常重要的日志组件，undo log 回滚日志</p>
+<h3 id="undo-log-回滚日志-作用"><a href="#undo-log-回滚日志-作用" class="headerlink" title="undo log(回滚日志) 作用"></a>undo log(回滚日志) 作用</h3><p>回滚事物或叫恢复 buffer pool 里的缓存页数据</p>
+<p>因为只有事物操作才会更新 buffer pool ，并且操作是不可逆的，事务操作包括 insert、update、delete 语句去更新缓存页的数据，但是万一事务回滚了，你必须有每条 SQL 语句对应的 undo log 回滚日志，根据回滚日志去恢复缓存页里被更新的数据</p>
+<h3 id="undo-log-回滚日志是什么格式？如何存储？"><a href="#undo-log-回滚日志是什么格式？如何存储？" class="headerlink" title="undo log 回滚日志是什么格式？如何存储？"></a>undo log 回滚日志是什么格式？如何存储？</h3><p>undo log 文件格式<br>每种 DML 对应的文件格式都不同</p>
+<p>INSERT<br>日志开始位置：指定位置进行磁盘随机读写<br>主键的各列长度和值：每条记录都有主键，id、联合主键等等，即使没有主动设置过主键字段，MySQL 也会给你弄一个 row_id 作为隐藏主键<br>表id：表维度标示<br>日志编号：没个undo log 都有自己的编号，例如一个事物里有多个 SQL 语句，事物内的 undo log 记录为一组，默认从0开始<br>日志类型：TRX_UNDO_INSERT_REC<br>日志结束位置：指定位置进行磁盘随机读写</p>
+<p>插入操作回滚流程 ：<br>    buffer pool 缓存页里插入了一条数据，执行了 insert，生成了 INSERT undo log<br>    回滚时直接把这条 insert 语句的 undo log 拿出来，undo log 里有表id、主键信息就可以直接定位到对应的表空间 + 缓存页，从里面删除掉之前 insert 进去的数据</p>
+<pre class=" language-java"><code class="language-java">crud 实现原理
+buffer pool 机制：找到表空间 <span class="token operator">-</span><span class="token operator">></span> 找到数据页 <span class="token operator">-</span><span class="token operator">></span> 加载到缓存页 <span class="token operator">-</span><span class="token operator">></span>更新缓存页 <span class="token operator">-</span><span class="token operator">></span>写 undo log <span class="token operator">-</span><span class="token operator">></span>写 redo log
+    数据结构
+    DescriptionDataBlock
+    <span class="token punctuation">{</span>
+        <span class="token comment" spellcheck="true">//  数据块 对应redo、undo log 头文件中标记的 数据块编号     </span>
+        block_id <span class="token operator">=</span> block02<span class="token punctuation">;</span>
+        <span class="token comment" spellcheck="true">//  free 链表的前、后节点</span>
+        free_pre <span class="token operator">=</span> block01<span class="token punctuation">;</span>
+        <span class="token comment" spellcheck="true">//  未使用情况</span>
+        free_next <span class="token operator">=</span> block03<span class="token punctuation">;</span>
+        <span class="token comment" spellcheck="true">//  使用情况</span>
+        free_next <span class="token operator">=</span> null<span class="token punctuation">;</span>
+        <span class="token comment" spellcheck="true">//  flush 链表的前、后节点</span>
+        flush_pre <span class="token operator">=</span> null<span class="token punctuation">;</span>
+        flush_next <span class="token operator">=</span> null<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token comment" spellcheck="true">//  基础节点，数据页映射到缓存页，变更基础信息</span>
+    FreeLinkedListBaseNode
+    <span class="token punctuation">{</span>
+        <span class="token comment" spellcheck="true">//  指向开始和结束节点指针</span>
+        start <span class="token operator">=</span> block01<span class="token punctuation">;</span>
+        end <span class="token operator">=</span> block03<span class="token punctuation">;</span>
+        count <span class="token operator">=</span> <span class="token number">3</span><span class="token punctuation">;</span>   
+    <span class="token punctuation">}</span>
+    <span class="token comment" spellcheck="true">//  基础节点，缓存页更新过，当前节点就为脏节点</span>
+    FlushLinkedListBaseNode
+    <span class="token punctuation">{</span>
+        start <span class="token operator">=</span> block02<span class="token punctuation">;</span>
+        end <span class="token operator">=</span> block02<span class="token punctuation">;</span>
+        count <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token comment" spellcheck="true">//  冷热数据区划分等情况</span>
+    LRUBaseNode
+    <span class="token punctuation">{</span>
+        start
+    <span class="token punctuation">}</span>
+
+undo log 机制：事物回滚流程
+redo log 机制：由于事物提交后，并没有把事物更新的缓存页进行刷盘，很容易丢数据，同时也保证了 MySQL 高性能。所以在事物提交后，把对缓存页的修改以日志的形式写入 redo log，以保证修改的数据不丢失保证
+
+核心疑问点：把缓存页刷盘，跟你做的 redo log 都写入日志文件，都是磁盘操作，有什么差别？
+ A：二个方面来回答
+    <span class="token number">1</span>。刷盘方式
+        缓存页采用的是磁盘随机读写
+        类似 datafile<span class="token punctuation">.</span>locatexxx
+            datafile<span class="token punctuation">.</span>writexxxx
+
+        redo log 文件采用的是磁盘顺序写    
+        引入 mmap 原理
+    <span class="token number">2</span>。磁盘IO，数据量的大小很关键
+        缓存页大小 16KB【有可能你只修改了缓存页里的几个<span class="token keyword">byte</span>，也要把整个缓存页都刷盘吗，浪费资源】
+        redo log 大小 521byte
+
+
+
+磁盘加载数据页 <span class="token operator">-</span><span class="token operator">></span> buffer pool <span class="token operator">-</span><span class="token operator">></span> 变更缓存页 <span class="token operator">-</span><span class="token operator">></span> 记录 undo log、redo log
+
+redo log 文件格式
+磁盘上存在若干个可以指定大小的 redo log 磁盘文件
+MySQL 进程内有一块 redo log buffer 缓存区域默认 16M，里面存放大量 redo log block对象<span class="token punctuation">(</span>一种复杂的数据结构<span class="token punctuation">)</span>
+
+redo log block
+<span class="token punctuation">{</span>   
+    header 12byte
+    <span class="token punctuation">{</span>
+        块编号
+        写入数据长度
+        日志分组偏移量
+        checkpoint no
+    <span class="token punctuation">}</span>    
+    body <span class="token number">496</span> <span class="token keyword">byte</span>
+    <span class="token punctuation">{</span>
+        日志类型 <span class="token operator">+</span> 表空间ID <span class="token operator">+</span> 缓存页号 <span class="token operator">+</span> 偏移量 <span class="token operator">+</span> 修改里几个字节值 <span class="token operator">+</span> 具体值
+    <span class="token punctuation">}</span>
+    trailer <span class="token number">4</span> <span class="token keyword">byte</span>
+<span class="token punctuation">}</span>
+
+</code></pre>
+<h3 id="事物：一个事物包含了一个或多个-SQL-语句，当前模型下，每个-SQL-语句都是串行化执行"><a href="#事物：一个事物包含了一个或多个-SQL-语句，当前模型下，每个-SQL-语句都是串行化执行" class="headerlink" title="事物：一个事物包含了一个或多个 SQL 语句，当前模型下，每个 SQL 语句都是串行化执行"></a>事物：一个事物包含了一个或多个 SQL 语句，当前模型下，每个 SQL 语句都是串行化执行</h3><h3 id="多事务并发执行带来的问题"><a href="#多事务并发执行带来的问题" class="headerlink" title="多事务并发执行带来的问题"></a>多事务并发执行带来的问题</h3><p>脏读：读取到了其他事物更新过但未提交的数据<br>脏写：更新了其他事物更新过但未提交的数据<br>不可重复读：事物内对于同一共享变量，应该是可重复读的。不可重复读就是读取其他事物对同一共享变量修改过后并提交了事物的值<br>幻读：事物内查询到之前没有看到过的数据         </p>
+<h4 id="解决办法"><a href="#解决办法" class="headerlink" title="解决办法"></a>解决办法</h4><h5 id="数据库隔离级别"><a href="#数据库隔离级别" class="headerlink" title="数据库隔离级别"></a>数据库隔离级别</h5><table>
+<thead>
+<tr>
+<th align="center">隔离级别/问题</th>
+<th align="center">脏读/脏写</th>
+<th align="center">不可重复读</th>
+<th align="center">幻读</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">read uncommited</td>
+<td align="center">V</td>
+<td align="center">V</td>
+<td align="center">V</td>
+</tr>
+<tr>
+<td align="center">read commited</td>
+<td align="center">X</td>
+<td align="center">V</td>
+<td align="center">V</td>
+</tr>
+<tr>
+<td align="center">repeatable read</td>
+<td align="center">X</td>
+<td align="center">X</td>
+<td align="center">V</td>
+</tr>
+<tr>
+<td align="center">serializer read</td>
+<td align="center">X</td>
+<td align="center">X</td>
+<td align="center">X</td>
+</tr>
+</tbody></table>
+<h4 id="MVCC机制"><a href="#MVCC机制" class="headerlink" title="MVCC机制"></a>MVCC机制</h4><p>原理：undoLog 多版本链条机制 + ReadView 视图机制</p>
+<h4 id="MySQL-的-RR-如何实现避免幻读问题"><a href="#MySQL-的-RR-如何实现避免幻读问题" class="headerlink" title="MySQL 的 RR 如何实现避免幻读问题"></a>MySQL 的 RR 如何实现避免<code>幻读</code>问题</h4><p>RC：每次发起查询，都重新生成一个ReadView视图，每次查询都会更新 活跃事务id 列表，未在列表内且在最大事务id范围内的事务则是已提交事务</p>
+<pre class=" language-java"><code class="language-java"><span class="token keyword">if</span> <span class="token punctuation">(</span>tx_id <span class="token operator">==</span> creator_tx_id <span class="token operator">||</span> tx_id<span class="token operator">&lt;</span>min_tx_id <span class="token operator">||</span> tx_id <span class="token operator">&lt;</span> max_tx_id <span class="token operator">&amp;&amp;</span> <span class="token operator">!</span>m_ids<span class="token punctuation">.</span><span class="token function">isContains</span><span class="token punctuation">(</span>tx_id<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+      可以读，数据的更新时间是在当前事务开启前就已经提交了
+    可以读，说明当前数据在生成 ReadView 之前就已经提交了
+<span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+    <span class="token keyword">if</span><span class="token punctuation">(</span>tx_id <span class="token operator">></span> max_tx_id<span class="token punctuation">)</span><span class="token punctuation">{</span>
+        不可读，当前事务开启后，新的事务操作的数据，顺着 undoLog 继续往下找 tx_id，只到 tx_id 满足第一个 <span class="token keyword">if</span> 条件
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span></code></pre>
+<p>RR：事务开启后，只会有一个 ReadView 视图，不会更新 活跃事务id 列表</p>
+<pre class=" language-java"><code class="language-java"><span class="token keyword">if</span> <span class="token punctuation">(</span>tx_id <span class="token operator">==</span> creator_tx_id <span class="token operator">||</span> tx_id<span class="token operator">&lt;</span>min_tx_id<span class="token punctuation">)</span><span class="token punctuation">{</span>
+  可以读，数据的更新时间是在当前事务开启前就已经提交了
+<span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+    <span class="token keyword">if</span><span class="token punctuation">(</span>tx_id <span class="token operator">></span> max_tx_id<span class="token punctuation">)</span><span class="token punctuation">{</span>
+        不可读，当前事务开启后，新的事务操作的数据，顺着 undoLog 继续往下找 tx_id，只到 tx_id 满足第一个 <span class="token keyword">if</span> 条件
+    <span class="token punctuation">}</span>
+  <span class="token keyword">if</span><span class="token punctuation">(</span>tx_id <span class="token operator">&lt;</span> max_tx_id <span class="token operator">&amp;&amp;</span> <span class="token operator">!</span>m_ids<span class="token punctuation">.</span><span class="token function">isContains</span><span class="token punctuation">(</span>tx_id<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+      可以读，说明当前数据在生成 ReadView 之前就已经提交了
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span></code></pre>
+<h3 id="MVCC-和-隔离级别关系"><a href="#MVCC-和-隔离级别关系" class="headerlink" title="MVCC 和 隔离级别关系"></a>MVCC 和 隔离级别关系</h3><p>早期数据库不论读取还是写入，都用锁来实现。但是锁会带来性能的问题。人们尝试各种优化方案。写入和读取的优化方式不同。</p>
+<p>对于数据库写入操作，没有特别好的办法，因为无论如何要避免并发修改一个数据，就得靠锁。不同的数据库对于写入操作都会加悲观锁（比如MySQL是X锁）。为了避免X锁带来的性能问题，人们在合适的场合会选择用乐观锁来优化。有的数据库内建乐观锁，但是有的没有（比如MySQL就没有），所以需要开发人员自己在数据表里加version列，自己写业务代码实现。</p>
+<blockquote>
+<p>顺便提一句，乐观锁并不一定总是比悲观锁性能表现更好，这要看竞争的程度</p>
+<p>如果数据访问竞争的非常厉害，乐观锁只会让CPU和IO白白浪费而已。</p>
+</blockquote>
+<p>对于读取，优化就是MVCC。MVCC的意思用简单的话讲就是<strong>对数据库的任何修改的提交都不会直接覆盖之前的数据，而是产生一个新的版本与老版本共存，使得读取时可以完全不加锁</strong>。这样读某一个数据时，事务可以根据隔离级别选择要读取哪个版本的数据。过程中完全不需要加锁。</p>
+<p>这样，实现两个隔离级别就非常容易：</p>
+<ul>
+<li>Read Committed - 一个事务读取数据时总是读这个数据最近一次被commit的版本</li>
+<li>Repeatable Read - 一个事务读取数据时总是读取当前事务开始之前最后一次被commit的版本（所以底层实现时需要比较当前事务和数据被commit的版本号）</li>
+</ul>
+<p>也可以主动添加共享锁</p>
+<ul>
+<li>select…… lock in share mode</li>
+</ul>
+<p>MVCC并不是万灵药。大量的业务问题的关键点在于，<strong>你在提交一个事务那一刹那，你提交事务的所有修改依赖的读取是否都还有效</strong>。对于这种场景，无论是Read Committed还是Repeatable Read都没有什么卵用。比如扣库存就是这样典型的业务场景</p>
+<p>在这种场景下</p>
+<ul>
+<li>在MySQL InnoDB，使用者会使用<code>select ... for update</code>手工加锁。或者干脆用Serializable隔离级别</li>
+</ul>
+<h3 id="锁机制：多事务更新同一行数据的时候串行化，避免同时更新统一行数据带来的问题"><a href="#锁机制：多事务更新同一行数据的时候串行化，避免同时更新统一行数据带来的问题" class="headerlink" title="锁机制：多事务更新同一行数据的时候串行化，避免同时更新统一行数据带来的问题"></a>锁机制：多事务更新同一行数据的时候串行化，避免同时更新统一行数据带来的问题</h3><table>
+<thead>
+<tr>
+<th align="center">锁类型</th>
+<th align="center">独占锁</th>
+<th align="center">共享锁</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">独占锁</td>
+<td align="center">互斥</td>
+<td align="center">互斥</td>
+</tr>
+<tr>
+<td align="center">共享锁</td>
+<td align="center">互斥</td>
+<td align="center">不互斥</td>
+</tr>
+</tbody></table>
+<p>基于MVCC的并发读，是不需要加锁，根据隔离级别选择读取对应的版本，但是也可以主动加读锁 - 共享锁</p>
+<h3 id="undo-log-写入时机"><a href="#undo-log-写入时机" class="headerlink" title="undo log 写入时机"></a>undo log 写入时机</h3><p>![undo log 回滚日志的写入时机](/Users/jinhongcai/Desktop/mysql/undo log 回滚日志的写入时机.png)</p>
+<h2 id="事务原理"><a href="#事务原理" class="headerlink" title="事务原理"></a>事务原理</h2><h2 id="锁的底层机制"><a href="#锁的底层机制" class="headerlink" title="锁的底层机制"></a>锁的底层机制</h2><h2 id="索引底层原理"><a href="#索引底层原理" class="headerlink" title="索引底层原理"></a>索引底层原理</h2><h2 id="存储原理"><a href="#存储原理" class="headerlink" title="存储原理"></a>存储原理</h2><p>Buffer Pool（数据页 = 内存级别更新速度） 磁盘随机写</p>
+<p>redo log 磁盘顺序写</p>
+<p>undo log 磁盘顺序写</p>
+<h2 id="查询优化的底层原理"><a href="#查询优化的底层原理" class="headerlink" title="查询优化的底层原理"></a>查询优化的底层原理</h2><h2 id="数据库的建模"><a href="#数据库的建模" class="headerlink" title="数据库的建模"></a>数据库的建模</h2><h2 id="在数据库建模的时候，应该如何注意字段类型"><a href="#在数据库建模的时候，应该如何注意字段类型" class="headerlink" title="在数据库建模的时候，应该如何注意字段类型"></a>在数据库建模的时候，应该如何注意字段类型</h2><h2 id="索引类型的一些问题"><a href="#索引类型的一些问题" class="headerlink" title="索引类型的一些问题"></a>索引类型的一些问题</h2><h2 id="如何保证数据库避免死锁、高性能的运行"><a href="#如何保证数据库避免死锁、高性能的运行" class="headerlink" title="如何保证数据库避免死锁、高性能的运行"></a>如何保证数据库避免死锁、高性能的运行</h2><h3 id="性能监控"><a href="#性能监控" class="headerlink" title="性能监控"></a>性能监控</h3><ol>
+<li><p>必要性，sql 慢，分析具体是哪个步骤慢</p>
+<ul>
+<li>方法 show profile show processlist 晋级版本 - performance schema</li>
+</ul>
+</li>
+<li><p>针对具体步骤进行优化，一般都是 执行阶段，执行阶段一般就是索引优化</p>
+<ul>
+<li>有没有索引</li>
+<li>走没走索引</li>
+</ul>
+</li>
+</ol>
+<h3 id="类型优化"><a href="#类型优化" class="headerlink" title="类型优化"></a>类型优化</h3><p>越小越好</p>
+<p>越简单越好</p>
+<p>避免使用 NULL</p>
+<h2 id="面试题"><a href="#面试题" class="headerlink" title="面试题"></a>面试题</h2><h5 id="数据库连接池有哪些？"><a href="#数据库连接池有哪些？" class="headerlink" title="数据库连接池有哪些？"></a>数据库连接池有哪些？</h5><p>DBCP</p>
+<p>C3P0</p>
+<p>druid</p>
+<h5 id="索引是什么？如何实现？优缺点？用途？分类？技术点？"><a href="#索引是什么？如何实现？优缺点？用途？分类？技术点？" class="headerlink" title="索引是什么？如何实现？优缺点？用途？分类？技术点？"></a>索引是什么？如何实现？优缺点？用途？分类？技术点？</h5><pre class=" language-html"><code class="language-html">索引：一种特殊的数据结构
+实现
+1.文件操作 -> IO 操作、磁盘文件操作
+2.复杂的数据结构
+参考结构
+1.hash表
+2.二叉树
+3.AVL树
+4.read-black
+5.B Tree
+6.B+ Tree
+
+优点
+1.大大减少服务器扫描的数据量
+2.随机 IO -> 顺序 IO
+缺点
+1.增删改操作需要维护索引结构
+2.需要额外的空间来存储索引数据</code></pre>
+<pre class=" language-html"><code class="language-html">用途
+1.where 子句
+2.排序和分组可以利用索引天然的顺序特性，加快查询效率
+3.可以使用 min max 函数</code></pre>
+<table>
+<thead>
+<tr>
+<th align="center">索引分类</th>
+<th align="center">用途</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">主键</td>
+<td align="center">主键列，值不为空</td>
+</tr>
+<tr>
+<td align="center">唯一</td>
+<td align="center">唯一列，值可以为空</td>
+</tr>
+<tr>
+<td align="center">普通</td>
+<td align="center">普通列</td>
+</tr>
+<tr>
+<td align="center">联合</td>
+<td align="center">多个普通列</td>
+</tr>
+<tr>
+<td align="center">全文</td>
+<td align="center"></td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th align="center">技术点</th>
+<th align="center">功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">回表</td>
+<td align="center">非主键索引树，获取到主键后，再次进行主键索引树查询</td>
+</tr>
+<tr>
+<td align="center">覆盖索引</td>
+<td align="center">不进行回表的查询行为</td>
+</tr>
+<tr>
+<td align="center">最左匹配</td>
+<td align="center">联合索引，where 子句 条件顺序要满足 联合索引顺序，才可以走索引树</td>
+</tr>
+<tr>
+<td align="center">索引下推</td>
+<td align="center">联合索引下，在存储引擎内完成数据的检索</td>
+</tr>
+<tr>
+<td align="center">索引合并</td>
+<td align="center"></td>
+</tr>
+</tbody></table>
+<p>mysql的三大引擎是啥？ 文件存储结构、索引类型、索引结构、事务、锁级别、使用场景<br>    mysql常用的引擎有InnoDB，MyISAM，Memory，默认是InnoDB<br>    InnoDB：磁盘表，支持事务，支持行级锁，B+Tree索引<br>    ps:优点：具有良好的ACID特性。适用于高并发，更新操作比较多的表。需要使用事务的表。对自动灾难恢复有要求的表。<br>    缺点：读写效率相对MYISAM比较差。占用的磁盘空间比较大</p>
+<pre><code>MyISAM：磁盘表，不支持事务，支持表级锁，B+Tree索引
+ps: 优点：占用空间小，处理速度快（相对InnoDB来说）
+缺点：不支持事务的完整性和并发性
+
+MEMORY(Heap)：内存表，不支持事务，表级锁，Hash索引，不支持Blob,Text大类型
+ps: 优点：速度要求快的，临时数据
+缺点：丢失数据
+
+
+myisam读的效果好，写的效率差，这和它数据存储格式，索引的指针和锁的策略有关的，它的数据是顺序存储的，他的索引btree上的节点是一个指向数据物理位置的指针，所以查找起来很快
+
+innodb支持行锁，行锁是加在索引上的，不是加在数据记录上的，如果sql没有用到索引，仍然会锁定表,mysql的读写之间是可以并发的
+普通的select是不需要锁的，当查询的记录遇到锁时，用的是一致性的非锁定快照读，也就是根据数据库隔离级别策略，会去读被锁定行的快照，其它更新或加锁读语句用的是当前读，读取原始行因为普通读与写不冲突，所以innodb不会出现读写饿死的情况，又因为在使用索引的时候用的是行锁，锁的粒度小，竞争相同锁的情况就少，就增加了并发处理，所以并发读写的效率还是很优秀的，问题在于索引查询后的根据主键的二次查找导致效率低</code></pre><p>innodb对一行数据的读会加锁吗<br>    早期数据库不论读取还是写入，都用锁来实现。但是锁会带来性能的问题。人们尝试各种优化方案。写入和读取的优化方式不同。<br>    对于数据库写入操作，没有特别好的办法，因为无论如何要避免并发修改一个数据，就得靠锁。不同的数据库对于写入操作都会加悲观锁（比如MySQL是X锁）。为了避免X锁带来的性能问题，人们在合适的场合会选择用乐观锁来优化，所以需要开发人员自己在数据表里加version列，自己写业务代码实现。<br>    顺便提一句，乐观锁并不一定总是比悲观锁性能表现更好，这要看竞争的程度<br>        如果数据访问竞争的非常厉害，乐观锁只会让CPU和IO白白浪费而已。</p>
+<pre><code>对于读取，优化就是MVCC。MVCC的意思用简单的话讲就是对数据库的任何修改的提交都不会直接覆盖之前的数据，而是产生一个新的版本与老版本共存，使得读取时可以完全不加锁。这样读某一个数据时，事务可以根据隔离级别选择要读取哪个版本的数据。过程中完全不需要加锁。
+
+这样，实现两个隔离级别就非常容易：
+
+Read Committed - 一个事务读取数据时总是读这个数据最近一次被commit的版本
+Repeatable Read - 一个事务读取数据时总是读取当前事务开始之前最后一次被commit的版本（所以底层实现时需要比较当前事务和数据被commit的版本号）
+也可以主动添加共享锁select…… lock in share mode
+MVCC并不是万灵药。大量的业务问题的关键点在于，你在提交一个事务那一刹那，你提交事务的所有修改依赖的读取是否都还有效。对于这种场景，无论是Read Committed还是Repeatable Read都没有什么卵用。比如扣库存就是这样典型的业务场景
+在这种场景下，在MySQL InnoDB，使用者会使用select ... for update手工加锁。或者干脆用Serializable隔离级别</code></pre><p>mysql是如何实现事务的<br>    undo log 回滚日志<br>    redo log 重做日志</p>
+<p>MySQL事务特性和隔离级别<br>    ACID<br>    RR<br>    RU<br>    RC<br>    S</p>
+<p>mysql的默认隔离级别<br>    RR</p>
+<p>mysql的binlog<br>    主从复制也需要依靠binlog</p>
+<pre><code>binlog 存在于Mysql Server层中，主要用于数据恢复；当数据被误删时，可以通过上一次的全量备份数据加上某段时间的binlog将数据恢复到指定的某个时间点的数据。
+redo log 存在于InnoDB 引擎中，InnoDB引擎是以插件形式引入Mysql的，redo log的引入主要是为了实现Mysql的crash-safe能力。
+
+statement：statement模式下,记录单元为语句.即每一个sql造成的影响会记录.由于sql的执行是有上下文的,因此在保存的时候需要保存相关的信息,同时还有一些使用了函数之类的语句无法被记录复制.
+row：row级别下,记录单元为每一行的改动,基本是可以全部记下来但是由于很多操作,会导致大量行的改动(比如alter able),因此这种模式的文件保存的信息太多,日志量太大.
+mixed：mixed. 一种折中的方案,普通操作使用statement记录,当无法使用statement的时候使用row.</code></pre><p>主从复制<br>读写分离何时强制要读主库，读哪个从库是通过什么方式决定的，从库的同步mysql用的什么方式</p>
+<p>索引分为聚簇索引和非聚簇索引两种，聚簇索引是按照数据存放的物理位置为顺序的，而非聚簇索引就不一样了；<br>聚簇索引能提高多行检索的速度，而非聚簇索引对于单行的检索很快。<br>聚簇索引：有主键时，根据主键创建聚簇索引<br>        没有主键时，会用一个唯一且不为空的索引列做为主键，成为此表的聚簇索引<br>        如果以上两个都不满足那innodb自己创建一个虚拟的聚集索引</p>
+<p>非聚簇索引：非聚簇索引都是辅助索引，像复合索引、前缀索引、唯一索引</p>
+<p>B+树和B树区别？<br>B树的非叶子节点存储实际记录的指针，而B+树的叶子节点存储实际记录的指针<br>B+树的叶子节点通过指针连起来了, 适合扫描区间和顺序查找。</p>
+<p>查看 SQL 是不是使用了索引？<br>    执行计划</p>
+<p>mysql的级锁加在哪个位置<br>表级：直接锁定整张表，在你锁定期间，其它进程无法对该表进行写操作。如果你是写锁，则其它进程则读也不允许<br>行级：仅对指定的记录进行加锁，这样其它进程还是可以对同一个表中的其它记录进行操作。<br>页级，表级锁速度快，但冲突多，行级冲突少，但速度慢。所以取了折衷的页级，一次锁定相邻的一组记录。</p>
+<p>索引的类型<br>    主键<br>    唯一<br>    普通<br>    联合<br>    全文</p>
+<p>redo log的概念是什么？为什么会存在？<br>    在思考这个问题之前，我们可以先看看MySQL INNODB执行一条update语句的流程<br>    1.将数据所在的数据页加载到BufferPool对应的缓存页(事务开始)<br>    2.将数据的旧值写入到undolog中<br>    3.更新数据在BufferPool中的值<br>    4.写redolog日志<br>    5.写binlog归档日志<br>    6.事务提交，在redolog中写commit标记<br>    7.数据会在之后的某个时刻刷入硬盘中的数据页<br>    redolog其实就是上面第四步的操作，他记录的是数据修改之后的值，他的意义在于，当我们事务提交之后但bufferpool中修改后的数据还没有刷入磁盘的时候机器宕机了，那么我们就可以根据redolog中的日志来恢复内存中的数据</p>
+<p>那为什么不直接在提交事务的将修改的数据刷入硬盘？<br>    原因有以下几点：<br>    1.数据在内存中修改的数据很快，但磁盘随机写很慢<br>    2.数据在磁盘和内存中是以页为单位的，默认是16kb，假如你就改了一天数据的某个属性就需要将这一整个数据页刷入硬盘，效率很低。而redolog就快很多，首先他不是随机在磁盘写    ，而是通过追加的方式写入redolog文件，速度快很多，然后他也不是直接往硬盘中的redolog文件写，而是先写入redologbuffer（默认大小16mb）中的redologblock（默认大小512字节）这个内存结构中，首先往redologbuffer中写的很快，然后会在极短时间内以redolog block为单位刷入到磁盘，这样的话性能就会很高</p>
+<pre><code>redolog刷盘点 - page cache，由操作系统保证数据可靠性
+    1.写满8M
+    2.事务commit</code></pre><p>什么是WAL机制？好处是什么？<br>    (1).将redo log写入到buffer中的block中<br>    (2).调用写磁盘操作,这一步将redo log buffer中的 block 日志写到操作系统中的page cache里面。<br>    (3).调用os的fsync操作,将page cache中的redolog日志落盘,落盘之后数据便在磁盘上了</p>
+<pre><code>上面就是WAL机制在redo log刷盘过程中的具体实现,其实我的理解就是将日志先写到内存中,然后某个时间在刷入磁盘,日志异步落盘。其实把数据从内存写入到磁盘看似就一个操作
+(1).从磁盘随机写变成顺序写,性能提升巨大
+(2).组提交,上面redolog的执行步骤第三步,调用fsync可以同时将多次第二步write操作写入到pagecache的数据一批落盘,这样的话就大量的减少了iops,减少磁盘压力</code></pre><p>redo log为什么能保证crash safe机制？<br>    MySQL通过两阶段提交的方式来保证CrashSafe。CrashSafe需要Server层、Binlog和InnoDB的协同工作才能完成。由于DDL和MyISAM不支持事务性，因此没办法保证CrashSafe</p>
+<p>redo log和bin log 不同点有哪些？<br>    Redo Log是属于InnoDB引擎功能;Binlog是属于MySQL Server自带功能，所有引擎都可以使用，并且是以二进制文件记录。<br>    Redo Log属于物理日志，记录该数据页更新状态内容;Binlog是逻辑日志，记录更新操作语句的原始逻辑。<br>    Redo Log日志是循环写，日志空间大小是固定;Binlog是追加写入，写完一个写下一个，不会覆盖使用。<br>    Redo Log作为服务器异常宕机后事务数据自动恢复使用，Binlog可以作为主从复制和数据恢复使用。Binlog没有自动crash-safe能力</p>
+<p>什么是两阶段提交？为什么需要两阶段提交？两阶段提交如何保证数据库中两份日志间的逻辑一致性？<br>执行器在执行update语句时候的流程是什么样子的？<br>如果不是两阶段提交，先写binlog和先写redolog两种场景，各会遇到什么问题？<br>如何使用缓冲实现惰性B树？</p>
+<p>Q：mysql对于千万级的大表如何优化？<br>很多人第一反应是各种切分；<br>我给的顺序是:<br>第一优化你的sql和索引；<br>第二加缓存，memcached,redis；<br>第三以上都做了后，还是慢，就做主从复制或主主复制，读写分离，可以在应用层做，效率高，也可以用三方工具，第三方工具推荐360的atlas,其它的要么效率不高，要么没人维护；<br>第四如果以上都做了还是慢，不要想着去做切分，mysql自带分区表，先试试这个，对你的应用是透明的，无需更改代码,但是sql语句是需要针对分区表做优化的，sql条件中要带上分区条件的列，从而使查询定位到少量的分区上，否则就会扫描全部分区，另外分区表还有一些坑，在这里就不多说了；<br>第五如果以上都做了，那就先做垂直拆分，其实就是根据你模块的耦合度，将一个大的系统分为多个小的系统，也就是分布式系统；<br>第六才是水平切分，针对数据量大的表，这一步最麻烦，最能考验技术水平，要选择一个合理的shardingkey,为了有好的查询效率，表结构也要改动，做一定的冗余，应用也要改，sql中尽量带sharding key，将数据定位到限定的表上去查，而不是扫描全部的表；</p>
+<p>有人也许要说第一步优化sql和索引这还用说吗？的确，大家都知道，但是很多情况下，这一步做的并不到位，甚至有的只做了根据sql去建索引，根本没对sql优化（中枪了没？），除了最简单的增删改查外，想实现一个查询，可以写出很多种查询语句，不同的语句，根据你选择的引擎、表中数据的分布情况、索引情况、数据库优化策略、查询中的锁策略等因素，最终查询的效率相差很大；优化要从整体去考虑，有时你优化一条语句后，其它查询反而效率被降低了，所以要取一个平衡点；即使精通mysql的话，除了纯技术面优化，还要根据业务面去优化sql语句，这样才能达到最优效果</p>
+<p>mysql怎么实现redo log和binlog的一致性<br>    伪2pc分布式事务</p>
+
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="http://orgjinhc.github.io" rel="external nofollow noreferrer">靳宏财</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="http://orgjinhc.github.io/2021/02/09/MySQL/">http://orgjinhc.github.io/2021/02/09/MySQL/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="http://orgjinhc.github.io" target="_blank">靳宏财</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            <span class="chip bg-color">无标签</span>
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/orgjinhc/orgjinhc.github.io/libs/share/css/share.min.css">
+
+<div id="article-share">
+    
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="https://cdn.jsdelivr.net/gh/orgjinhc/orgjinhc.github.io/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+                <style>
+    #reward {
+        margin: 40px 0;
+        text-align: center;
+    }
+
+    #reward .reward-link {
+        font-size: 1.4rem;
+        line-height: 38px;
+    }
+
+    #reward .btn-floating:hover {
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2), 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    #rewardModal {
+        width: 320px;
+        height: 350px;
+    }
+
+    #rewardModal .reward-title {
+        margin: 15px auto;
+        padding-bottom: 5px;
+    }
+
+    #rewardModal .modal-content {
+        padding: 10px;
+    }
+
+    #rewardModal .close {
+        position: absolute;
+        right: 15px;
+        top: 15px;
+        color: rgba(0, 0, 0, 0.5);
+        font-size: 1.3rem;
+        line-height: 20px;
+        cursor: pointer;
+    }
+
+    #rewardModal .close:hover {
+        color: #ef5350;
+        transform: scale(1.3);
+        -moz-transform:scale(1.3);
+        -webkit-transform:scale(1.3);
+        -o-transform:scale(1.3);
+    }
+
+    #rewardModal .reward-tabs {
+        margin: 0 auto;
+        width: 210px;
+    }
+
+    .reward-tabs .tabs {
+        height: 38px;
+        margin: 10px auto;
+        padding-left: 0;
+    }
+
+    .reward-content ul {
+        padding-left: 0 !important;
+    }
+
+    .reward-tabs .tabs .tab {
+        height: 38px;
+        line-height: 38px;
+    }
+
+    .reward-tabs .tab a {
+        color: #fff;
+        background-color: #ccc;
+    }
+
+    .reward-tabs .tab a:hover {
+        background-color: #ccc;
+        color: #fff;
+    }
+
+    .reward-tabs .wechat-tab .active {
+        color: #fff !important;
+        background-color: #22AB38 !important;
+    }
+
+    .reward-tabs .alipay-tab .active {
+        color: #fff !important;
+        background-color: #019FE8 !important;
+    }
+
+    .reward-tabs .reward-img {
+        width: 210px;
+        height: 210px;
+    }
+</style>
+
+<div id="reward">
+    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-medium waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close modal-close"><i class="fas fa-times"></i></a>
+            <h4 class="reward-title">你的赏识是我前进的动力</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs row">
+                        <li class="tab col s6 alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                        <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
+                    </ul>
+                    <div id="alipay">
+                        <img src="https://cdn.jsdelivr.net/gh/orgjinhc/orgjinhc.github.io/medias/reward/alipay.jpg" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                    <div id="wechat">
+                        <img src="https://cdn.jsdelivr.net/gh/orgjinhc/orgjinhc.github.io/medias/reward/wechatPay.png" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('.tabs').tabs();
+    });
+</script>
+            
+        </div>
+    </div>
+
+    
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orgjinhc/orgjinhc.github.io/libs/gitalk/gitalk.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orgjinhc/orgjinhc.github.io/css/my-gitalk.css">
+
+<div class="card gitalk-card" data-aos="fade-up">
+    <div class="comment_headling" style="font-size: 20px; font-weight: 700; position: relative; left: 20px; top: 15px; padding-bottom: 5px;">
+        <i class="fas fa-comments fa-fw" aria-hidden="true"></i>
+        <span>评论</span>
+    </div>
+    <div id="gitalk-container" class="card-content"></div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/gh/orgjinhc/orgjinhc.github.io/libs/gitalk/gitalk.min.js"></script>
+<script>
+    let gitalk = new Gitalk({
+        clientID: '',
+        clientSecret: '',
+        repo: '',
+        owner: '',
+        admin: null,
+        id: '2021-02-09T22-52-41',
+        distractionFreeMode: false  // Facebook-like distraction free mode
+    });
+
+    gitalk.render('gitalk-container');
+</script>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/2021/02/28/%E6%97%A5%E5%B8%B8%E9%97%AE%E9%A2%98%E5%A4%84%E7%90%86/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="https://cdn.jsdelivr.net/gh/orgjinhc/orgjinhc.github.io/medias/featureimages/17.jpg" class="responsive-img" alt="日常问题处理">
+                        
+                        <span class="card-title">日常问题处理</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            日常问题处理一、brew 问题处理：https://www.zhihu.com/question/35928898/answer/1102381049二、hexo d 问题
+卸载高版本 nodejs
+
+brew uninstall node
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2021-02-28
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-user fa-fw"></i>
+                            靳宏财
+                            
+                        </span>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2021/01/30/Dubbo/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="https://cdn.jsdelivr.net/gh/orgjinhc/orgjinhc.github.io/medias/featureimages/12.jpg" class="responsive-img" alt="Dubbo">
+                        
+                        <span class="card-title">Dubbo</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            Dubbo概念：高性能 java RPC框架第一部分：功能特性面向接口代理的高性能RPC调用
+服务自动注册与发现
+智能负载均衡
+运行期流量调度
+高扩展性
+可视化的服务治理与运维
+第二部分：高级特性SPI（Service Provider I
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-01-30
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-user fa-fw"></i>
+                            靳宏财
+                            
+                        </span>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+<script>
+    $('#articleContent').on('copy', function (e) {
+        // IE8 or earlier browser is 'undefined'
+        if (typeof window.getSelection === 'undefined') return;
+
+        var selection = window.getSelection();
+        // if the selection is short let's not annoy our users.
+        if (('' + selection).length < Number.parseInt('120')) {
+            return;
+        }
+
+        // create a div outside of the visible area and fill it with the selected text.
+        var bodyElement = document.getElementsByTagName('body')[0];
+        var newdiv = document.createElement('div');
+        newdiv.style.position = 'absolute';
+        newdiv.style.left = '-99999px';
+        bodyElement.appendChild(newdiv);
+        newdiv.appendChild(selection.getRangeAt(0).cloneContents());
+
+        // we need a <pre> tag workaround.
+        // otherwise the text inside "pre" loses all the line breaks!
+        if (selection.getRangeAt(0).commonAncestorContainer.nodeName === 'PRE') {
+            newdiv.innerHTML = "<pre>" + newdiv.innerHTML + "</pre>";
+        }
+
+        var url = document.location.href;
+        newdiv.innerHTML += '<br />'
+            + '来源: Lion Heart<br />'
+            + '文章作者: 靳宏财<br />'
+            + '文章链接: <a href="' + url + '">' + url + '</a><br />'
+            + '本文章著作权归作者所有，任何形式的转载都请注明出处。';
+
+        selection.selectAllChildren(newdiv);
+        window.setTimeout(function () {bodyElement.removeChild(newdiv);}, 200);
+    });
+</script>
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/orgjinhc/orgjinhc.github.io/libs/codeBlock/codeBlockFuction.js"></script>
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/orgjinhc/orgjinhc.github.io/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/orgjinhc/orgjinhc.github.io/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/orgjinhc/orgjinhc.github.io/libs/codeBlock/codeShrink.js"></script>
+
+
+<!-- 代码块折行 -->
+
+<style type="text/css">
+code[class*="language-"], pre[class*="language-"] { white-space: pre !important; }
+</style>
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="https://cdn.jsdelivr.net/gh/orgjinhc/orgjinhc.github.io/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h2, h3, h4').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+    <footer class="page-footer bg-color">
+    <div class="container row center-align" style="margin-bottom: 0px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            <span id="year">2019</span>
+            <a href="http://orgjinhc.github.io" target="_blank">靳宏财</a>
+            <br>
+            
+            &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
+                class="white-color">120k</span>&nbsp;字
+            
+            
+            
+            
+            
+            
+            <span id="busuanzi_container_site_pv">
+                |&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;<span id="busuanzi_value_site_pv"
+                    class="white-color"></span>&nbsp;次
+            </span>
+            
+            
+            <span id="busuanzi_container_site_uv">
+                |&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;<span id="busuanzi_value_site_uv"
+                    class="white-color"></span>&nbsp;人
+            </span>
+            
+            <br>
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/orgjinhc" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="orgjinhc@163.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=1152062154@qq.com" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 1152062154" data-position="top" data-delay="50">
+        <i class="fab fa-qq"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <i class="fas fa-rss"></i>
+    </a>
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/gh/orgjinhc/orgjinhc.github.io/js/search.js"></script>
+<script type="text/javascript">
+$(function () {
+    searchFunc("https://cdn.jsdelivr.net/gh/orgjinhc/orgjinhc.github.io/" + "search.xml", 'searchInput', 'searchResult');
+});
+</script>
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="https://cdn.jsdelivr.net/gh/orgjinhc/orgjinhc.github.io/libs/materialize/materialize.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/orgjinhc/orgjinhc.github.io/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/orgjinhc/orgjinhc.github.io/libs/aos/aos.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/orgjinhc/orgjinhc.github.io/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/orgjinhc/orgjinhc.github.io/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/orgjinhc/orgjinhc.github.io/js/matery.js"></script>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+<script async src="https://www.googletagmanager.com/gtag/js?id="></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() {
+        dataLayer.push(arguments);
+    }
+
+    gtag('js', new Date());
+    gtag('config', '');
+</script>
+
+
+    <!-- Baidu Analytics -->
+
+<script>
+    var _hmt = _hmt || [];
+    (function () {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <script src="https://cdn.jsdelivr.net/gh/orgjinhc/orgjinhc.github.io/libs/others/clicklove.js" async="async"></script>
+    
+    
+    <script async src="https://cdn.jsdelivr.net/gh/orgjinhc/orgjinhc.github.io/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/orgjinhc/orgjinhc.github.io/libs/background/ribbon-dynamic.js" async="async"></script>
+    
+    
+    
+    <script src="https://cdn.jsdelivr.net/gh/orgjinhc/orgjinhc.github.io/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>

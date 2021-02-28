@@ -1,0 +1,1524 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="Dubbo, Lion Heart">
+    <meta name="description" content="Dubbo概念：高性能 java RPC框架第一部分：功能特性面向接口代理的高性能RPC调用
+服务自动注册与发现
+智能负载均衡
+运行期流量调度
+高扩展性
+可视化的服务治理与运维
+第二部分：高级特性SPI（Service Provider I">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>Dubbo | Lion Heart</title>
+    <link rel="icon" type="image/png" href="https://cdn.jsdelivr.net/gh/orgjinhc/orgjinhc.github.io/favicon.png">
+
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/orgjinhc/orgjinhc.github.io/libs/awesome/css/all.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/orgjinhc/orgjinhc.github.io/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/orgjinhc/orgjinhc.github.io/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/orgjinhc/orgjinhc.github.io/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/orgjinhc/orgjinhc.github.io/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/orgjinhc/orgjinhc.github.io/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/orgjinhc/orgjinhc.github.io/css/my.css">
+    
+    <script src="https://cdn.jsdelivr.net/gh/orgjinhc/orgjinhc.github.io/libs/jquery/jquery.min.js"></script>
+    
+<meta name="generator" content="Hexo 4.2.0"><link rel="alternate" href="/atom.xml" title="Lion Heart" type="application/atom+xml">
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper head-container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="https://cdn.jsdelivr.net/gh/orgjinhc/orgjinhc.github.io/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">Lion Heart</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/contact" class="waves-effect waves-light">
+      
+      <i class="fas fa-comments" style="zoom: 0.6;"></i>
+      
+      <span>留言板</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="https://cdn.jsdelivr.net/gh/orgjinhc/orgjinhc.github.io/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">Lion Heart</div>
+        <div class="logo-desc">
+            
+            Never really desperate, only the lost of the soul.
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/contact" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-comments"></i>
+			
+			留言板
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			友情链接
+		</a>
+          
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/orgjinhc" class="waves-effect waves-light" target="_blank">
+                <i class="fab fa-github-square fa-fw"></i>Fork Me
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+        </div>
+
+        
+            <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/orgjinhc" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+   data-tooltip="Fork Me" data-position="left" data-delay="50">
+    <svg viewBox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+              fill="currentColor" class="octo-body"></path>
+    </svg>
+</a>
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('https://cdn.jsdelivr.net/gh/orgjinhc/orgjinhc.github.io/medias/featureimages/12.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">Dubbo</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orgjinhc/orgjinhc.github.io/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        width: 345px;
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        margin: 35px 0 15px 0;
+        padding-left: 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content {
+        height: calc(100vh - 250px);
+        overflow: auto;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #toc-content .is-active-link::before {
+        background-color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 15px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                          <div class="article-tag">
+                            <span class="chip bg-color">无标签</span>
+                          </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2021-01-30
+                </div>
+                
+
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
+                    5.1k
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                    25 分
+                </div>
+                
+
+                
+                    <div id="busuanzi_container_page_pv" class="info-break-policy">
+                        <i class="far fa-eye fa-fw"></i>阅读次数:&nbsp;&nbsp;
+                        <span id="busuanzi_value_page_pv"></span>
+                    </div>
+				
+            </div>
+
+        </div>
+        <hr class="clearfix">
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h2 id="Dubbo"><a href="#Dubbo" class="headerlink" title="Dubbo"></a>Dubbo</h2><h3 id="概念：高性能-java-RPC框架"><a href="#概念：高性能-java-RPC框架" class="headerlink" title="概念：高性能 java RPC框架"></a>概念：高性能 java RPC框架</h3><h3 id="第一部分：功能特性"><a href="#第一部分：功能特性" class="headerlink" title="第一部分：功能特性"></a>第一部分：功能特性</h3><p>面向接口代理的高性能RPC调用</p>
+<p>服务自动注册与发现</p>
+<p>智能负载均衡</p>
+<p>运行期流量调度</p>
+<p>高扩展性</p>
+<p>可视化的服务治理与运维</p>
+<h3 id="第二部分：高级特性"><a href="#第二部分：高级特性" class="headerlink" title="第二部分：高级特性"></a>第二部分：高级特性</h3><h5 id="SPI（Service-Provider-Interface）"><a href="#SPI（Service-Provider-Interface）" class="headerlink" title="SPI（Service Provider Interface）"></a>SPI（Service Provider Interface）</h5><p>JDK 内置的一种服务提供发现机制。简单来说就是一种动态替换发现的机制。</p>
+<p>优点：实现解耦</p>
+<p>Dubbo SPI Adaptive ：动态选择扩展点</p>
+<h5 id="负载均衡"><a href="#负载均衡" class="headerlink" title="负载均衡"></a>负载均衡</h5><h5 id="异步调用"><a href="#异步调用" class="headerlink" title="异步调用"></a>异步调用</h5><h5 id="自定义线程池"><a href="#自定义线程池" class="headerlink" title="自定义线程池"></a>自定义线程池</h5><h5 id="路由规则"><a href="#路由规则" class="headerlink" title="路由规则"></a>路由规则</h5><h5 id="服务降级"><a href="#服务降级" class="headerlink" title="服务降级"></a>服务降级</h5><h3 id="第三部分：整体设计"><a href="#第三部分：整体设计" class="headerlink" title="第三部分：整体设计"></a>第三部分：整体设计</h3><p><img src="http://lion-heart.online/blog/2021-01-31-065444.png" alt=""></p>
+<p><img src="http://lion-heart.online/blog/2021-02-06-063854.png" alt="整体调用链路"></p>
+<p>business ：业务服务层，属于API级别，其他层均为SPI</p>
+<ul>
+<li>service： 接口和实现类 </li>
+</ul>
+<p>rpc：远程过程调用层</p>
+<ul>
+<li>config配置层：对外提供配置，以serviceConfig和ReferenceConfig为核心，可以直接初始化配置类，也可以解析配置文件生成</li>
+<li>proxy服务代理层：无论是生产、消费 框架都会产生一个代理类，整个过程对上层透明，就是业务层对代理无感</li>
+<li>register注册中心层：封装服务地址，以服务的URL为中心进行注册和发现</li>
+<li>cluster路由层（集群容错层）：提供服务提供者的路由和负载均衡，并且桥接注册中心，以Invoker为核心</li>
+<li>monitor监控层：调用信息，包含调用次数、时间等信息</li>
+<li>protocol协议层：封装RPC调用，无论是服务的暴露还是服务引用都是在protocol中作为主入口负责invoker的整个生命周期</li>
+</ul>
+<p>Remoting：远程数据传输层</p>
+<ul>
+<li>exchange：信息交换层，封装请求和影响的模式，例如：请求由同步转化成异步</li>
+<li>transport：网路传输层，统一网络传输的接口，例如：netty和mina统一为一个网络传输接口</li>
+<li>serialize：序列化层</li>
+</ul>
+<h3 id="第四部分：源码分析"><a href="#第四部分：源码分析" class="headerlink" title="第四部分：源码分析"></a>第四部分：源码分析</h3><h4 id="一、服务自动注册、发现源码分析"><a href="#一、服务自动注册、发现源码分析" class="headerlink" title="一、服务自动注册、发现源码分析"></a>一、服务自动注册、发现源码分析</h4><h5 id="注册中心结构"><a href="#注册中心结构" class="headerlink" title="注册中心结构"></a>注册中心结构</h5><p>注册中心是Dubbo的重要组成部分，主要用于服务的注册与发现，我们可以选择Redis、Nacos、</p>
+<p>Zookeeper作为Dubbo的注册中心，Dubbo推荐用户使用Zookeeper作为注册中心</p>
+<p><img src="http://lion-heart.online/blog/2021-02-06-130450.png" alt="image-20210206210447614"></p>
+<p>可以在这里看到所有的都是在dubbo层级下的</p>
+<p>dubbo跟节点下面是当前所拥有的接口名称，如果有多个接口，则会以多个子节点的形式展开</p>
+<p>每个服务下面又分别有四个配置项</p>
+<p>consumers: 当前服务下面所有的消费者列表(URL)</p>
+<p>providers: 当前服务下面所有的提供者列表(URL)</p>
+<p>confifiguration: 当前服务下面的配置信息信息，provider或者consumer会通过读取这里的配</p>
+<p>置信息来获取配置</p>
+<p>routers: 当消费者在进行获取提供者的时，会通过这里配置好的路由来进行适配匹配规则。</p>
+<p>可以看到，dubbo基本上很多时候都是通过URL的形式来进行交互获取数据的，在URL中也会保存</p>
+<p>  很多的信息。后面也会对URL的规则做详细介绍。</p>
+<p><img src="http://lion-heart.online/blog/2021-02-06-094214.png" alt="注册中心使用原理"></p>
+<h5 id="URL规则解析："><a href="#URL规则解析：" class="headerlink" title="URL规则解析："></a>URL规则解析：</h5><p>URL地址：protocol://host:port/path(接口地址)?key=value&amp;key=value</p>
+<ul>
+<li>protocol：协议，框架本身、provider、consumer、register等都有具体协议</li>
+<li>host：地址，提供协议的具体地址</li>
+<li>port：端口号</li>
+<li><ul>
+<li>host + port = 一个具体的服务进程</li>
+</ul>
+</li>
+<li>path：服务路径，接口地址</li>
+<li>key = value ：具体参数，理解为地址配置</li>
+</ul>
+<p>dubbo://192.168.31.54:20883/org.jinhc.dubbo.service.HelloService?anyhost=true&amp;application=dubbo-test-provider&amp;bind.ip=192.168.31.54&amp;bind.port=20883&amp;deprecated=false&amp;dubbo=2.0.2&amp;dynamic=true&amp;generic=false&amp;interface=org.jinhc.dubbo.service.HelloService&amp;methods=sayHello&amp;owner=jhc&amp;pid=27449&amp;release=2.7.5&amp;side=provider&amp;timestamp=1612616206806</p>
+<p>registry://127.0.0.1:2181/org.apache.dubbo.registry.RegistryService?application=dubbo-test-provider&amp;dubbo=2.0.2&amp;owner=jhc&amp;pid=27449&amp;registry=zookeeper&amp;release=2.7.5&amp;timeout=10000&amp;timestamp=1612616206806</p>
+<h5 id="服务本地缓存："><a href="#服务本地缓存：" class="headerlink" title="服务本地缓存："></a>服务本地缓存：</h5><p>服务消费者需要通过注册中心获取提供者，但是如果频繁往从ZK获取信息，肯定会存在单点故障问题，所以dubbo提供了将提供者信息缓存在本地的方法。</p>
+<p>消费者在订阅注册中心的回调处理逻辑当中会保存服务提供者信息到本地缓存文件当中（同步/异步两种方式），以URL纬度进行全量保存。</p>
+<p>消费者进程会在服务引用（使用服务提供者具体服务）过程中会创建registry对象并加载本地缓存文件，会优先订阅注册中心，订阅注册中心失败后会访问本地缓存文件内容获取服务提供信息。</p>
+<h5 id="服务注册流程："><a href="#服务注册流程：" class="headerlink" title="服务注册流程："></a>服务注册流程：</h5><p><img src="http://lion-heart.online/blog/2021-02-07-030801.png" alt="服务注册过程"></p>
+<pre class=" language-java"><code class="language-java">spirng容器启动完毕，最后一步发布相应事件
+  包含了dubbo的start流程
+  <span class="token number">1</span><span class="token punctuation">.</span> export Dubbo Services
+          <span class="token number">0</span><span class="token punctuation">.</span>配置文件解析
+          dubbo<span class="token operator">-</span>provider<span class="token punctuation">.</span>xml 解析为框架实体
+
+            <span class="token number">1</span><span class="token punctuation">.</span>service <span class="token operator">-</span> invoker 
+          ServiceConfig类包含
+          ref（服务实现类）
+          PROXY_FACTORY（代理工厂）
+            Invoker<span class="token operator">&lt;</span><span class="token operator">?</span><span class="token operator">></span> invoker <span class="token operator">=</span> PROXY_FACTORY<span class="token punctuation">.</span><span class="token function">getInvoker</span><span class="token punctuation">(</span>ref<span class="token punctuation">,</span> <span class="token punctuation">(</span>Class<span class="token punctuation">)</span>         interfaceClass<span class="token punctuation">,</span> registryURL<span class="token punctuation">.</span><span class="token function">addParameterAndEncoded</span><span class="token punctuation">(</span>EXPORT_KEY<span class="token punctuation">,</span> url<span class="token punctuation">.</span><span class="token function">toFullString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            到这里完成了 service 到 Invoker 的转化
+
+            <span class="token number">2</span><span class="token punctuation">.</span> Invoker <span class="token operator">-</span> Exporter 
+          <span class="token keyword">public</span> <span class="token operator">&lt;</span>T<span class="token operator">></span> Exporter<span class="token operator">&lt;</span>T<span class="token operator">></span> <span class="token function">export</span><span class="token punctuation">(</span><span class="token keyword">final</span> Invoker<span class="token operator">&lt;</span>T<span class="token operator">></span> originInvoker<span class="token punctuation">)</span>获取具体的注册中心，进行服务注册。zkClient<span class="token punctuation">.</span><span class="token function">create</span><span class="token punctuation">(</span><span class="token function">toUrlPath</span><span class="token punctuation">(</span>url<span class="token punctuation">)</span><span class="token punctuation">,</span> url<span class="token punctuation">.</span><span class="token function">getParameter</span><span class="token punctuation">(</span>DYNAMIC_KEY<span class="token punctuation">,</span> <span class="token boolean">true</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+  <span class="token number">2</span><span class="token punctuation">.</span> export MetadataService
+  <span class="token number">3</span><span class="token punctuation">.</span> Register the local ServiceInstance <span class="token keyword">if</span> required
+</code></pre>
+<p><img src="http://lion-heart.online/blog/2021-02-07-034547.png" alt="image-20210207114547098"></p>
+<p><img src="http://lion-heart.online/blog/2021-02-07-120325.png" alt="image-20210207200322039"></p>
+<h5 id="整体目录结构如下：注册中心目录（工厂-模版-包装）"><a href="#整体目录结构如下：注册中心目录（工厂-模版-包装）" class="headerlink" title="整体目录结构如下：注册中心目录（工厂+模版+包装）"></a>整体目录结构如下：注册中心目录（工厂+模版+包装）</h5><p><img src="http://lion-heart.online/blog/2021-02-07-043657.png" alt="image-20210207123654587"></p>
+<h5 id="服务注册完整流程："><a href="#服务注册完整流程：" class="headerlink" title="服务注册完整流程："></a>服务注册完整流程：</h5><p>20:56:41.497 [main] INFO  org.apache.dubbo.config.ServiceConfig.exportLocal(ServiceConfig.java:509) -  [DUBBO] Export dubbo service org.jinhc.dubbo.service.TestService to local registry url : injvm://127.0.0.1/org.jinhc.dubbo.service.TestService?anyhost=true&amp;application=dubbo-test-provider&amp;bind.ip=192.168.31.54&amp;bind.port=20883&amp;deprecated=false&amp;dubbo=2.0.2&amp;dynamic=true&amp;generic=false&amp;interface=org.jinhc.dubbo.service.TestService&amp;methods=sayHello&amp;owner=jhc&amp;pid=27449&amp;release=2.7.5&amp;side=provider&amp;timestamp=1612616196446, dubbo version: 2.7.5, current host: 192.168.31.54</p>
+<p>20:56:41.498 [main] INFO  org.apache.dubbo.config.ServiceConfig.doExportUrlsFor1Protocol(ServiceConfig.java:455) -  [DUBBO] Register dubbo service org.jinhc.dubbo.service.TestService url dubbo://192.168.31.54:20883/org.jinhc.dubbo.service.TestService?anyhost=true&amp;application=dubbo-test-provider&amp;bind.ip=192.168.31.54&amp;bind.port=20883&amp;deprecated=false&amp;dubbo=2.0.2&amp;dynamic=true&amp;generic=false&amp;interface=org.jinhc.dubbo.service.TestService&amp;methods=sayHello&amp;owner=jhc&amp;pid=27449&amp;release=2.7.5&amp;side=provider&amp;timestamp=1612616196446 to registry registry://127.0.0.1:2181/org.apache.dubbo.registry.RegistryService?application=dubbo-test-provider&amp;dubbo=2.0.2&amp;owner=jhc&amp;pid=27449&amp;registry=zookeeper&amp;release=2.7.5&amp;timeout=10000&amp;timestamp=1612616191435, dubbo version: 2.7.5, current host: 192.168.31.54</p>
+<p>20:56:46.716 [main] INFO  org.apache.dubbo.remoting.transport.AbstractServer.<init>(AbstractServer.java:73) -  [DUBBO] Start NettyServer bind /0.0.0.0:20883, export /192.168.31.54:20883, dubbo version: 2.7.5, current host: 192.168.31.54<br>20:56:46.728 [main] INFO  org.apache.dubbo.registry.zookeeper.ZookeeperRegistry.loadProperties(AbstractRegistry.java:217) -  [DUBBO] Load registry cache file /Users/jinhongcai/.dubbo/dubbo-registry-dubbo-test-provider-127.0.0.1-2181.cache, data: {org.jinhc.dubbo.service.TestService=empty://192.168.31.54:20883/org.jinhc.dubbo.service.TestService?anyhost=true&amp;application=dubbo-test-provider&amp;bind.ip=192.168.31.54&amp;bind.port=20883&amp;category=configurators&amp;check=false&amp;deprecated=false&amp;dubbo=2.0.2&amp;dynamic=true&amp;generic=false&amp;interface=org.jinhc.dubbo.service.TestService&amp;methods=sayHello&amp;owner=jhc&amp;pid=26828&amp;release=2.7.5&amp;side=provider&amp;timestamp=1612615642883, org.jinhc.dubbo.service.HelloService=empty://192.168.31.54:20883/org.jinhc.dubbo.service.HelloService?anyhost=true&amp;application=dubbo-test-provider&amp;bind.ip=192.168.31.54&amp;bind.port=20883&amp;category=configurators&amp;check=false&amp;deprecated=false&amp;dubbo=2.0.2&amp;dynamic=true&amp;generic=false&amp;interface=org.jinhc.dubbo.service.HelloService&amp;methods=sayHello&amp;owner=jhc&amp;pid=26828&amp;release=2.7.5&amp;side=provider&amp;timestamp=1612615653225}, dubbo version: 2.7.5, current host: 192.168.31.54</p>
+<p>20:56:46.729 [main] INFO  org.apache.dubbo.remoting.zookeeper.ZookeeperTransporter.connect(AbstractZookeeperTransporter.java:58) -  [DUBBO] find valid zookeeper client from the cache for address: zookeeper://127.0.0.1:2181/org.apache.dubbo.registry.RegistryService?application=dubbo-test-provider&amp;dubbo=2.0.2&amp;interface=org.apache.dubbo.registry.RegistryService&amp;owner=jhc&amp;pid=27449&amp;release=2.7.5&amp;timeout=10000&amp;timestamp=1612616191435, dubbo version: 2.7.5, current host: 192.168.31.54<br>20:56:46.732 [main] INFO  org.apache.dubbo.registry.zookeeper.ZookeeperRegistry.register(AbstractRegistry.java:285) -  [DUBBO] Register: dubbo://192.168.31.54:20883/org.jinhc.dubbo.service.TestService?anyhost=true&amp;application=dubbo-test-provider&amp;deprecated=false&amp;dubbo=2.0.2&amp;dynamic=true&amp;generic=false&amp;interface=org.jinhc.dubbo.service.TestService&amp;methods=sayHello&amp;owner=jhc&amp;pid=27449&amp;release=2.7.5&amp;side=provider&amp;timestamp=1612616196446, dubbo version: 2.7.5, current host: 192.168.31.54</p>
+<p>20:56:46.745 [main] INFO  org.apache.dubbo.registry.zookeeper.ZookeeperRegistry.subscribe(AbstractRegistry.java:310) -  [DUBBO] Subscribe: provider://192.168.31.54:20883/org.jinhc.dubbo.service.TestService?anyhost=true&amp;application=dubbo-test-provider&amp;bind.ip=192.168.31.54&amp;bind.port=20883&amp;category=configurators&amp;check=false&amp;deprecated=false&amp;dubbo=2.0.2&amp;dynamic=true&amp;generic=false&amp;interface=org.jinhc.dubbo.service.TestService&amp;methods=sayHello&amp;owner=jhc&amp;pid=27449&amp;release=2.7.5&amp;side=provider&amp;timestamp=1612616196446, dubbo version: 2.7.5, current host: 192.168.31.54</p>
+<p>20:56:46.750 [main] INFO  org.apache.dubbo.registry.zookeeper.ZookeeperRegistry.notify(AbstractRegistry.java:404) -  [DUBBO] Notify urls for subscribe url provider://192.168.31.54:20883/org.jinhc.dubbo.service.TestService?anyhost=true&amp;application=dubbo-test-provider&amp;bind.ip=192.168.31.54&amp;bind.port=20883&amp;category=configurators&amp;check=false&amp;deprecated=false&amp;dubbo=2.0.2&amp;dynamic=true&amp;generic=false&amp;interface=org.jinhc.dubbo.service.TestService&amp;methods=sayHello&amp;owner=jhc&amp;pid=27449&amp;release=2.7.5&amp;side=provider&amp;timestamp=1612616196446, urls: [empty://192.168.31.54:20883/org.jinhc.dubbo.service.TestService?anyhost=true&amp;application=dubbo-test-provider&amp;bind.ip=192.168.31.54&amp;bind.port=20883&amp;category=configurators&amp;check=false&amp;deprecated=false&amp;dubbo=2.0.2&amp;dynamic=true&amp;generic=false&amp;interface=org.jinhc.dubbo.service.TestService&amp;methods=sayHello&amp;owner=jhc&amp;pid=27449&amp;release=2.7.5&amp;side=provider&amp;timestamp=1612616196446], dubbo version: 2.7.5, current host: 192.168.31.54</p>
+<p>20:56:46.803 [main] INFO  org.apache.dubbo.metadata.DynamicConfigurationServiceNameMapping.lambda$map$0(DynamicConfigurationServiceNameMapping.java:61) -  [DUBBO] Dubbo service[null] mapped to interface name[org.jinhc.dubbo.service.TestService]., dubbo version: 2.7.5, current host: 192.168.31.54<br>20:56:46.812 [main] INFO  org.apache.dubbo.config.ServiceConfig.findConfigedHosts(ServiceConfig.java:552) -  [DUBBO] No valid ip found from environment, try to find valid host from DNS., dubbo version: 2.7.5, current host: 192.168.31.54<br>20:56:51.819 [main] INFO  org.apache.dubbo.config.ServiceConfig.exportLocal(ServiceConfig.java:509) -  [DUBBO] Export dubbo service org.jinhc.dubbo.service.HelloService to local registry url : injvm://127.0.0.1/org.jinhc.dubbo.service.HelloService?anyhost=true&amp;application=dubbo-test-provider&amp;bind.ip=192.168.31.54&amp;bind.port=20883&amp;deprecated=false&amp;dubbo=2.0.2&amp;dynamic=true&amp;generic=false&amp;interface=org.jinhc.dubbo.service.HelloService&amp;methods=sayHello&amp;owner=jhc&amp;pid=27449&amp;release=2.7.5&amp;side=provider&amp;timestamp=1612616206806, dubbo version: 2.7.5, current host: 192.168.31.54</p>
+<p>20:56:51.820 [main] INFO  org.apache.dubbo.config.ServiceConfig.doExportUrlsFor1Protocol(ServiceConfig.java:455) -  [DUBBO] Register dubbo service org.jinhc.dubbo.service.HelloService url dubbo://192.168.31.54:20883/org.jinhc.dubbo.service.HelloService?anyhost=true&amp;application=dubbo-test-provider&amp;bind.ip=192.168.31.54&amp;bind.port=20883&amp;deprecated=false&amp;dubbo=2.0.2&amp;dynamic=true&amp;generic=false&amp;interface=org.jinhc.dubbo.service.HelloService&amp;methods=sayHello&amp;owner=jhc&amp;pid=27449&amp;release=2.7.5&amp;side=provider&amp;timestamp=1612616206806 to registry registry://127.0.0.1:2181/org.apache.dubbo.registry.RegistryService?application=dubbo-test-provider&amp;dubbo=2.0.2&amp;owner=jhc&amp;pid=27449&amp;registry=zookeeper&amp;release=2.7.5&amp;timeout=10000&amp;timestamp=1612616206806, dubbo version: 2.7.5, current host: 192.168.31.54</p>
+<p>20:56:51.822 [main] INFO  org.apache.dubbo.registry.zookeeper.ZookeeperRegistry.register(AbstractRegistry.java:285) -  [DUBBO] Register: dubbo://192.168.31.54:20883/org.jinhc.dubbo.service.HelloService?anyhost=true&amp;application=dubbo-test-provider&amp;deprecated=false&amp;dubbo=2.0.2&amp;dynamic=true&amp;generic=false&amp;interface=org.jinhc.dubbo.service.HelloService&amp;methods=sayHello&amp;owner=jhc&amp;pid=27449&amp;release=2.7.5&amp;side=provider&amp;timestamp=1612616206806, dubbo version: 2.7.5, current host: 192.168.31.54</p>
+<p>20:56:51.825 [main] INFO  org.apache.dubbo.registry.zookeeper.ZookeeperRegistry.subscribe(AbstractRegistry.java:310) -  [DUBBO] Subscribe: provider://192.168.31.54:20883/org.jinhc.dubbo.service.HelloService?anyhost=true&amp;application=dubbo-test-provider&amp;bind.ip=192.168.31.54&amp;bind.port=20883&amp;category=configurators&amp;check=false&amp;deprecated=false&amp;dubbo=2.0.2&amp;dynamic=true&amp;generic=false&amp;interface=org.jinhc.dubbo.service.HelloService&amp;methods=sayHello&amp;owner=jhc&amp;pid=27449&amp;release=2.7.5&amp;side=provider&amp;timestamp=1612616206806, dubbo version: 2.7.5, current host: 192.168.31.54</p>
+<p>20:56:51.828 [main] INFO  org.apache.dubbo.registry.zookeeper.ZookeeperRegistry.notify(AbstractRegistry.java:404) -  [DUBBO] Notify urls for subscribe url provider://192.168.31.54:20883/org.jinhc.dubbo.service.HelloService?anyhost=true&amp;application=dubbo-test-provider&amp;bind.ip=192.168.31.54&amp;bind.port=20883&amp;category=configurators&amp;check=false&amp;deprecated=false&amp;dubbo=2.0.2&amp;dynamic=true&amp;generic=false&amp;interface=org.jinhc.dubbo.service.HelloService&amp;methods=sayHello&amp;owner=jhc&amp;pid=27449&amp;release=2.7.5&amp;side=provider&amp;timestamp=1612616206806, urls: [empty://192.168.31.54:20883/org.jinhc.dubbo.service.HelloService?anyhost=true&amp;application=dubbo-test-provider&amp;bind.ip=192.168.31.54&amp;bind.port=20883&amp;category=configurators&amp;check=false&amp;deprecated=false&amp;dubbo=2.0.2&amp;dynamic=true&amp;generic=false&amp;interface=org.jinhc.dubbo.service.HelloService&amp;methods=sayHello&amp;owner=jhc&amp;pid=27449&amp;release=2.7.5&amp;side=provider&amp;timestamp=1612616206806], dubbo version: 2.7.5, current host: 192.168.31.54</p>
+<p>20:56:51.835 [main] INFO  org.apache.dubbo.metadata.DynamicConfigurationServiceNameMapping.lambda$map$0(DynamicConfigurationServiceNameMapping.java:61) -  [DUBBO] Dubbo service[null] mapped to interface name[org.jinhc.dubbo.service.HelloService]., dubbo version: 2.7.5, current host: 192.168.31.54<br>20:56:51.840 [main] INFO  org.apache.dubbo.config.bootstrap.DubboBootstrap.start(DubboBootstrap.java:716) -  [DUBBO] DubboBootstrap has started., dubbo version: 2.7.5, current host: 192.168.31.54<br>20:56:51.902 [NettyServerWorker-5-1] INFO  org.apache.dubbo.remoting.transport.netty4.NettyServerHandler.channelActive(NettyServerHandler.java:76) -  [DUBBO] The connection of /192.168.31.54:53319 -&gt; /192.168.31.54:20883 is established., dubbo version: 2.7.5, current host: 192.168.31.54</p>
+<h5 id="服务发现流程："><a href="#服务发现流程：" class="headerlink" title="服务发现流程："></a>服务发现流程：</h5><p><img src="http://lion-heart.online/blog/2021-02-08-054048.png" alt="image-20210208134043968"></p>
+<p>首先 ReferenceConfig 类的 init 方法调用 createProxy() ,期间 使用 Protocol 调用 refer 方法生</p>
+<p>成 Invoker 实例(如上图中的红色部分)，这是服务消费的关键。接下来使用ProxyFactory把 Invoker转换为客户端需要的接口(如：HelloService)。 </p>
+<h4 id="二、集群智能容错源码分析"><a href="#二、集群智能容错源码分析" class="headerlink" title="二、集群智能容错源码分析"></a>二、集群智能容错源码分析</h4><p><img src="http://lion-heart.online/blog/2021-02-08-134601.png" alt="image-20210208214600487"></p>
+<p>集群工作过程可分为两个阶段</p>
+<ul>
+<li>第一个阶段是在<strong>服务消费者初始化</strong>期间，集群 Cluster 实现类为<strong>服务消费者创建 Cluster Invoker 实例</strong>，即上图中的 merge 操作。</li>
+<li>第二个阶段是在服务消费者进行远程调用时。以 FailoverClusterInvoker 为例，该类型 Cluster Invoker 首先会调用 Directory 的 list 方法列举Invoker 列表（可将 Invoker 简单理解为服务提供者）。Directory 的用途是保存 Invoker列表，可简单类比为 List。其实现类 RegistryDirectory 是一个动态服务目录，可感知注册中心配置的变化，它所持有的 Invoker 列表会随着注册中心内容的变化而变化。每次变化后，RegistryDirectory 会动态增删Invoker，并调用 Router 的 route 方法进行路由，过滤掉不符合路由规则的 Invoker。当FailoverClusterInvoker 拿到 Directory 返回的 Invoker 列表后，它会通过 LoadBalance 从 Invoker 列表中选择一个 Invoker。最后 FailoverClusterInvoker 会将参数传给 LoadBalance 选择出的 Invoker实例的 invoke 方法，进行真正的远程调用。</li>
+</ul>
+<p>Dubbo 主要提供了这样几种容错方式：</p>
+<ul>
+<li>Failover Cluster - 失败自动切换 失败时会重试其它服务器</li>
+<li>Failfast Cluster - 快速失败 请求失败后快速返回异常结果 不重试</li>
+<li>Failsafe Cluster - 失败安全 出现异常 直接忽略 会对请求做负载均衡</li>
+<li>Failback Cluster - 失败自动恢复 请求失败后 会自动记录请求到失败队列中</li>
+<li>Forking Cluster - 并行调用多个服务提供者 其中有一个返回 则立即返回结果</li>
+</ul>
+<h5 id="Directory：缓存当前可以被调用的提供者列表信息接口"><a href="#Directory：缓存当前可以被调用的提供者列表信息接口" class="headerlink" title="Directory：缓存当前可以被调用的提供者列表信息接口"></a>Directory：缓存当前可以被调用的提供者列表信息接口</h5><pre class=" language-java"><code class="language-java">第一步：查看类接口和主要方法
+<span class="token keyword">public</span> <span class="token keyword">interface</span> <span class="token class-name">Directory</span><span class="token operator">&lt;</span>T<span class="token operator">></span> <span class="token keyword">extends</span> <span class="token class-name">Node</span> <span class="token punctuation">{</span> 
+    <span class="token comment" spellcheck="true">// 获取服务的类型,也就是我们demo中所使用的HelloService</span>
+  Class<span class="token operator">&lt;</span>T<span class="token operator">></span> <span class="token function">getInterface</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> 
+  <span class="token comment" spellcheck="true">// 根据本次调用的信息来获取所有可以被执行的提供者信息</span>
+  List<span class="token operator">&lt;</span>Invoker<span class="token operator">&lt;</span>T<span class="token operator">>></span> <span class="token function">list</span><span class="token punctuation">(</span>Invocation invocation<span class="token punctuation">)</span> <span class="token keyword">throws</span> RpcException<span class="token punctuation">;</span> 
+  <span class="token comment" spellcheck="true">// 获取所有的提供者信息 </span>
+  List<span class="token operator">&lt;</span>Invoker<span class="token operator">&lt;</span>T<span class="token operator">>></span> <span class="token function">getAllInvokers</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+第二步：消费者进行调用时都会通过这个接口来获取所有的提供者列表
+<span class="token keyword">public</span> List<span class="token operator">&lt;</span>Invoker<span class="token operator">&lt;</span>T<span class="token operator">>></span> <span class="token function">doList</span><span class="token punctuation">(</span>Invocation invocation<span class="token punctuation">)</span> <span class="token punctuation">{</span> 
+  <span class="token comment" spellcheck="true">// 当没有提供者的时候会直接抛出异常 </span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span>forbidden<span class="token punctuation">)</span> <span class="token punctuation">{</span> 
+    <span class="token comment" spellcheck="true">// 1. No service provider 2. Service providers are disabled </span>
+    <span class="token keyword">throw</span> <span class="token keyword">new</span> <span class="token class-name">RpcException</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> 
+  <span class="token punctuation">}</span>
+  List<span class="token operator">&lt;</span>Invoker<span class="token operator">&lt;</span>T<span class="token operator">>></span> invokers <span class="token operator">=</span> null<span class="token punctuation">;</span> 
+  <span class="token keyword">try</span> <span class="token punctuation">{</span>
+    <span class="token comment" spellcheck="true">// 交给路由chain去处理并且获取所有的invokers </span>
+    invokers <span class="token operator">=</span> routerChain<span class="token punctuation">.</span><span class="token function">route</span><span class="token punctuation">(</span><span class="token function">getConsumerUrl</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> invocation<span class="token punctuation">)</span><span class="token punctuation">;</span> 
+  <span class="token punctuation">}</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">Throwable</span> t<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    logger<span class="token punctuation">.</span><span class="token function">error</span><span class="token punctuation">(</span><span class="token string">"Failed to execute router: "</span> <span class="token operator">+</span> <span class="token function">getUrl</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token string">", cause: "</span> <span class="token operator">+</span> t<span class="token punctuation">.</span><span class="token function">getMessage</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> t<span class="token punctuation">)</span><span class="token punctuation">;</span> 
+  <span class="token punctuation">}</span>
+  <span class="token keyword">return</span> invokers <span class="token operator">==</span> null <span class="token operator">?</span> Collections<span class="token punctuation">.</span><span class="token function">emptyList</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">:</span> invokers<span class="token punctuation">;</span> 
+<span class="token punctuation">}</span>
+
+
+
+<span class="token keyword">private</span> <span class="token operator">&lt;</span>T<span class="token operator">></span> Invoker<span class="token operator">&lt;</span>T<span class="token operator">></span> <span class="token function">doRefer</span><span class="token punctuation">(</span>Cluster cluster<span class="token punctuation">,</span> Registry registry<span class="token punctuation">,</span> Class<span class="token operator">&lt;</span>T<span class="token operator">></span> type<span class="token punctuation">,</span> URL url<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment" spellcheck="true">//    创建注册中心目录实现类</span>
+    RegistryDirectory<span class="token operator">&lt;</span>T<span class="token operator">></span> directory <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">RegistryDirectory</span><span class="token operator">&lt;</span>T<span class="token operator">></span><span class="token punctuation">(</span>type<span class="token punctuation">,</span> url<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment" spellcheck="true">//    设置注册中心</span>
+    directory<span class="token punctuation">.</span><span class="token function">setRegistry</span><span class="token punctuation">(</span>registry<span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token comment" spellcheck="true">//    设置协议</span>
+    directory<span class="token punctuation">.</span><span class="token function">setProtocol</span><span class="token punctuation">(</span>protocol<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment" spellcheck="true">// all attributes of REFER_KEY</span>
+    Map<span class="token operator">&lt;</span>String<span class="token punctuation">,</span> String<span class="token operator">></span> parameters <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">HashMap</span><span class="token operator">&lt;</span>String<span class="token punctuation">,</span> String<span class="token operator">></span><span class="token punctuation">(</span>directory<span class="token punctuation">.</span><span class="token function">getUrl</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">getParameters</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+      <span class="token comment" spellcheck="true">//    生成监听路径URL</span>
+    URL subscribeUrl <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">URL</span><span class="token punctuation">(</span>CONSUMER_PROTOCOL<span class="token punctuation">,</span> parameters<span class="token punctuation">.</span><span class="token function">remove</span><span class="token punctuation">(</span>REGISTER_IP_KEY<span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> type<span class="token punctuation">.</span><span class="token function">getName</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> parameters<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>ANY_VALUE<span class="token punctuation">.</span><span class="token function">equals</span><span class="token punctuation">(</span>url<span class="token punctuation">.</span><span class="token function">getServiceInterface</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">&amp;&amp;</span> url<span class="token punctuation">.</span><span class="token function">getParameter</span><span class="token punctuation">(</span>REGISTER_KEY<span class="token punctuation">,</span> <span class="token boolean">true</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token comment" spellcheck="true">// 设置监听的consumerurl地址</span>
+directory<span class="token punctuation">.</span><span class="token function">setRegisteredConsumerUrl</span><span class="token punctuation">(</span><span class="token function">getRegisteredConsumerUrl</span><span class="token punctuation">(</span>subscribeUrl<span class="token punctuation">,</span> url<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+          <span class="token comment" spellcheck="true">//    设置注册中心消费者地址</span>
+        registry<span class="token punctuation">.</span><span class="token function">register</span><span class="token punctuation">(</span>directory<span class="token punctuation">.</span><span class="token function">getRegisteredConsumerUrl</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+      <span class="token comment" spellcheck="true">//    构建 路由chain</span>
+    directory<span class="token punctuation">.</span><span class="token function">buildRouterChain</span><span class="token punctuation">(</span>subscribeUrl<span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token comment" spellcheck="true">//    进行监听所有的provider</span>
+    directory<span class="token punctuation">.</span><span class="token function">subscribe</span><span class="token punctuation">(</span>subscribeUrl<span class="token punctuation">.</span><span class="token function">addParameter</span><span class="token punctuation">(</span>CATEGORY_KEY<span class="token punctuation">,</span>
+            PROVIDERS_CATEGORY <span class="token operator">+</span> <span class="token string">","</span> <span class="token operator">+</span> CONFIGURATORS_CATEGORY <span class="token operator">+</span> <span class="token string">","</span> <span class="token operator">+</span> ROUTERS_CATEGORY<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment" spellcheck="true">// 加入到集群中</span>
+    Invoker invoker <span class="token operator">=</span> cluster<span class="token punctuation">.</span><span class="token function">join</span><span class="token punctuation">(</span>directory<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">return</span> invoker<span class="token punctuation">;</span></code></pre>
+<h5 id="路由规则："><a href="#路由规则：" class="headerlink" title="路由规则："></a>路由规则：</h5><h4 id="三、负载均衡源码分析"><a href="#三、负载均衡源码分析" class="headerlink" title="三、负载均衡源码分析"></a>三、负载均衡源码分析</h4><h5 id="LoadBalance入口分析"><a href="#LoadBalance入口分析" class="headerlink" title="LoadBalance入口分析"></a>LoadBalance入口分析</h5><pre class=" language-java"><code class="language-java"><span class="token comment" spellcheck="true">/**
+ * 初始化 负载均衡组件或规则
+ * 如果invokers不是空的，则从第一个调用的url和调用初始化
+ * 如果invokes为空，初始化一个默认的LoadBalance(RandomLoadBalance)
+ */</span>
+<span class="token keyword">protected</span> LoadBalance <span class="token function">initLoadBalance</span><span class="token punctuation">(</span>List<span class="token operator">&lt;</span>Invoker<span class="token operator">&lt;</span>T<span class="token operator">>></span> invokers<span class="token punctuation">,</span> Invocation invocation<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>CollectionUtils<span class="token punctuation">.</span><span class="token function">isNotEmpty</span><span class="token punctuation">(</span>invokers<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                 <span class="token comment" spellcheck="true">//    第一个invoker的url获取loadbalance，默认为random</span>
+        <span class="token keyword">return</span> ExtensionLoader<span class="token punctuation">.</span><span class="token function">getExtensionLoader</span><span class="token punctuation">(</span>LoadBalance<span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">getExtension</span><span class="token punctuation">(</span>invokers<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">getUrl</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+                <span class="token punctuation">.</span><span class="token function">getMethodParameter</span><span class="token punctuation">(</span>RpcUtils<span class="token punctuation">.</span><span class="token function">getMethodName</span><span class="token punctuation">(</span>invocation<span class="token punctuation">)</span><span class="token punctuation">,</span> LOADBALANCE_KEY<span class="token punctuation">,</span> DEFAULT_LOADBALANCE<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+          <span class="token comment" spellcheck="true">//    如果为空，使用random</span>
+        <span class="token keyword">return</span> ExtensionLoader<span class="token punctuation">.</span><span class="token function">getExtensionLoader</span><span class="token punctuation">(</span>LoadBalance<span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">getExtension</span><span class="token punctuation">(</span>DEFAULT_LOADBALANCE<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span></code></pre>
+<pre class=" language-java"><code class="language-java"><span class="token annotation punctuation">@SPI</span><span class="token punctuation">(</span>RandomLoadBalance<span class="token punctuation">.</span>NAME<span class="token punctuation">)</span>
+<span class="token keyword">public</span> <span class="token keyword">interface</span> <span class="token class-name">LoadBalance</span> <span class="token punctuation">{</span>
+    <span class="token comment" spellcheck="true">/**
+     * select one invoker in list.
+     *
+     * @param invokers   invokers.
+     * @param url        refer url
+     * @param invocation invocation.
+     * @return selected invoker.
+     */</span>
+    <span class="token annotation punctuation">@Adaptive</span><span class="token punctuation">(</span><span class="token string">"loadbalance"</span><span class="token punctuation">)</span>
+    <span class="token operator">&lt;</span>T<span class="token operator">></span> Invoker<span class="token operator">&lt;</span>T<span class="token operator">></span> <span class="token function">select</span><span class="token punctuation">(</span>List<span class="token operator">&lt;</span>Invoker<span class="token operator">&lt;</span>T<span class="token operator">>></span> invokers<span class="token punctuation">,</span> URL url<span class="token punctuation">,</span> Invocation invocation<span class="token punctuation">)</span> <span class="token keyword">throws</span> RpcException<span class="token punctuation">;</span>
+
+<span class="token punctuation">}</span></code></pre>
+<h3 id="Invoker执行逻辑"><a href="#Invoker执行逻辑" class="headerlink" title="Invoker执行逻辑"></a>Invoker执行逻辑</h3><h5 id="类结构"><a href="#类结构" class="headerlink" title="类结构"></a>类结构</h5><pre class=" language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">interface</span> <span class="token class-name">Invoker</span><span class="token operator">&lt;</span>T<span class="token operator">></span> <span class="token keyword">extends</span> <span class="token class-name">Node</span> <span class="token punctuation">{</span>
+
+    <span class="token comment" spellcheck="true">/**
+     * get service interface.
+     *
+     * @return service interface.
+     */</span>
+    Class<span class="token operator">&lt;</span>T<span class="token operator">></span> <span class="token function">getInterface</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token comment" spellcheck="true">/**
+     * invoke.
+     *
+     * @param invocation
+     * @return result
+     * @throws RpcException
+     */</span>
+    Result <span class="token function">invoke</span><span class="token punctuation">(</span>Invocation invocation<span class="token punctuation">)</span> <span class="token keyword">throws</span> RpcException<span class="token punctuation">;</span>
+
+<span class="token punctuation">}</span></code></pre>
+<h5 id="设计模式：模版-策略"><a href="#设计模式：模版-策略" class="headerlink" title="设计模式：模版 + 策略"></a>设计模式：模版 + 策略</h5><h5 id="核心逻辑：ExchangeChannel-依赖-netty"><a href="#核心逻辑：ExchangeChannel-依赖-netty" class="headerlink" title="核心逻辑：ExchangeChannel 依赖 netty"></a>核心逻辑：ExchangeChannel 依赖 netty</h5><p><img src="http://lion-heart.online/blog/2021-02-09-134324.png" alt="image-20210209214320920"></p>
+<h4 id="四、网络通讯原理分析"><a href="#四、网络通讯原理分析" class="headerlink" title="四、网络通讯原理分析"></a>四、网络通讯原理分析</h4><h5 id="数据包结构"><a href="#数据包结构" class="headerlink" title="数据包结构"></a>数据包结构</h5><p>请求都是基于TCP的，协议采用固定长度的消息头（16字节）和不定长度的消息体来进行数据传输，消息头定义了底层框架（netty）在IO线程处理时需要的信息，协议的报文格式如下：</p>
+<p><img src="http://lion-heart.online/blog/2021-02-09-111157.png" alt="image-20210209191157522"></p>
+<h5 id="数据协议ExchangeCodec类：交换编解码器，数据需要通过当前组件进行收、发行为"><a href="#数据协议ExchangeCodec类：交换编解码器，数据需要通过当前组件进行收、发行为" class="headerlink" title="数据协议ExchangeCodec类：交换编解码器，数据需要通过当前组件进行收、发行为"></a>数据协议ExchangeCodec类：交换编解码器，数据需要通过当前组件进行收、发行为</h5><p>这个类中 encode 和 decode 分别用于将对象数据发送到 ByteBuffer 中，还有就是将其反向的转换为对象</p>
+<pre class=" language-java"><code class="language-java"><span class="token annotation punctuation">@Override</span>
+<span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">encode</span><span class="token punctuation">(</span>Channel channel<span class="token punctuation">,</span> ChannelBuffer buffer<span class="token punctuation">,</span> Object msg<span class="token punctuation">)</span> <span class="token keyword">throws</span> IOException <span class="token punctuation">{</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>msg <span class="token keyword">instanceof</span> <span class="token class-name">Request</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token function">encodeRequest</span><span class="token punctuation">(</span>channel<span class="token punctuation">,</span> buffer<span class="token punctuation">,</span> <span class="token punctuation">(</span>Request<span class="token punctuation">)</span> msg<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span>msg <span class="token keyword">instanceof</span> <span class="token class-name">Response</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token function">encodeResponse</span><span class="token punctuation">(</span>channel<span class="token punctuation">,</span> buffer<span class="token punctuation">,</span> <span class="token punctuation">(</span>Response<span class="token punctuation">)</span> msg<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+        <span class="token keyword">super</span><span class="token punctuation">.</span><span class="token function">encode</span><span class="token punctuation">(</span>channel<span class="token punctuation">,</span> buffer<span class="token punctuation">,</span> msg<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token annotation punctuation">@Override</span>
+<span class="token keyword">public</span> Object <span class="token function">decode</span><span class="token punctuation">(</span>Channel channel<span class="token punctuation">,</span> ChannelBuffer buffer<span class="token punctuation">)</span> <span class="token keyword">throws</span> IOException <span class="token punctuation">{</span>
+    <span class="token keyword">int</span> readable <span class="token operator">=</span> buffer<span class="token punctuation">.</span><span class="token function">readableBytes</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">byte</span><span class="token punctuation">[</span><span class="token punctuation">]</span> header <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">byte</span><span class="token punctuation">[</span>Math<span class="token punctuation">.</span><span class="token function">min</span><span class="token punctuation">(</span>readable<span class="token punctuation">,</span> HEADER_LENGTH<span class="token punctuation">)</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+    buffer<span class="token punctuation">.</span><span class="token function">readBytes</span><span class="token punctuation">(</span>header<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">return</span> <span class="token function">decode</span><span class="token punctuation">(</span>channel<span class="token punctuation">,</span> buffer<span class="token punctuation">,</span> readable<span class="token punctuation">,</span> header<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></code></pre>
+<h5 id="处理粘包、拆包问题"><a href="#处理粘包、拆包问题" class="headerlink" title="处理粘包、拆包问题"></a>处理粘包、拆包问题</h5><h4 id="五、SPI-源码分析"><a href="#五、SPI-源码分析" class="headerlink" title="五、SPI 源码分析"></a>五、SPI 源码分析</h4><p>ExtensitonLoader类，它是SPI的入口</p>
+<p>主要方法</p>
+<ul>
+<li>getExtensionLoader：获取类加载器，用于加载所有扩展点实现</li>
+<li>getExtension：根据name获取指定扩展实现</li>
+</ul>
+<h5 id="getExtenstionLoader方法核心逻辑"><a href="#getExtenstionLoader方法核心逻辑" class="headerlink" title="getExtenstionLoader方法核心逻辑"></a>getExtenstionLoader方法核心逻辑</h5><pre class=" language-java"><code class="language-java">第一步：获取指定类型的扩展加载器
+<span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token operator">&lt;</span>T<span class="token operator">></span> ExtensionLoader<span class="token operator">&lt;</span>T<span class="token operator">></span> <span class="token function">getExtensionLoader</span><span class="token punctuation">(</span>Class<span class="token operator">&lt;</span>T<span class="token operator">></span> type<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+ExtensionLoader<span class="token operator">&lt;</span>T<span class="token operator">></span> loader <span class="token operator">=</span> <span class="token punctuation">(</span>ExtensionLoader<span class="token operator">&lt;</span>T<span class="token operator">></span><span class="token punctuation">)</span> EXTENSION_LOADERS<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span>type<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>loader <span class="token operator">==</span> null<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        EXTENSION_LOADERS<span class="token punctuation">.</span><span class="token function">putIfAbsent</span><span class="token punctuation">(</span>type<span class="token punctuation">,</span> <span class="token keyword">new</span> <span class="token class-name">ExtensionLoader</span><span class="token operator">&lt;</span>T<span class="token operator">></span><span class="token punctuation">(</span>type<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        loader <span class="token operator">=</span> <span class="token punctuation">(</span>ExtensionLoader<span class="token operator">&lt;</span>T<span class="token operator">></span><span class="token punctuation">)</span> EXTENSION_LOADERS<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span>type<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">return</span> loader<span class="token punctuation">;</span>
+
+
+第二步：加载ExtensionFactory默认扩展实现
+<span class="token keyword">private</span> <span class="token function">ExtensionLoader</span><span class="token punctuation">(</span>Class<span class="token operator">&lt;</span><span class="token operator">?</span><span class="token operator">></span> type<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>type <span class="token operator">=</span> type<span class="token punctuation">;</span>
+        objectFactory <span class="token operator">=</span> <span class="token punctuation">(</span>type <span class="token operator">==</span> ExtensionFactory<span class="token punctuation">.</span><span class="token keyword">class</span> <span class="token operator">?</span> null <span class="token operator">:</span>              ExtensionLoader<span class="token punctuation">.</span><span class="token function">getExtensionLoader</span><span class="token punctuation">(</span>ExtensionFactory<span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">getAdaptiveExtension</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+第三步：加载指定类型的SPI实现
+<span class="token keyword">private</span> Map<span class="token operator">&lt;</span>String<span class="token punctuation">,</span> Class<span class="token operator">&lt;</span><span class="token operator">?</span><span class="token operator">>></span> <span class="token function">loadExtensionClasses</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token function">cacheDefaultExtensionName</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        Map<span class="token operator">&lt;</span>String<span class="token punctuation">,</span> Class<span class="token operator">&lt;</span><span class="token operator">?</span><span class="token operator">>></span> extensionClasses <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">HashMap</span><span class="token operator">&lt;</span><span class="token operator">></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment" spellcheck="true">// internal extension load from ExtensionLoader's ClassLoader first</span>
+        <span class="token function">loadDirectory</span><span class="token punctuation">(</span>extensionClasses<span class="token punctuation">,</span> DUBBO_INTERNAL_DIRECTORY<span class="token punctuation">,</span> type<span class="token punctuation">.</span><span class="token function">getName</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token boolean">true</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token function">loadDirectory</span><span class="token punctuation">(</span>extensionClasses<span class="token punctuation">,</span> DUBBO_INTERNAL_DIRECTORY<span class="token punctuation">,</span> type<span class="token punctuation">.</span><span class="token function">getName</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">replace</span><span class="token punctuation">(</span><span class="token string">"org.apache"</span><span class="token punctuation">,</span> <span class="token string">"com.alibaba"</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token boolean">true</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        <span class="token function">loadDirectory</span><span class="token punctuation">(</span>extensionClasses<span class="token punctuation">,</span> DUBBO_DIRECTORY<span class="token punctuation">,</span> type<span class="token punctuation">.</span><span class="token function">getName</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token function">loadDirectory</span><span class="token punctuation">(</span>extensionClasses<span class="token punctuation">,</span> DUBBO_DIRECTORY<span class="token punctuation">,</span> type<span class="token punctuation">.</span><span class="token function">getName</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">replace</span><span class="token punctuation">(</span><span class="token string">"org.apache"</span><span class="token punctuation">,</span> <span class="token string">"com.alibaba"</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token function">loadDirectory</span><span class="token punctuation">(</span>extensionClasses<span class="token punctuation">,</span> SERVICES_DIRECTORY<span class="token punctuation">,</span> type<span class="token punctuation">.</span><span class="token function">getName</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token function">loadDirectory</span><span class="token punctuation">(</span>extensionClasses<span class="token punctuation">,</span> SERVICES_DIRECTORY<span class="token punctuation">,</span> type<span class="token punctuation">.</span><span class="token function">getName</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">replace</span><span class="token punctuation">(</span><span class="token string">"org.apache"</span><span class="token punctuation">,</span> <span class="token string">"com.alibaba"</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> extensionClasses<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+
+总结：通过当前方法加载配置文件中配置的key <span class="token operator">-</span> value保存到指定容器内
+
+</code></pre>
+<h5 id="getExtension方法核心逻辑"><a href="#getExtension方法核心逻辑" class="headerlink" title="getExtension方法核心逻辑"></a>getExtension方法核心逻辑</h5><pre class=" language-java"><code class="language-java">第一步：获取扩展实现
+<span class="token keyword">public</span> T <span class="token function">getExtension</span><span class="token punctuation">(</span>String name<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token comment" spellcheck="true">//    Holder思想：封装引用，用于线程安全的创建实例</span>
+    <span class="token keyword">final</span> Holder<span class="token operator">&lt;</span>Object<span class="token operator">></span> holder <span class="token operator">=</span> <span class="token function">getOrCreateHolder</span><span class="token punctuation">(</span>name<span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token comment" spellcheck="true">//    双重验证方式保证线程安全</span>
+    Object instance <span class="token operator">=</span> holder<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>instance <span class="token operator">==</span> null<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">synchronized</span> <span class="token punctuation">(</span>holder<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            instance <span class="token operator">=</span> holder<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>instance <span class="token operator">==</span> null<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                instance <span class="token operator">=</span> <span class="token function">createExtension</span><span class="token punctuation">(</span>name<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                holder<span class="token punctuation">.</span><span class="token function">set</span><span class="token punctuation">(</span>instance<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">return</span> <span class="token punctuation">(</span>T<span class="token punctuation">)</span> instance<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+第二步：创建扩展实现实例
+<span class="token keyword">private</span> T <span class="token function">createExtension</span><span class="token punctuation">(</span>String name<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+              <span class="token comment" spellcheck="true">//    通过extensionLoader方法已经缓存了指定SPI的所有扩展实现，直接获取即可</span>
+        Class<span class="token operator">&lt;</span><span class="token operator">?</span><span class="token operator">></span> clazz <span class="token operator">=</span> <span class="token function">getExtensionClasses</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span>name<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>clazz <span class="token operator">==</span> null<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">throw</span> <span class="token function">findException</span><span class="token punctuation">(</span>name<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">try</span> <span class="token punctuation">{</span>
+              <span class="token comment" spellcheck="true">//    反射进行对象实例化行为</span>
+            T instance <span class="token operator">=</span> <span class="token punctuation">(</span>T<span class="token punctuation">)</span> EXTENSION_INSTANCES<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span>clazz<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>instance <span class="token operator">==</span> null<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                EXTENSION_INSTANCES<span class="token punctuation">.</span><span class="token function">putIfAbsent</span><span class="token punctuation">(</span>clazz<span class="token punctuation">,</span> clazz<span class="token punctuation">.</span><span class="token function">newInstance</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                instance <span class="token operator">=</span> <span class="token punctuation">(</span>T<span class="token punctuation">)</span> EXTENSION_INSTANCES<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span>clazz<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+              <span class="token comment" spellcheck="true">//    依赖注入</span>
+            <span class="token function">injectExtension</span><span class="token punctuation">(</span>instance<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            Set<span class="token operator">&lt;</span>Class<span class="token operator">&lt;</span><span class="token operator">?</span><span class="token operator">>></span> wrapperClasses <span class="token operator">=</span> cachedWrapperClasses<span class="token punctuation">;</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>CollectionUtils<span class="token punctuation">.</span><span class="token function">isNotEmpty</span><span class="token punctuation">(</span>wrapperClasses<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                <span class="token keyword">for</span> <span class="token punctuation">(</span>Class<span class="token operator">&lt;</span><span class="token operator">?</span><span class="token operator">></span> wrapperClass <span class="token operator">:</span> wrapperClasses<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                    instance <span class="token operator">=</span> <span class="token function">injectExtension</span><span class="token punctuation">(</span><span class="token punctuation">(</span>T<span class="token punctuation">)</span> wrapperClass<span class="token punctuation">.</span><span class="token function">getConstructor</span><span class="token punctuation">(</span>type<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">newInstance</span><span class="token punctuation">(</span>instance<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token punctuation">}</span>
+            <span class="token punctuation">}</span>
+              <span class="token comment" spellcheck="true">//    初始化行为</span>
+            <span class="token function">initExtension</span><span class="token punctuation">(</span>instance<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token keyword">return</span> instance<span class="token punctuation">;</span>
+        <span class="token punctuation">}</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">Throwable</span> t<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">throw</span> <span class="token keyword">new</span> <span class="token class-name">IllegalStateException</span><span class="token punctuation">(</span><span class="token string">"Extension instance (name: "</span> <span class="token operator">+</span> name <span class="token operator">+</span> <span class="token string">", class: "</span> <span class="token operator">+</span>
+                    type <span class="token operator">+</span> <span class="token string">") couldn't be instantiated: "</span> <span class="token operator">+</span> t<span class="token punctuation">.</span><span class="token function">getMessage</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> t<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span></code></pre>
+<h5 id="getAdapativeExtension方法核心逻辑"><a href="#getAdapativeExtension方法核心逻辑" class="headerlink" title="getAdapativeExtension方法核心逻辑"></a>getAdapativeExtension方法核心逻辑</h5><pre class=" language-java"><code class="language-java">第一步：获取目标类
+<span class="token keyword">public</span> T <span class="token function">getAdaptiveExtension</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token comment" spellcheck="true">//    Holder思想，保证线程安全创建实例</span>
+    Object instance <span class="token operator">=</span> cachedAdaptiveInstance<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>instance <span class="token operator">==</span> null<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+       <span class="token comment" spellcheck="true">//    异常</span>
+    <span class="token punctuation">}</span>
+
+  <span class="token keyword">synchronized</span> <span class="token punctuation">(</span>cachedAdaptiveInstance<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    instance <span class="token operator">=</span> cachedAdaptiveInstance<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>instance <span class="token operator">==</span> null<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">try</span> <span class="token punctuation">{</span>
+        instance <span class="token operator">=</span> <span class="token function">createAdaptiveExtension</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        cachedAdaptiveInstance<span class="token punctuation">.</span><span class="token function">set</span><span class="token punctuation">(</span>instance<span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">Throwable</span> t<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        createAdaptiveInstanceError <span class="token operator">=</span> t<span class="token punctuation">;</span>
+        <span class="token keyword">throw</span> <span class="token keyword">new</span> <span class="token class-name">IllegalStateException</span><span class="token punctuation">(</span><span class="token string">"Failed to create adaptive instance: "</span> <span class="token operator">+</span> t<span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> t<span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">return</span> <span class="token punctuation">(</span>T<span class="token punctuation">)</span> instance<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+第二步：获取目标类
+ <span class="token keyword">private</span> Class<span class="token operator">&lt;</span><span class="token operator">?</span><span class="token operator">></span> <span class="token function">getAdaptiveExtensionClass</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token function">getExtensionClasses</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span>cachedAdaptiveClass <span class="token operator">!=</span> null<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> cachedAdaptiveClass<span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+  <span class="token keyword">return</span> cachedAdaptiveClass <span class="token operator">=</span> <span class="token function">createAdaptiveExtensionClass</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+第三步：创建Adapative Extension 类
+<span class="token keyword">private</span> Class<span class="token operator">&lt;</span><span class="token operator">?</span><span class="token operator">></span> <span class="token function">createAdaptiveExtensionClass</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token comment" spellcheck="true">//    实例化一个新的Adapative的代码生成器 字符串格式</span>
+        String code <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">AdaptiveClassCodeGenerator</span><span class="token punctuation">(</span>type<span class="token punctuation">,</span> cachedDefaultName<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">generate</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token comment" spellcheck="true">//    获取类加载器</span>
+        ClassLoader classLoader <span class="token operator">=</span> <span class="token function">findClassLoader</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token comment" spellcheck="true">//    通过SPI寻找Java自带编译器、Javassist编译器</span>
+        org<span class="token punctuation">.</span>apache<span class="token punctuation">.</span>dubbo<span class="token punctuation">.</span>common<span class="token punctuation">.</span>compiler<span class="token punctuation">.</span>Compiler compiler <span class="token operator">=</span> ExtensionLoader<span class="token punctuation">.</span><span class="token function">getExtensionLoader</span><span class="token punctuation">(</span>org<span class="token punctuation">.</span>apache<span class="token punctuation">.</span>dubbo<span class="token punctuation">.</span>common<span class="token punctuation">.</span>compiler<span class="token punctuation">.</span>Compiler<span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">getAdaptiveExtension</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token comment" spellcheck="true">//    编译生成class</span>
+        <span class="token keyword">return</span> compiler<span class="token punctuation">.</span><span class="token function">compile</span><span class="token punctuation">(</span>code<span class="token punctuation">,</span> classLoader<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+</code></pre>
+
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="http://orgjinhc.github.io" rel="external nofollow noreferrer">靳宏财</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="http://orgjinhc.github.io/2021/01/30/Dubbo/">http://orgjinhc.github.io/2021/01/30/Dubbo/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="http://orgjinhc.github.io" target="_blank">靳宏财</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            <span class="chip bg-color">无标签</span>
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/orgjinhc/orgjinhc.github.io/libs/share/css/share.min.css">
+
+<div id="article-share">
+    
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="https://cdn.jsdelivr.net/gh/orgjinhc/orgjinhc.github.io/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+                <style>
+    #reward {
+        margin: 40px 0;
+        text-align: center;
+    }
+
+    #reward .reward-link {
+        font-size: 1.4rem;
+        line-height: 38px;
+    }
+
+    #reward .btn-floating:hover {
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2), 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    #rewardModal {
+        width: 320px;
+        height: 350px;
+    }
+
+    #rewardModal .reward-title {
+        margin: 15px auto;
+        padding-bottom: 5px;
+    }
+
+    #rewardModal .modal-content {
+        padding: 10px;
+    }
+
+    #rewardModal .close {
+        position: absolute;
+        right: 15px;
+        top: 15px;
+        color: rgba(0, 0, 0, 0.5);
+        font-size: 1.3rem;
+        line-height: 20px;
+        cursor: pointer;
+    }
+
+    #rewardModal .close:hover {
+        color: #ef5350;
+        transform: scale(1.3);
+        -moz-transform:scale(1.3);
+        -webkit-transform:scale(1.3);
+        -o-transform:scale(1.3);
+    }
+
+    #rewardModal .reward-tabs {
+        margin: 0 auto;
+        width: 210px;
+    }
+
+    .reward-tabs .tabs {
+        height: 38px;
+        margin: 10px auto;
+        padding-left: 0;
+    }
+
+    .reward-content ul {
+        padding-left: 0 !important;
+    }
+
+    .reward-tabs .tabs .tab {
+        height: 38px;
+        line-height: 38px;
+    }
+
+    .reward-tabs .tab a {
+        color: #fff;
+        background-color: #ccc;
+    }
+
+    .reward-tabs .tab a:hover {
+        background-color: #ccc;
+        color: #fff;
+    }
+
+    .reward-tabs .wechat-tab .active {
+        color: #fff !important;
+        background-color: #22AB38 !important;
+    }
+
+    .reward-tabs .alipay-tab .active {
+        color: #fff !important;
+        background-color: #019FE8 !important;
+    }
+
+    .reward-tabs .reward-img {
+        width: 210px;
+        height: 210px;
+    }
+</style>
+
+<div id="reward">
+    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-medium waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close modal-close"><i class="fas fa-times"></i></a>
+            <h4 class="reward-title">你的赏识是我前进的动力</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs row">
+                        <li class="tab col s6 alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                        <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
+                    </ul>
+                    <div id="alipay">
+                        <img src="https://cdn.jsdelivr.net/gh/orgjinhc/orgjinhc.github.io/medias/reward/alipay.jpg" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                    <div id="wechat">
+                        <img src="https://cdn.jsdelivr.net/gh/orgjinhc/orgjinhc.github.io/medias/reward/wechatPay.png" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('.tabs').tabs();
+    });
+</script>
+            
+        </div>
+    </div>
+
+    
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orgjinhc/orgjinhc.github.io/libs/gitalk/gitalk.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orgjinhc/orgjinhc.github.io/css/my-gitalk.css">
+
+<div class="card gitalk-card" data-aos="fade-up">
+    <div class="comment_headling" style="font-size: 20px; font-weight: 700; position: relative; left: 20px; top: 15px; padding-bottom: 5px;">
+        <i class="fas fa-comments fa-fw" aria-hidden="true"></i>
+        <span>评论</span>
+    </div>
+    <div id="gitalk-container" class="card-content"></div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/gh/orgjinhc/orgjinhc.github.io/libs/gitalk/gitalk.min.js"></script>
+<script>
+    let gitalk = new Gitalk({
+        clientID: '',
+        clientSecret: '',
+        repo: '',
+        owner: '',
+        admin: null,
+        id: '2021-01-30T21-45-49',
+        distractionFreeMode: false  // Facebook-like distraction free mode
+    });
+
+    gitalk.render('gitalk-container');
+</script>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/2021/02/09/MySQL/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="https://cdn.jsdelivr.net/gh/orgjinhc/orgjinhc.github.io/medias/featureimages/0.jpg" class="responsive-img" alt="MySQL">
+                        
+                        <span class="card-title">MySQL</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            MySQL一、必备基础一、官网、文档https://www.mysql.com
+软件版本及历史96年发布第一个版本
+2000年开源。MyISAM引擎正式提供服务
+01年发布4.0整合了InnoDB引擎
+05年发布5.0，加入了游标、存储过程
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2021-02-09
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-user fa-fw"></i>
+                            靳宏财
+                            
+                        </span>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2021/01/24/personal-project/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="https://cdn.jsdelivr.net/gh/orgjinhc/orgjinhc.github.io/medias/featureimages/20.jpg" class="responsive-img" alt="personal-project">
+                        
+                        <span class="card-title">personal-project</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            系统架构核心流程登陆模块权限模块用户表角色表权限功能表用户角色关联表角色权限功能关联表第一步：公网IP：8.131.62.192
+第二步：连接工具ssh root@8.131.62.192
+第三步：各种工具第四步：注意事项端口
+防火墙
+更新
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-01-24
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-user fa-fw"></i>
+                            靳宏财
+                            
+                        </span>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+<script>
+    $('#articleContent').on('copy', function (e) {
+        // IE8 or earlier browser is 'undefined'
+        if (typeof window.getSelection === 'undefined') return;
+
+        var selection = window.getSelection();
+        // if the selection is short let's not annoy our users.
+        if (('' + selection).length < Number.parseInt('120')) {
+            return;
+        }
+
+        // create a div outside of the visible area and fill it with the selected text.
+        var bodyElement = document.getElementsByTagName('body')[0];
+        var newdiv = document.createElement('div');
+        newdiv.style.position = 'absolute';
+        newdiv.style.left = '-99999px';
+        bodyElement.appendChild(newdiv);
+        newdiv.appendChild(selection.getRangeAt(0).cloneContents());
+
+        // we need a <pre> tag workaround.
+        // otherwise the text inside "pre" loses all the line breaks!
+        if (selection.getRangeAt(0).commonAncestorContainer.nodeName === 'PRE') {
+            newdiv.innerHTML = "<pre>" + newdiv.innerHTML + "</pre>";
+        }
+
+        var url = document.location.href;
+        newdiv.innerHTML += '<br />'
+            + '来源: Lion Heart<br />'
+            + '文章作者: 靳宏财<br />'
+            + '文章链接: <a href="' + url + '">' + url + '</a><br />'
+            + '本文章著作权归作者所有，任何形式的转载都请注明出处。';
+
+        selection.selectAllChildren(newdiv);
+        window.setTimeout(function () {bodyElement.removeChild(newdiv);}, 200);
+    });
+</script>
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/orgjinhc/orgjinhc.github.io/libs/codeBlock/codeBlockFuction.js"></script>
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/orgjinhc/orgjinhc.github.io/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/orgjinhc/orgjinhc.github.io/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/orgjinhc/orgjinhc.github.io/libs/codeBlock/codeShrink.js"></script>
+
+
+<!-- 代码块折行 -->
+
+<style type="text/css">
+code[class*="language-"], pre[class*="language-"] { white-space: pre !important; }
+</style>
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="https://cdn.jsdelivr.net/gh/orgjinhc/orgjinhc.github.io/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h2, h3, h4').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+    <footer class="page-footer bg-color">
+    <div class="container row center-align" style="margin-bottom: 0px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            <span id="year">2019</span>
+            <a href="http://orgjinhc.github.io" target="_blank">靳宏财</a>
+            <br>
+            
+            &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
+                class="white-color">120k</span>&nbsp;字
+            
+            
+            
+            
+            
+            
+            <span id="busuanzi_container_site_pv">
+                |&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;<span id="busuanzi_value_site_pv"
+                    class="white-color"></span>&nbsp;次
+            </span>
+            
+            
+            <span id="busuanzi_container_site_uv">
+                |&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;<span id="busuanzi_value_site_uv"
+                    class="white-color"></span>&nbsp;人
+            </span>
+            
+            <br>
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/orgjinhc" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="orgjinhc@163.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=1152062154@qq.com" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 1152062154" data-position="top" data-delay="50">
+        <i class="fab fa-qq"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <i class="fas fa-rss"></i>
+    </a>
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/gh/orgjinhc/orgjinhc.github.io/js/search.js"></script>
+<script type="text/javascript">
+$(function () {
+    searchFunc("https://cdn.jsdelivr.net/gh/orgjinhc/orgjinhc.github.io/" + "search.xml", 'searchInput', 'searchResult');
+});
+</script>
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="https://cdn.jsdelivr.net/gh/orgjinhc/orgjinhc.github.io/libs/materialize/materialize.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/orgjinhc/orgjinhc.github.io/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/orgjinhc/orgjinhc.github.io/libs/aos/aos.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/orgjinhc/orgjinhc.github.io/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/orgjinhc/orgjinhc.github.io/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/orgjinhc/orgjinhc.github.io/js/matery.js"></script>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+<script async src="https://www.googletagmanager.com/gtag/js?id="></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() {
+        dataLayer.push(arguments);
+    }
+
+    gtag('js', new Date());
+    gtag('config', '');
+</script>
+
+
+    <!-- Baidu Analytics -->
+
+<script>
+    var _hmt = _hmt || [];
+    (function () {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <script src="https://cdn.jsdelivr.net/gh/orgjinhc/orgjinhc.github.io/libs/others/clicklove.js" async="async"></script>
+    
+    
+    <script async src="https://cdn.jsdelivr.net/gh/orgjinhc/orgjinhc.github.io/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/orgjinhc/orgjinhc.github.io/libs/background/ribbon-dynamic.js" async="async"></script>
+    
+    
+    
+    <script src="https://cdn.jsdelivr.net/gh/orgjinhc/orgjinhc.github.io/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>
