@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://orgjinhc.github.io/"/>
-  <updated>2021-02-28T08:57:24.794Z</updated>
+  <updated>2021-03-07T12:14:08.798Z</updated>
   <id>http://orgjinhc.github.io/</id>
   
   <author>
@@ -15,6 +15,29 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>中台</title>
+    <link href="http://orgjinhc.github.io/2021/03/07/%E4%B8%AD%E5%8F%B0/"/>
+    <id>http://orgjinhc.github.io/2021/03/07/%E4%B8%AD%E5%8F%B0/</id>
+    <published>2021-03-07T06:37:59.217Z</published>
+    <updated>2021-03-07T12:14:08.798Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h2 id=&quot;中台：从一个故事开始&quot;&gt;&lt;a href=&quot;#中台：从一个故事开始&quot; class=&quot;headerlink&quot; title=&quot;中台：从一个故事开始&quot;&gt;&lt;/a&gt;中台：从一个故事开始&lt;/h2&gt;&lt;h3 id=&quot;开端&quot;&gt;&lt;a href=&quot;#开端&quot;
+        
+      
+    
+    </summary>
+    
+    
+    
+  </entry>
   
   <entry>
     <title>日常问题处理</title>
@@ -461,29 +484,6 @@
         
         
           &lt;h1 id=&quot;事务&quot;&gt;&lt;a href=&quot;#事务&quot; class=&quot;headerlink&quot; title=&quot;事务&quot;&gt;&lt;/a&gt;事务&lt;/h1&gt;&lt;h2 id=&quot;本地事务：关系型数据库的事务&quot;&gt;&lt;a href=&quot;#本地事务：关系型数据库的事务&quot; class=&quot;headerlink&quot;
-        
-      
-    
-    </summary>
-    
-    
-    
-  </entry>
-  
-  <entry>
-    <title>全链路测试</title>
-    <link href="http://orgjinhc.github.io/2020/11/07/%E5%85%A8%E9%93%BE%E8%B7%AF%E6%B5%8B%E8%AF%95/"/>
-    <id>http://orgjinhc.github.io/2020/11/07/%E5%85%A8%E9%93%BE%E8%B7%AF%E6%B5%8B%E8%AF%95/</id>
-    <published>2020-11-07T09:01:10.677Z</published>
-    <updated>2020-11-07T09:22:09.612Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        
-        
-          &lt;h2 id=&quot;全链路测试&quot;&gt;&lt;a href=&quot;#全链路测试&quot; class=&quot;headerlink&quot; title=&quot;全链路测试&quot;&gt;&lt;/a&gt;全链路测试&lt;/h2&gt;&lt;h3 id=&quot;系统设计（概要设计、详细设计）&quot;&gt;&lt;a href=&quot;#系统设计（概要设计、详细设计）&quot;
         
       
     
