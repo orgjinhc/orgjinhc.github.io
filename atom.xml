@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://orgjinhc.github.io/"/>
-  <updated>2021-03-09T15:20:01.760Z</updated>
+  <updated>2021-04-14T23:15:31.206Z</updated>
   <id>http://orgjinhc.github.io/</id>
   
   <author>
@@ -15,6 +15,29 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>云服务和云存储搭建流程</title>
+    <link href="http://orgjinhc.github.io/2021/04/15/%E4%BA%91%E6%9C%8D%E5%8A%A1%E5%92%8C%E4%BA%91%E5%AD%98%E5%82%A8%E6%90%AD%E5%BB%BA%E6%B5%81%E7%A8%8B/"/>
+    <id>http://orgjinhc.github.io/2021/04/15/%E4%BA%91%E6%9C%8D%E5%8A%A1%E5%92%8C%E4%BA%91%E5%AD%98%E5%82%A8%E6%90%AD%E5%BB%BA%E6%B5%81%E7%A8%8B/</id>
+    <published>2021-04-14T23:15:31.206Z</published>
+    <updated>2021-04-14T23:15:31.206Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h1 id=&quot;云服务和云存储搭建流程&quot;&gt;&lt;a href=&quot;#云服务和云存储搭建流程&quot; class=&quot;headerlink&quot; title=&quot;云服务和云存储搭建流程&quot;&gt;&lt;/a&gt;云服务和云存储搭建流程&lt;/h1&gt;&lt;h1 id=&quot;创建实流程&quot;&gt;&lt;a href=&quot;#创建实流程&quot;
+        
+      
+    
+    </summary>
+    
+    
+    
+  </entry>
   
   <entry>
     <title>中台</title>
@@ -461,29 +484,6 @@
         
         
           &lt;h2 id=&quot;项目发布&quot;&gt;&lt;a href=&quot;#项目发布&quot; class=&quot;headerlink&quot;
-        
-      
-    
-    </summary>
-    
-    
-    
-  </entry>
-  
-  <entry>
-    <title>事务相关</title>
-    <link href="http://orgjinhc.github.io/2020/11/07/%E4%BA%8B%E5%8A%A1%E7%9B%B8%E5%85%B3/"/>
-    <id>http://orgjinhc.github.io/2020/11/07/%E4%BA%8B%E5%8A%A1%E7%9B%B8%E5%85%B3/</id>
-    <published>2020-11-07T10:52:45.388Z</published>
-    <updated>2020-11-08T13:40:55.933Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        
-        
-          &lt;h1 id=&quot;事务&quot;&gt;&lt;a href=&quot;#事务&quot; class=&quot;headerlink&quot; title=&quot;事务&quot;&gt;&lt;/a&gt;事务&lt;/h1&gt;&lt;h2 id=&quot;本地事务：关系型数据库的事务&quot;&gt;&lt;a href=&quot;#本地事务：关系型数据库的事务&quot; class=&quot;headerlink&quot;
         
       
     

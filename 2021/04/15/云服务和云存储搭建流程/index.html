@@ -4,8 +4,10 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="JavaBasic_ThreadAndProcessRelation, Lion Heart">
-    <meta name="description" content="简介本篇Blog主要介绍进程、线程、线程池之间的依赖关系以及它们之间的必然联系一、先给出Wiki上有关相关概念定义，然后我们再带着疑惑或问题去了解它们1.进程进程（Process）是计算机中的程序关于某数据集合上的一次运行活动，是系统进行资">
+    <meta name="keywords" content="云服务和云存储搭建流程, Lion Heart">
+    <meta name="description" content="云服务和云存储搭建流程创建实流程1.服务器：物理机2.镜像：操作系统3.网络和安全组网络：带宽
+安全组：0 ～ 65535 个端口。本机IP。
+Tipsa.阿里云ECS服务器搭建流程[阿里云ECS服务器搭建流程](https://shimo">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -13,7 +15,7 @@
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>JavaBasic_ThreadAndProcessRelation | Lion Heart</title>
+    <title>云服务和云存储搭建流程 | Lion Heart</title>
     <link rel="icon" type="image/png" href="https://cdn.jsdelivr.net/gh/orgjinhc/orgjinhc.github.io/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/orgjinhc/orgjinhc.github.io/libs/awesome/css/all.css">
@@ -309,7 +311,7 @@
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">JavaBasic_ThreadAndProcessRelation</h1>
+                    <h1 class="description center-align post-title">云服务和云存储搭建流程</h1>
                 </div>
             </div>
         </div>
@@ -438,7 +440,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2020-01-21
+                    2021-04-15
                 </div>
                 
 
@@ -447,14 +449,14 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    1.2k
+                    188
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    4 分
+                    1 分
                 </div>
                 
 
@@ -470,73 +472,11 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h1><h2 id="本篇Blog主要介绍进程、线程、线程池之间的依赖关系以及它们之间的必然联系"><a href="#本篇Blog主要介绍进程、线程、线程池之间的依赖关系以及它们之间的必然联系" class="headerlink" title="本篇Blog主要介绍进程、线程、线程池之间的依赖关系以及它们之间的必然联系"></a>本篇Blog主要介绍进程、线程、线程池之间的依赖关系以及它们之间的必然联系</h2><h3 id="一、先给出Wiki上有关相关概念定义，然后我们再带着疑惑或问题去了解它们"><a href="#一、先给出Wiki上有关相关概念定义，然后我们再带着疑惑或问题去了解它们" class="headerlink" title="一、先给出Wiki上有关相关概念定义，然后我们再带着疑惑或问题去了解它们"></a>一、先给出Wiki上有关相关概念定义，然后我们再带着疑惑或问题去了解它们</h3><h4 id="1-进程"><a href="#1-进程" class="headerlink" title="1.进程"></a>1.进程</h4><p><font color=green><strong>进程</strong>（Process）</font>是计算机中的程序关于某数据集合上的一次运行活动，是系统进行<font color=green><strong>资源分配</strong></font>和<font color=green><strong>调度</strong></font>的基本单位，是操作系统结构的基础。在早期面向进程设计的计算机结构中，进程是程序的基本执行实体；在当代面向线程设计的计算机结构中，进程是<font color=green><strong>线程的容器</strong></font>。程序是指令、数据及其组织形式的描述，进程是程序的实体。</p>
-<p>看完上述描述，除了标粗的关键字外，其他的你可以都忘掉，除非你有超强的记忆力。</p>
-<h4 id="2-线程"><a href="#2-线程" class="headerlink" title="2.线程"></a>2.线程</h4><p><font color=green><strong>线程</strong>（Thread）</font>是<font color=green><strong>操作系统</strong></font>能够进行<font color=green><strong>运算调度</strong></font>的最小单位。是<a href="https://baike.baidu.com/item/进程" target="_blank" rel="noopener">进程</a>中的实际运作单位。一条线程指的是进程中一个单一顺序的控制流，一个进程中可以并发多个线程，每条线程并行执行不同的任务。在Unix System V及SunOS中也被称为轻量进程（lightweight processes），但轻量进程更多指内核线程（kernel thread），而把用户线程（user thread）称为线程。</p>
-<p>线程可以为操作系统内核调度的内核线程，也可以是用户进程自行调度的用户线程。</p>
-<p>在多核或多CPU使用多线程程序设计的好处是显而易见，即提高了程序的执行吞吐率。在单CPU单核的计算机上，使用多线程技术，也可以把进程中负责I/O处理、人机交互而常被阻塞的部分与密集计算的部分分开来执行，编写专门的workhorse线程执行密集计算，从而提高了程序的执行效率。</p>
-<p>又是一堆概念，还是记住关键字，然后其他的就可以忘记了。</p>
-<h4 id="3-线程池"><a href="#3-线程池" class="headerlink" title="3.线程池"></a>3.线程池</h4><p>简单理解就是有很多可以直接使用的线程的一个容器</p>
-<h3 id="二、带着问题去看本篇内容，你会更容易理解"><a href="#二、带着问题去看本篇内容，你会更容易理解" class="headerlink" title="二、带着问题去看本篇内容，你会更容易理解"></a>二、带着问题去看本篇内容，你会更容易理解</h3><h4 id="1-进程与线程区别？"><a href="#1-进程与线程区别？" class="headerlink" title="1.进程与线程区别？"></a>1.进程与线程区别？</h4><h5 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h5><blockquote>
-<p><strong>进程</strong>：线程容器，拥有独立的逻辑内存，同时又共享操作系统里所有文件、网络句柄。</p>
-</blockquote>
-<p><img src="http://lion-heart.online/blog/2020-01-21-%E8%BF%9B%E7%A8%8B.png" alt="进程"></p>
-<blockquote>
-<p><strong>线程</strong>：CPU运算调度的最小单元，作为载体同时也拥有属于自己的结构，线程是程序中一个单一顺序的控制流，当前控制流中的所有本地变量或函数都会存放到栈中。每个线程都有独立的pc指针，指向代码所在的内存。</p>
-</blockquote>
-<p><img src="http://lion-heart.online/blog/2020-01-21-080013.jpg" alt="线程"></p>
-<h5 id="线程分类"><a href="#线程分类" class="headerlink" title="线程分类"></a>线程分类</h5><p><img src="http://lion-heart.online/blog/2020-02-19-121609.png" alt="线程分类"></p>
-<h5 id="线程的状态"><a href="#线程的状态" class="headerlink" title="线程的状态"></a>线程的状态</h5><p><img src="/Users/jinhongcai/Desktop/%E7%BA%BF%E7%A8%8B%E7%8A%B6%E6%80%81.png" alt="线程状态"></p>
-<h4 id="2-并发与并行"><a href="#2-并发与并行" class="headerlink" title="2.并发与并行"></a>2.并发与并行</h4><blockquote>
-<p><strong>它们虽然都说是同一时刻”多个进程/线程同时运行”，但是它们的”同时”不是一个概念</strong></p>
-<ol>
-<li><p><strong>并行的”同时”是同一时刻可以多个进程/线程在运行(处于running)</strong></p>
-</li>
-<li><p><strong>并发的”同时”是经过上下文快速切换，使得看上去多个进程同时都在运行的现象，是一种OS欺骗用户的现象</strong></p>
-</li>
-</ol>
-</blockquote>
-<h2 id="进程同步与互斥"><a href="#进程同步与互斥" class="headerlink" title="进程同步与互斥"></a>进程同步与互斥</h2><ol>
-<li><p>单标志检查</p>
-<ul>
-<li><p>特点：确保进程互斥访问临界区</p>
-<p>​            进程间必须交替进入临界区</p>
-</li>
-<li><p>缺点：违背“空闲让进”</p>
-</li>
-</ul>
-</li>
-<li><p>双标志先检查（先检查后上锁）</p>
-<ul>
-<li>特点：确保进程互斥访问临界区</li>
-<li>缺点：存在俩进程都进不了临界区的”饥饿”现象</li>
-</ul>
-</li>
-<li><p>双标志后检查（先上锁后检查）</p>
-<ul>
-<li>特点：确保进程互斥访问临界区</li>
-<li>缺点：存在俩进程都进不了临界区的”饥饿”现象</li>
-</ul>
-</li>
-<li><p>Perteson</p>
-<ul>
-<li><p>优点：确保进程互斥访问临界区</p>
-<p>​           不会出现“饥饿”现象</p>
-</li>
-<li><p>缺点：不能进入临界区的进程还是会占用处理机</p>
-</li>
-</ul>
-</li>
-</ol>
-<h3 id="同步经典问题"><a href="#同步经典问题" class="headerlink" title="同步经典问题"></a>同步经典问题</h3><h4 id=""><a href="#" class="headerlink" title=""></a><img src="http://lion-heart.online/blog/2020-02-20-040517.png" alt="生产者-消费者"></h4><h4 id="读者-写者问题"><a href="#读者-写者问题" class="headerlink" title="读者-写者问题"></a>读者-写者问题</h4><h4 id="哲学家进餐问题"><a href="#哲学家进餐问题" class="headerlink" title="哲学家进餐问题"></a>哲学家进餐问题</h4><h3 id="死锁"><a href="#死锁" class="headerlink" title="死锁"></a>死锁</h3><h4 id="死锁条件：同时满足发生死锁"><a href="#死锁条件：同时满足发生死锁" class="headerlink" title="死锁条件：同时满足发生死锁"></a>死锁条件：同时满足发生死锁</h4><blockquote>
-<ol>
-<li><strong>互斥条件：共享资源在一段时间内仅为一个线程所占有，此时若有其他线程请求该资源，则请求线程只能等待</strong></li>
-<li><strong>不剥夺条件：线程未释放共享资源之前，不能被其他线程强行夺走</strong></li>
-<li><strong>请求和保持条件：线程在以持有资源的情况下，又提出新的资源请求，而该资源已被其他线程持有，此时请求线程被阻塞，但对自己已获得的资源保持不放</strong></li>
-<li><strong>循环等待条件：存在线程资源的循环等待链，链中每个线程持有的资源同时被链中下一个线程所请求</strong></li>
-</ol>
-</blockquote>
-<h4 id="预防死锁：破坏死锁条件中的一个或多个"><a href="#预防死锁：破坏死锁条件中的一个或多个" class="headerlink" title="预防死锁：破坏死锁条件中的一个或多个"></a>预防死锁：破坏死锁条件中的一个或多个</h4><h4 id="避免死锁：银行家算法"><a href="#避免死锁：银行家算法" class="headerlink" title="避免死锁：银行家算法"></a>避免死锁：银行家算法</h4><h4 id="死锁的检查和解触"><a href="#死锁的检查和解触" class="headerlink" title="死锁的检查和解触"></a>死锁的检查和解触</h4>
+                <h1 id="云服务和云存储搭建流程"><a href="#云服务和云存储搭建流程" class="headerlink" title="云服务和云存储搭建流程"></a>云服务和云存储搭建流程</h1><h1 id="创建实流程"><a href="#创建实流程" class="headerlink" title="创建实流程"></a>创建实流程</h1><h2 id="1-服务器：物理机"><a href="#1-服务器：物理机" class="headerlink" title="1.服务器：物理机"></a>1.服务器：物理机</h2><h2 id="2-镜像：操作系统"><a href="#2-镜像：操作系统" class="headerlink" title="2.镜像：操作系统"></a>2.镜像：操作系统</h2><h2 id="3-网络和安全组"><a href="#3-网络和安全组" class="headerlink" title="3.网络和安全组"></a>3.网络和安全组</h2><p>网络：带宽</p>
+<p>安全组：0 ～ 65535 个端口。本机IP。</p>
+<h2 id="Tips"><a href="#Tips" class="headerlink" title="Tips"></a>Tips</h2><h3 id="a-阿里云ECS服务器搭建流程"><a href="#a-阿里云ECS服务器搭建流程" class="headerlink" title="a.阿里云ECS服务器搭建流程"></a>a.阿里云ECS服务器搭建流程</h3><p>[阿里云ECS服务器搭建流程](<a href="https://shimo.im/docs/pGjvtWrjrKKXvPdC/" target="_blank" rel="noopener">https://shimo.im/docs/pGjvtWrjrKKXvPdC/</a> 《阿里云ecs服务器搭建》，可复制链接后用石墨文档 App 或小程序打开)</p>
+<h3 id="b-PolarDB使用流程"><a href="#b-PolarDB使用流程" class="headerlink" title="b.PolarDB使用流程"></a>b.PolarDB使用流程</h3><p>[阿里巴巴自研PolarDB使用流程](<a href="https://shimo.im/docs/D3j9wKHkJjQWyrxH/" target="_blank" rel="noopener">https://shimo.im/docs/D3j9wKHkJjQWyrxH/</a> 《阿里巴巴自研PolarDB使用流程》，可复制链接后用石墨文档 App 或小程序打开)</p>
+<h3 id="c-UTF-8-编码表，基于-Unicode-万国码"><a href="#c-UTF-8-编码表，基于-Unicode-万国码" class="headerlink" title="c.UTF - 8 :  编码表，基于 Unicode(万国码)"></a>c.UTF - 8 :  编码表，基于 Unicode(万国码)</h3><h3 id="d-开发模式演变"><a href="#d-开发模式演变" class="headerlink" title="d.开发模式演变"></a>d.开发模式演变</h3><h4 id="1-瀑布式"><a href="#1-瀑布式" class="headerlink" title="1.瀑布式"></a>1.瀑布式</h4><h4 id="2-敏捷迭代"><a href="#2-敏捷迭代" class="headerlink" title="2.敏捷迭代"></a>2.敏捷迭代</h4><h4 id="3-DevOps"><a href="#3-DevOps" class="headerlink" title="3.DevOps"></a>3.DevOps</h4>
             </div>
             <hr/>
 
@@ -561,7 +501,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="http://orgjinhc.github.io/2020/01/21/JavaBasic_ThreadAndProcessRelation/">http://orgjinhc.github.io/2020/01/21/JavaBasic_ThreadAndProcessRelation/</a>
+                    <a href="http://orgjinhc.github.io/2021/04/15/%E4%BA%91%E6%9C%8D%E5%8A%A1%E5%92%8C%E4%BA%91%E5%AD%98%E5%82%A8%E6%90%AD%E5%BB%BA%E6%B5%81%E7%A8%8B/">http://orgjinhc.github.io/2021/04/15/%E4%BA%91%E6%9C%8D%E5%8A%A1%E5%92%8C%E4%BA%91%E5%AD%98%E5%82%A8%E6%90%AD%E5%BB%BA%E6%B5%81%E7%A8%8B/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -767,7 +707,7 @@
         repo: '',
         owner: '',
         admin: null,
-        id: '2020-01-21T13-15-34',
+        id: '2021-04-15T07-15-31',
         distractionFreeMode: false  // Facebook-like distraction free mode
     });
 
@@ -788,36 +728,32 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
-                <a href="/2020/01/21/%E7%BA%BF%E7%A8%8B%E6%B1%A0/">
+                <a href="/2021/04/15/%E4%BA%91%E6%9C%8D%E5%8A%A1%E5%92%8C%E4%BA%91%E5%AD%98%E5%82%A8%E6%90%AD%E5%BB%BA%E6%B5%81%E7%A8%8B/">
                     <div class="card-image">
                         
                         
-                        <img src="https://cdn.jsdelivr.net/gh/orgjinhc/orgjinhc.github.io/medias/featureimages/10.jpg" class="responsive-img" alt="线程池">
+                        <img src="https://cdn.jsdelivr.net/gh/orgjinhc/orgjinhc.github.io/medias/featureimages/9.jpg" class="responsive-img" alt="云服务和云存储搭建流程">
                         
-                        <span class="card-title">线程池</span>
+                        <span class="card-title">云服务和云存储搭建流程</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            线程池一、线程池的由来（属于JUC包内知识点）
- 扩展知识：线程or进程
-
-先从问题来开始阐述线程池的由来1.为什么要使用多线程/并发编程
-并发编程等目的是为了让程序运行更快
-
-2.多线程一定比单线程效率高/执行快
-这里又要区分环境是单核还
+                            云服务和云存储搭建流程创建实流程1.服务器：物理机2.镜像：操作系统3.网络和安全组网络：带宽
+安全组：0 ～ 65535 个端口。本机IP。
+Tipsa.阿里云ECS服务器搭建流程[阿里云ECS服务器搭建流程](https://shimo
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2020-01-21
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-04-15
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-user fa-fw"></i>
@@ -826,6 +762,7 @@
                         </span>
                     </div>
                 </div>
+
                 
             </div>
         </div>
@@ -836,24 +773,25 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2020/01/20/OSS-CDN-DNS%E6%9D%82%E8%B0%88/">
+                <a href="/2021/03/07/%E4%B8%AD%E5%8F%B0/">
                     <div class="card-image">
                         
                         
-                        <img src="https://cdn.jsdelivr.net/gh/orgjinhc/orgjinhc.github.io/medias/featureimages/25.jpg - /medias/featureimages/26.jpg - /medias/featureimages/27.jpg - /medias/featureimages/28.jpg - /medias/featureimages/29.jpg" class="responsive-img" alt="OSS-CDN-DNS杂谈">
+                        <img src="https://cdn.jsdelivr.net/gh/orgjinhc/orgjinhc.github.io/medias/featureimages/3.jpg" class="responsive-img" alt="中台">
                         
-                        <span class="card-title">OSS-CDN-DNS杂谈</span>
+                        <span class="card-title">中台</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            简介OSSOSS(Object Storage System):对象存储系统.一般而言,我们只会把网站所需要的静态文件,而不会存储动态数据或文件.例如将网站的图片、视频、样式等文件存储在OSS.存储在OSS上的资源会通过一个url让你可以直
+                            中台：从一个故事开始开端*创新业务部*是京东物流下致力于创新的一个二级部门。与其它业务部门不同的是，创新业务部关注的领域比较垂直，主要负责将物流通用服务沉淀和服用，服务的群体也主要是有仓运配送等需求的商家和集团内有需求的部门。
+大环境：20
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-01-20
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-03-07
                             </span>
                         <span class="publish-author">
                             

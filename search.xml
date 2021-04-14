@@ -4,6 +4,19 @@
   
     
     <entry>
+      <title>云服务和云存储搭建流程</title>
+      <link href="/2021/04/15/%E4%BA%91%E6%9C%8D%E5%8A%A1%E5%92%8C%E4%BA%91%E5%AD%98%E5%82%A8%E6%90%AD%E5%BB%BA%E6%B5%81%E7%A8%8B/"/>
+      <url>/2021/04/15/%E4%BA%91%E6%9C%8D%E5%8A%A1%E5%92%8C%E4%BA%91%E5%AD%98%E5%82%A8%E6%90%AD%E5%BB%BA%E6%B5%81%E7%A8%8B/</url>
+      
+        <content type="html"><![CDATA[<h1 id="云服务和云存储搭建流程"><a href="#云服务和云存储搭建流程" class="headerlink" title="云服务和云存储搭建流程"></a>云服务和云存储搭建流程</h1><h1 id="创建实流程"><a href="#创建实流程" class="headerlink" title="创建实流程"></a>创建实流程</h1><h2 id="1-服务器：物理机"><a href="#1-服务器：物理机" class="headerlink" title="1.服务器：物理机"></a>1.服务器：物理机</h2><h2 id="2-镜像：操作系统"><a href="#2-镜像：操作系统" class="headerlink" title="2.镜像：操作系统"></a>2.镜像：操作系统</h2><h2 id="3-网络和安全组"><a href="#3-网络和安全组" class="headerlink" title="3.网络和安全组"></a>3.网络和安全组</h2><p>网络：带宽</p><p>安全组：0 ～ 65535 个端口。本机IP。</p><h2 id="Tips"><a href="#Tips" class="headerlink" title="Tips"></a>Tips</h2><h3 id="a-阿里云ECS服务器搭建流程"><a href="#a-阿里云ECS服务器搭建流程" class="headerlink" title="a.阿里云ECS服务器搭建流程"></a>a.阿里云ECS服务器搭建流程</h3><p>[阿里云ECS服务器搭建流程](<a href="https://shimo.im/docs/pGjvtWrjrKKXvPdC/" target="_blank" rel="noopener">https://shimo.im/docs/pGjvtWrjrKKXvPdC/</a> 《阿里云ecs服务器搭建》，可复制链接后用石墨文档 App 或小程序打开)</p><h3 id="b-PolarDB使用流程"><a href="#b-PolarDB使用流程" class="headerlink" title="b.PolarDB使用流程"></a>b.PolarDB使用流程</h3><p>[阿里巴巴自研PolarDB使用流程](<a href="https://shimo.im/docs/D3j9wKHkJjQWyrxH/" target="_blank" rel="noopener">https://shimo.im/docs/D3j9wKHkJjQWyrxH/</a> 《阿里巴巴自研PolarDB使用流程》，可复制链接后用石墨文档 App 或小程序打开)</p><h3 id="c-UTF-8-编码表，基于-Unicode-万国码"><a href="#c-UTF-8-编码表，基于-Unicode-万国码" class="headerlink" title="c.UTF - 8 :  编码表，基于 Unicode(万国码)"></a>c.UTF - 8 :  编码表，基于 Unicode(万国码)</h3><h3 id="d-开发模式演变"><a href="#d-开发模式演变" class="headerlink" title="d.开发模式演变"></a>d.开发模式演变</h3><h4 id="1-瀑布式"><a href="#1-瀑布式" class="headerlink" title="1.瀑布式"></a>1.瀑布式</h4><h4 id="2-敏捷迭代"><a href="#2-敏捷迭代" class="headerlink" title="2.敏捷迭代"></a>2.敏捷迭代</h4><h4 id="3-DevOps"><a href="#3-DevOps" class="headerlink" title="3.DevOps"></a>3.DevOps</h4>]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>中台</title>
       <link href="/2021/03/07/%E4%B8%AD%E5%8F%B0/"/>
       <url>/2021/03/07/%E4%B8%AD%E5%8F%B0/</url>
