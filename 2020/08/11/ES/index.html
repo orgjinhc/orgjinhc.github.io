@@ -450,7 +450,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    1.1k
+                    1.3k
                 </div>
                 
 
@@ -560,13 +560,7 @@
 <li><p>数据恢复</p>
 </li>
 </ol>
-<h3 id="8-集群健康值检查"><a href="#8-集群健康值检查" class="headerlink" title="8.集群健康值检查"></a>8.集群健康值检查</h3><h2 id="三、上手开始搞"><a href="#三、上手开始搞" class="headerlink" title="三、上手开始搞"></a>三、上手开始搞</h2><h3 id="1-环境相关："><a href="#1-环境相关：" class="headerlink" title="1.环境相关："></a>1.环境相关：</h3><ul>
-<li>JDK</li>
-<li><a href="https://www.elastic.co/cn/downloads/elasticsearch" target="_blank" rel="noopener">ES</a></li>
-<li>Kibanna</li>
-<li><a href="https://github.com/mobz/elasticsearch-head" target="_blank" rel="noopener">Elastic search - head</a></li>
-</ul>
-<h3 id="2-集群健康检查"><a href="#2-集群健康检查" class="headerlink" title="2.集群健康检查"></a>2.集群健康检查</h3><h4 id="集群状态"><a href="#集群状态" class="headerlink" title="集群状态"></a>集群状态</h4><ul>
+<h3 id="8-集群健康值检查"><a href="#8-集群健康值检查" class="headerlink" title="8.集群健康值检查"></a>8.集群健康值检查</h3><h4 id="集群状态"><a href="#集群状态" class="headerlink" title="集群状态"></a>集群状态</h4><ul>
 <li>Green：所有 ps 和 rs 都是 active，集群很健康</li>
 <li>Yellow：至少一个 rs 不是 active，但是数据仍然是完整的</li>
 <li>Red：至少一个 ps 为不可用状态，数据不完整，集群不可用</li>
@@ -575,7 +569,13 @@
 <li>_cat/health?v</li>
 <li>GET /_cat/indices?v</li>
 </ul>
-<h3 id="3-CRUD开始搞"><a href="#3-CRUD开始搞" class="headerlink" title="3.CRUD开始搞"></a>3.CRUD开始搞</h3><ul>
+<h2 id="三、上手开始搞"><a href="#三、上手开始搞" class="headerlink" title="三、上手开始搞"></a>三、上手开始搞</h2><h3 id="1-环境相关："><a href="#1-环境相关：" class="headerlink" title="1.环境相关："></a>1.环境相关：</h3><ul>
+<li>JDK</li>
+<li><a href="https://www.elastic.co/cn/downloads/elasticsearch" target="_blank" rel="noopener">ES</a></li>
+<li>Kibanna</li>
+<li><a href="https://github.com/mobz/elasticsearch-head" target="_blank" rel="noopener">Elastic search - head</a></li>
+</ul>
+<h3 id="2-CRUD开始搞"><a href="#2-CRUD开始搞" class="headerlink" title="2.CRUD开始搞"></a>2.CRUD开始搞</h3><ul>
 <li><p>创建索引</p>
 <p>PUT/索引?Pretty</p>
 </li>
@@ -586,14 +586,39 @@
 <p>GET /product/_doc/1</p>
 </li>
 <li><p>全量替换</p>
-<p>PUT /product/_doc/1<br>{<br>  “name”:”iphone12 Pro Max”,<br>  “price”: 13999<br>}</p>
+</li>
+<li></li>
+<li></li>
+<li></li>
+<li></li>
+<li></li>
+<li></li>
+<li></li>
+<li><p>PUT /product/_doc/1<br>{<br>  “name”:”iphone12 Pro Max”,<br>  “price”: 13999<br>}</p>
 </li>
 <li><p>部分更新</p>
 <p>POST /product/_doc/1/_update<br>{<br>  “doc”:{</p>
 <pre><code>&quot;price&quot;: 14999</code></pre><p>  }<br>}</p>
 </li>
 </ul>
-
+<h3 id="3-查询"><a href="#3-查询" class="headerlink" title="3.查询"></a>3.查询</h3><h4 id="a-Mapping"><a href="#a-Mapping" class="headerlink" title="a.Mapping"></a>a.Mapping</h4><p>(1).概念：mapping 就是 ES 数据字段 field(字段) 的 type(数据类型) 元数据，ES 在创建索引的时候，dynamic mapping 会自动为不同的数据指定相应 mapping，包含了字段的类型、搜索方式、分词器等。</p>
+<p>(2).查看mapping</p>
+<p>​    GET /product/_mapping</p>
+<p>(3).Dynamic mapping</p>
+<p>​    123123 -&gt; long</p>
+<p>​    123.123-&gt;double</p>
+<p>​    “123123”-&gt;text/keyword</p>
+<p>​    true/false-&gt;boolean</p>
+<p>​    2020-09-09-&gt;date</p>
+<p>(4).搜索方式</p>
+<ul>
+<li>exact value 精确匹配：在倒排索引过程中，分词器会将field作为一个整体创建到索引中</li>
+<li>full text 全文检索：分词</li>
+</ul>
+<p>example：</p>
+<p>​    不使用创建索引的语法，直接使用下面的语法</p>
+<p>PUT /product/_doc/1<br>{<br>  “name”:”iphone12 Pro Max”,<br>  “price”: 13999<br>}</p>
+<h4 id="b"><a href="#b" class="headerlink" title="b."></a>b.</h4>
             </div>
             <hr/>
 
@@ -1113,7 +1138,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">129k</span>&nbsp;字
+                class="white-color">129.2k</span>&nbsp;字
             
             
             
